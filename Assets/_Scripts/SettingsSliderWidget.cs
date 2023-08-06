@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public enum SliderSetting { Horizontal_Position, Spacing, Vertical_Position, Scale, Rotation, Angle, Depth }
@@ -25,10 +26,19 @@ public class SettingsSliderWidget : SettingsWidget
 
     private bool isAnimating = false;
 
+    public void GrowHandle()
+    {
+        this.settingSlider.handleRect.localScale = new Vector3(1.4f, 1.4f, 1.4f);
+    }
+
+    public void ResetHandleSize()
+    {
+        this.settingSlider.handleRect.localScale = Vector3.one;
+    }
+
     public override void SetupWidget(AttributeType newType)
     {
         //Do this.settingsSlider.OnPointerDown() and OnPointerUp() setup stuff here to "bulge" the handle when it's grabbed.
-
         string[] settingString = this.associatedSetting.ToString().Split("_");
 
         this.sliderLabel.text = settingString[0];
@@ -57,22 +67,18 @@ public class SettingsSliderWidget : SettingsWidget
         {
             case SliderSetting.Horizontal_Position:
                 this.AnimateSliderToValue(this.associatedAttribute.GetPosition().x);
-                //this.settingSlider.value = this.associatedAttribute.GetPosition().x;
                 break;
             case SliderSetting.Vertical_Position:
                 this.AnimateSliderToValue(this.associatedAttribute.GetPosition().y);
-                //this.settingSlider.value = this.associatedAttribute.GetPosition().y;
                 break;
             case SliderSetting.Scale:
                 this.AnimateSliderToValue(this.associatedAttribute.GetScale().x);
-                //this.settingSlider.value = this.associatedAttribute.GetScale().x;
                 break;
             case SliderSetting.Rotation:
                 this.AnimateSliderToValue(-this.GetInitialRotation());
                 break;
             case SliderSetting.Depth:
                 this.AnimateSliderToValue(this.associatedAttribute.GetDepth());
-                //this.settingSlider.value = this.associatedAttribute.GetDepth();
                 break;
             default:
                 Debug.LogError("Unknown Setting: " + this.associatedSetting);
@@ -87,7 +93,7 @@ public class SettingsSliderWidget : SettingsWidget
 
     private IEnumerator SliderAnimation(float target)
     {
-        float timeToAnimationCompletion = 0.3f;
+        float timeToAnimationCompletion = Random.Range(0.2f, 0.5f);
         float animationTimeChangeNextFrame = (1.0f / timeToAnimationCompletion) * Time.deltaTime;
 
         this.isAnimating = true;
