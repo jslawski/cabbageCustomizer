@@ -4,20 +4,14 @@ using UnityEngine;
 
 public class DefaultWidget : SettingsWidget
 {
-    public override void SetupWidget(AttributeType newType)
+    public override void SetupWidget()
     {
-        if (newType == AttributeType.Base)
-        {
-            this.gameObject.SetActive(false);            
-        }
-        else
-        {
-            this.gameObject.SetActive(true);
-        }
+        
     }
 
     public void ResetAttribute()
     {
-        CharacterPreview.instance.GetAttributeFromType(CharacterPreview.instance.currentAttribute).ResetAttribute();
+        AttributeSettingsManager.ResetAttribute(AttributeSettingsManager.currentAttribute);
+        CharacterPreview.instance.UpdateAttribute();
     }
 }

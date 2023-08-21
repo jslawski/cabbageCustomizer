@@ -3,16 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Net.Sockets;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class TwitchAuth : MonoBehaviour
 {
     private string twitchAuthURL = "https://id.twitch.tv/oauth2/authorize";
-    private string serverName = "http://localhost:7080";
 
     private string twitchAuthStateVerify;
     private string authCode;
@@ -21,6 +20,11 @@ public class TwitchAuth : MonoBehaviour
 
     [SerializeField]
     private Button loginButton;
+
+    [SerializeField]
+    private GameObject characterCanvas;
+    [SerializeField]
+    private GameObject characterPreview;
 
     private void Start()
     {
@@ -37,7 +41,7 @@ public class TwitchAuth : MonoBehaviour
         string totalAuthURL = this.twitchAuthURL + "?" +
                                 "response_type=code&" + 
                                 "client_id=" + TwitchSecrets.ClientID + "&" +
-                                "redirect_uri=" + this.serverName + "&" +
+                                "redirect_uri=" + TwitchSecrets.RedirectURL + "&" +
                                 "scope=user:read:email&" +
                                 "state=" + this.twitchAuthStateVerify;
 
@@ -49,9 +53,10 @@ public class TwitchAuth : MonoBehaviour
     private void StartLocalWebServer()
     {
         HttpListener listener = new HttpListener();
+        string prefix = TwitchSecrets.RedirectURL + "/";
 
-        listener.Prefixes.Add(this.serverName + "/");
-        listener.Start();
+        listener.Prefixes.Add(prefix);
+        listener.Start();        
         listener.BeginGetContext(new AsyncCallback(this.IncomingHttpRequest), listener);
     }
 
@@ -73,8 +78,6 @@ public class TwitchAuth : MonoBehaviour
 
         code = request.QueryString.Get("code");
         state = request.QueryString.Get("state");
-
-        Debug.LogError("Code: " + code + "\nState: " + state);
 
         response = context.Response;
         responseString = "<html><body><b>DONE!</b><br>(You can close this tab/window now)</body></html>";
@@ -100,19 +103,21 @@ public class TwitchAuth : MonoBehaviour
 
     private IEnumerator RequestUserData()
     {
-        string fullURL = "http://localhost/twitchBot/getUserData.php";
+        string fullURL = TwitchSecrets.ServerName + "/getInitialUserData.php";
 
         WWWForm form = new WWWForm();
         form.AddField("authCode", this.authCode);
 
         using (UnityWebRequest www = UnityWebRequest.Post(fullURL, form))
         {
-            yield return www.SendWebRequest();
+            yield return www.SendWebRequest();            
 
-            Debug.LogError(www.downloadHandler.text);
+            this.LoadUserData(www.downloadHandler.text);         
         }
-
-        SceneManager.LoadScene("MainScene");
+        
+        this.loginButton.gameObject.SetActive(false);
+        this.characterCanvas.SetActive(true);
+        this.characterPreview.SetActive(true);
     }
 
     private IEnumerator CheckForToken()
@@ -122,8 +127,12 @@ public class TwitchAuth : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
         }
 
-        //Transition scenes here;
-
         this.GetUserData();
+    }
+
+    private void LoadUserData(string data)
+    {
+        CurrentPlayerData.data = JsonUtility.FromJson<PlayerData>(data);
+        CharacterPreview.instance.LoadCharacterFromPresetData(CurrentPlayerData.data.attributeSettingsJSON);
     }
 }

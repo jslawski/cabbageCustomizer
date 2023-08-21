@@ -20,14 +20,14 @@ public class SettingsPanel : MonoBehaviour
     private void Start()
     {
         this.widgets = GetComponentsInChildren<SettingsWidget>();
-        this.RefreshWidgets(AttributeType.Base);
+        this.RefreshWidgets();
     }
     
-    public void RefreshWidgets(AttributeType newType)
+    public void RefreshWidgets()
     {
         foreach (SettingsWidget widget in this.widgets)
         {
-            widget.SetupWidget(newType);
+            widget.SetupWidget();
         }
     }
 }

@@ -48,27 +48,38 @@ public class AttributeButton : MonoBehaviour
 
             this.centerImage.sprite = newSprites[0];
         }
-
     }
 
     public void EquipAttribute()
     {
-        CabbageAttribute currentAttribute = CharacterPreview.instance.GetAttributeFromType(this.attributeType);
-
         if (this.isClearButton == true)
         {
-            if (currentAttribute is CabbageAttributeMulti)
-            {
-                currentAttribute.UpdateMultiSprite(new Sprite[2]);
-            }
-            else
-            {
-                currentAttribute.UpdateSingleSprite(null);
-            }
-
-            return;
+            AttributeSettingsManager.SetName(this.attributeType, "");
+        }
+        else if (AttributeSettingsManager.currentAttribute == AttributeType.EyebrowB ||
+            AttributeSettingsManager.currentAttribute == AttributeType.EyeB)
+        {
+            this.SetMultipleAttributeNames();
+        }
+        else
+        {
+            AttributeSettingsManager.SetName(this.attributeType, this.attributeSprites[0].name);
         }
 
-        currentAttribute.UpdateMultiSprite(this.attributeSprites);
+        CharacterPreview.instance.UpdateAttribute();
+    }
+
+    private void SetMultipleAttributeNames()
+    {
+        if (AttributeSettingsManager.currentAttribute == AttributeType.EyebrowB)
+        {
+            AttributeSettingsManager.SetName(AttributeType.EyebrowL, this.attributeSprites[0].name);
+            AttributeSettingsManager.SetName(AttributeType.EyebrowR, this.attributeSprites[1].name);
+        }
+        else if (AttributeSettingsManager.currentAttribute == AttributeType.EyeB)
+        {
+            AttributeSettingsManager.SetName(AttributeType.EyeL, this.attributeSprites[0].name);
+            AttributeSettingsManager.SetName(AttributeType.EyeR, this.attributeSprites[1].name);
+        }
     }
 }

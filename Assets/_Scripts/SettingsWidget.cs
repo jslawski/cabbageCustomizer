@@ -1,6 +1,6 @@
 using UnityEngine;
 
 public abstract class SettingsWidget : MonoBehaviour
-{    
-    public abstract void SetupWidget(AttributeType newType);
+{     
+    public abstract void SetupWidget();
 }

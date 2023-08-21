@@ -12,47 +12,75 @@ public class SettingsAttributeSideWidget : SettingsWidget
     [SerializeField]
     private AttributeSideButton rightButton;    
 
-    public override void SetupWidget(AttributeType newType)
-    {
-        if (newType == AttributeType.Eyebrows || newType == AttributeType.Eyes)
+    public override void SetupWidget()
+    {        
+        if (AttributeSettingsManager.currentAttribute == AttributeType.EyebrowL || AttributeSettingsManager.currentAttribute == AttributeType.EyeL ||
+            AttributeSettingsManager.currentAttribute == AttributeType.EyebrowR || AttributeSettingsManager.currentAttribute == AttributeType.EyeR ||
+            AttributeSettingsManager.currentAttribute == AttributeType.EyebrowB || AttributeSettingsManager.currentAttribute == AttributeType.EyeB)
         {
             this.gameObject.SetActive(true);
-            this.ToggleButtons(CharacterPreview.instance.GetAttributeFromType(newType).attributeSide);
-        }
+            this.SetupButtons();
+        }        
         else
         {
             this.gameObject.SetActive(false);
         }
     }
 
-    public void UpdateAttributeSide(AttributeSide newSide)
+    private void SetupButtons()
     {
-        CharacterPreview.instance.GetAttributeFromType(CharacterPreview.instance.currentAttribute).UpdateSide(newSide);
-        SettingsPanel.instance.RefreshWidgets(CharacterPreview.instance.currentAttribute);
-        this.ToggleButtons(newSide);
+        if (AttributeSettingsManager.currentAttribute == AttributeType.EyebrowL ||
+            AttributeSettingsManager.currentAttribute == AttributeType.EyebrowR ||
+            AttributeSettingsManager.currentAttribute == AttributeType.EyebrowB)
+        {
+            this.leftButton.buttonAttribute = AttributeType.EyebrowL;
+            this.rightButton.buttonAttribute = AttributeType.EyebrowR;
+            this.bothButton.buttonAttribute = AttributeType.EyebrowB;
+        }
+        else if (AttributeSettingsManager.currentAttribute == AttributeType.EyeL ||
+            AttributeSettingsManager.currentAttribute == AttributeType.EyeR ||
+            AttributeSettingsManager.currentAttribute == AttributeType.EyeB)
+        {
+            this.leftButton.buttonAttribute = AttributeType.EyeL;
+            this.rightButton.buttonAttribute = AttributeType.EyeR;
+            this.bothButton.buttonAttribute = AttributeType.EyeB;
+        }
+
+        this.ToggleButtons();
     }
 
-    private void ToggleButtons(AttributeSide newSide)
+    public void UpdateAttributeSide(AttributeType newType)
     {
-        switch (newSide)
+        AttributeSettingsManager.currentAttribute = newType;
+        SettingsPanel.instance.RefreshWidgets();        
+        this.ToggleButtons();
+    }
+
+    private void ToggleButtons()
+    {
+        switch (AttributeSettingsManager.currentAttribute)
         {
-            case AttributeSide.Left:
+            case AttributeType.EyebrowL:
+            case AttributeType.EyeL:
                 this.leftButton.buttonComponent.interactable = false;
                 this.bothButton.buttonComponent.interactable = true;
                 this.rightButton.buttonComponent.interactable = true;
                 break;
-            case AttributeSide.Both:
-                this.leftButton.buttonComponent.interactable = true;
-                this.bothButton.buttonComponent.interactable = false;
-                this.rightButton.buttonComponent.interactable = true;
-                break;
-            case AttributeSide.Right:
+            case AttributeType.EyebrowR:
+            case AttributeType.EyeR:
                 this.leftButton.buttonComponent.interactable = true;
                 this.bothButton.buttonComponent.interactable = true;
                 this.rightButton.buttonComponent.interactable = false;
                 break;
+            case AttributeType.EyebrowB:
+            case AttributeType.EyeB:
+                this.leftButton.buttonComponent.interactable = true;
+                this.bothButton.buttonComponent.interactable = false;
+                this.rightButton.buttonComponent.interactable = true;
+                break;
+            
             default:
-                Debug.LogError("Unknown Attribute Side: " + newSide);
+                Debug.LogError("Invalid Attribute Type: " + AttributeSettingsManager.currentAttribute);
                 break;
         }
     }

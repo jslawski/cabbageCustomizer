@@ -7,7 +7,7 @@ public class AttributeSideButton : MonoBehaviour
 {
     public Button buttonComponent;
 
-    public AttributeSide buttonSide;
+    public AttributeType buttonAttribute;
 
     private SettingsAttributeSideWidget widget;
 
@@ -18,7 +18,7 @@ public class AttributeSideButton : MonoBehaviour
     }
     
     public void UpdateAttributeSide()
-    {
-        this.widget.UpdateAttributeSide(this.buttonSide);        
+    {        
+        this.widget.UpdateAttributeSide(this.buttonAttribute);
     }
 }

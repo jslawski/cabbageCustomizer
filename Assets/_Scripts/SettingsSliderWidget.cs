@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public enum SliderSetting { Horizontal_Position, Spacing, Vertical_Position, Scale, Rotation, Angle, Depth }
+public enum SliderSetting { Horizontal_Position, Spacing, Vertical_Position, Scale_X, Scale_Y, Rotation, Depth }
 
 public class SettingsSliderWidget : SettingsWidget
 {
@@ -22,9 +22,7 @@ public class SettingsSliderWidget : SettingsWidget
     [SerializeField]
     private AnimationCurve animationCurve;
 
-    private CabbageAttribute associatedAttribute;
-
-    private bool isAnimating = false;
+    private bool isAnimating = false;    
 
     public void GrowHandle()
     {
@@ -36,8 +34,8 @@ public class SettingsSliderWidget : SettingsWidget
         this.settingSlider.handleRect.localScale = Vector3.one;
     }
 
-    public override void SetupWidget(AttributeType newType)
-    {
+    public override void SetupWidget()
+    {        
         //Do this.settingsSlider.OnPointerDown() and OnPointerUp() setup stuff here to "bulge" the handle when it's grabbed.
         string[] settingString = this.associatedSetting.ToString().Split("_");
 
@@ -51,9 +49,7 @@ public class SettingsSliderWidget : SettingsWidget
         this.settingSlider.minValue = this.minValue;
         this.settingSlider.maxValue = this.maxValue;
 
-        this.associatedAttribute = CharacterPreview.instance.GetAttributeFromType(newType);
-
-        if (newType == AttributeType.Base)
+        if (AttributeSettingsManager.currentAttribute == AttributeType.BaseCabbage)
         {
             this.gameObject.SetActive(false);
             return;
@@ -66,19 +62,22 @@ public class SettingsSliderWidget : SettingsWidget
         switch (this.associatedSetting)
         {
             case SliderSetting.Horizontal_Position:
-                this.AnimateSliderToValue(this.associatedAttribute.GetPosition().x);
+                this.AnimateSliderToValue(AttributeSettingsManager.GetAttributePosition(AttributeSettingsManager.currentAttribute).x);
                 break;
             case SliderSetting.Vertical_Position:
-                this.AnimateSliderToValue(this.associatedAttribute.GetPosition().y);
+                this.AnimateSliderToValue(AttributeSettingsManager.GetAttributePosition(AttributeSettingsManager.currentAttribute).y);
                 break;
-            case SliderSetting.Scale:
-                this.AnimateSliderToValue(this.associatedAttribute.GetScale().x);
+            case SliderSetting.Scale_X:
+                this.AnimateSliderToValue(AttributeSettingsManager.GetAttributeScale(AttributeSettingsManager.currentAttribute).x);
+                break;
+            case SliderSetting.Scale_Y:
+                this.AnimateSliderToValue(AttributeSettingsManager.GetAttributeScale(AttributeSettingsManager.currentAttribute).y);
                 break;
             case SliderSetting.Rotation:
                 this.AnimateSliderToValue(-this.GetInitialRotation());
                 break;
             case SliderSetting.Depth:
-                this.AnimateSliderToValue(this.associatedAttribute.GetDepth());
+                this.AnimateSliderToValue(AttributeSettingsManager.GetAttributeDepth(AttributeSettingsManager.currentAttribute));
                 break;
             default:
                 Debug.LogError("Unknown Setting: " + this.associatedSetting);
@@ -147,7 +146,7 @@ public class SettingsSliderWidget : SettingsWidget
 
     private float GetInitialRotation()
     {
-        float adjustedRotationValue = this.associatedAttribute.GetRotation().eulerAngles.z;
+        float adjustedRotationValue = AttributeSettingsManager.GetAttributeRotation(AttributeSettingsManager.currentAttribute);
 
         Debug.LogError("Initial Rotation: " + adjustedRotationValue);
 
@@ -163,7 +162,7 @@ public class SettingsSliderWidget : SettingsWidget
 
     public void UpdateValue()
     {
-        if (this.associatedAttribute == null || this.isAnimating == true)
+        if (this.isAnimating == true)
         {
             return;
         }
@@ -171,25 +170,30 @@ public class SettingsSliderWidget : SettingsWidget
         switch (this.associatedSetting)
         {
             case SliderSetting.Horizontal_Position:
-                this.associatedAttribute.UpdateHorizontalPosition(this.settingSlider.value);
+                AttributeSettingsManager.SetHorizontalPosition(AttributeSettingsManager.currentAttribute, this.settingSlider.value);
                 break;
             case SliderSetting.Vertical_Position:
-                this.associatedAttribute.UpdateVerticalPosition(this.settingSlider.value);
+                AttributeSettingsManager.SetVerticalPosition(AttributeSettingsManager.currentAttribute, this.settingSlider.value);
                 break;
-            case SliderSetting.Scale:
-                this.associatedAttribute.UpdateScale(this.settingSlider.value);
+            case SliderSetting.Scale_X:
+                AttributeSettingsManager.SetScaleX(AttributeSettingsManager.currentAttribute, this.settingSlider.value);
+                break;
+            case SliderSetting.Scale_Y:
+                AttributeSettingsManager.SetScaleY(AttributeSettingsManager.currentAttribute, this.settingSlider.value);
                 break;
             case SliderSetting.Rotation:
                 //Do this so you can map right to clockwise and left to counterclockwise
                 float adjustedSliderValue = -this.settingSlider.value;
-                this.associatedAttribute.UpdateRotation(adjustedSliderValue);
+                AttributeSettingsManager.SetRotation(AttributeSettingsManager.currentAttribute, adjustedSliderValue);
                 break;
             case SliderSetting.Depth:
-                this.associatedAttribute.UpdateDepth((int)this.settingSlider.value);
+                AttributeSettingsManager.SetDepth(AttributeSettingsManager.currentAttribute, (int)this.settingSlider.value);
                 break;
             default:
                 Debug.LogError("Unknown Setting: " + this.associatedSetting);
                 break;
         }
+
+        CharacterPreview.instance.UpdateAttribute();
     } 
 }

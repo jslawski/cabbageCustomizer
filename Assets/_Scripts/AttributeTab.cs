@@ -6,11 +6,11 @@ public class AttributeTab : MonoBehaviour
 {
     [SerializeField]
     private AttributeType attributeType;
-
+    
     public void UpdatePanels()
     {
-        CharacterPreview.instance.currentAttribute = this.attributeType;
+        AttributeSettingsManager.currentAttribute = this.attributeType;
         AttributeButtonPanel.instance.UpdateAttributeGrid(this.attributeType);
-        SettingsPanel.instance.RefreshWidgets(this.attributeType);
+        SettingsPanel.instance.RefreshWidgets();
     }
 }

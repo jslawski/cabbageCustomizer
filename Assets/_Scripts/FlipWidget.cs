@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class FlipWidget : SettingsWidget
 {
-    public override void SetupWidget(AttributeType newType)
+    public override void SetupWidget()
     {
-        if (newType == AttributeType.Base)
-        {
-            this.gameObject.SetActive(false);
-        }
-        else
-        {
-            this.gameObject.SetActive(true);
-        }
+
+    }
+
+    public void ToggleFlipX()
+    {        
+        AttributeSettingsManager.SetFlipX(AttributeSettingsManager.currentAttribute);
+    }
+
+    public void ToggleFlipY()
+    {
+        AttributeSettingsManager.SetFlipY(AttributeSettingsManager.currentAttribute);
     }
 }

@@ -21,7 +21,7 @@ public class AttributeButtonPanel : MonoBehaviour
 
     private void Start()
     {
-        this.UpdateAttributeGrid(AttributeType.Base);
+        this.UpdateAttributeGrid(AttributeType.BaseCabbage);
     }
 
     public void UpdateAttributeGrid(AttributeType selectedAttribute)
@@ -32,16 +32,20 @@ public class AttributeButtonPanel : MonoBehaviour
 
         switch (selectedAttribute)
         {
-            case AttributeType.Base:
+            case AttributeType.BaseCabbage:
                 attributeSprites = Resources.LoadAll<Sprite>("CharacterCreator/Base");
                 break;
             case AttributeType.Headpiece:
                 attributeSprites = Resources.LoadAll<Sprite>("CharacterCreator/Headpiece");
                 break;
-            case AttributeType.Eyebrows:
+            case AttributeType.EyebrowL:
+            case AttributeType.EyebrowR:
+            case AttributeType.EyebrowB:
                 attributeSprites = Resources.LoadAll<Sprite>("CharacterCreator/Eyebrows");
                 break;
-            case AttributeType.Eyes:
+            case AttributeType.EyeL:
+            case AttributeType.EyeR:
+            case AttributeType.EyeB:
                 attributeSprites = Resources.LoadAll<Sprite>("CharacterCreator/Eyes");
                 break;
             case AttributeType.Nose:
@@ -50,9 +54,9 @@ public class AttributeButtonPanel : MonoBehaviour
             case AttributeType.Mouth:
                 attributeSprites = Resources.LoadAll<Sprite>("CharacterCreator/Mouth");
                 break;
-            case AttributeType.Accessory1:
-            case AttributeType.Accessory2:
-            case AttributeType.Accessory3:
+            case AttributeType.Acc1:
+            case AttributeType.Acc2:
+            case AttributeType.Acc3:
                 attributeSprites = Resources.LoadAll<Sprite>("CharacterCreator/Accessory");
                 break;
             default:
@@ -61,15 +65,15 @@ public class AttributeButtonPanel : MonoBehaviour
                 break;
         }
 
-        if (selectedAttribute != AttributeType.Base)
+        if (selectedAttribute != AttributeType.BaseCabbage)
         {
             GameObject buttonInstance = Instantiate(this.attributeButtonPrefab, this.gridLayoutParent.transform);
             buttonInstance.GetComponent<AttributeButton>().SetupButton(selectedAttribute, new Sprite[] { Resources.Load<Sprite>("CharacterCreator/Clear") });
             buttonInstance.GetComponent<AttributeButton>().isClearButton = true;
         }
 
-        if (selectedAttribute != AttributeType.Eyebrows && 
-            selectedAttribute != AttributeType.Eyes)
+        if (selectedAttribute != AttributeType.EyebrowL && selectedAttribute != AttributeType.EyebrowR && selectedAttribute != AttributeType.EyebrowB &&
+            selectedAttribute != AttributeType.EyeL && selectedAttribute != AttributeType.EyeR && selectedAttribute != AttributeType.EyeB)
         {
             foreach (Sprite newSprite in attributeSprites)
             {
