@@ -52,34 +52,18 @@ public class AttributeButton : MonoBehaviour
 
     public void EquipAttribute()
     {
+        CabbageAttribute currentAttribute = CharacterPreview.instance.GetAttribute(this.attributeType);
+
         if (this.isClearButton == true)
         {
-            AttributeSettingsManager.SetName(this.attributeType, "");
-        }
-        else if (AttributeSettingsManager.currentAttribute == AttributeType.EyebrowB ||
-            AttributeSettingsManager.currentAttribute == AttributeType.EyeB)
-        {
-            this.SetMultipleAttributeNames();
+            currentAttribute.SetAssetName("");
         }
         else
         {
-            AttributeSettingsManager.SetName(this.attributeType, this.attributeSprites[0].name);
-        }
+            //Parse it this way to handle the case of single-sprite buttons and multi-sprite buttons
+            string[] spriteNames = this.attributeSprites[0].name.Split("_");
 
-        CharacterPreview.instance.UpdateAttribute();
-    }
-
-    private void SetMultipleAttributeNames()
-    {
-        if (AttributeSettingsManager.currentAttribute == AttributeType.EyebrowB)
-        {
-            AttributeSettingsManager.SetName(AttributeType.EyebrowL, this.attributeSprites[0].name);
-            AttributeSettingsManager.SetName(AttributeType.EyebrowR, this.attributeSprites[1].name);
-        }
-        else if (AttributeSettingsManager.currentAttribute == AttributeType.EyeB)
-        {
-            AttributeSettingsManager.SetName(AttributeType.EyeL, this.attributeSprites[0].name);
-            AttributeSettingsManager.SetName(AttributeType.EyeR, this.attributeSprites[1].name);
-        }
-    }
+            currentAttribute.SetAssetName(spriteNames[0]);
+        }        
+    }    
 }

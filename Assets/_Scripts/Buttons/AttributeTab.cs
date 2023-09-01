@@ -9,8 +9,7 @@ public class AttributeTab : MonoBehaviour
     
     public void UpdatePanels()
     {
-        AttributeSettingsManager.currentAttribute = this.attributeType;
         AttributeButtonPanel.instance.UpdateAttributeGrid(this.attributeType);
-        SettingsPanel.instance.RefreshWidgets();
+        SettingsPanel.instance.UpdateSettingsPanel(this.attributeType);
     }
 }

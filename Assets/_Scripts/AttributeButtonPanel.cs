@@ -11,6 +11,8 @@ public class AttributeButtonPanel : MonoBehaviour
     [SerializeField]
     private GameObject gridLayoutParent;
 
+    private bool isDoubleAttribute = false;
+
     private void Awake()
     {
         if (instance == null)
@@ -19,13 +21,15 @@ public class AttributeButtonPanel : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void Initialize()
     {
         this.UpdateAttributeGrid(AttributeType.BaseCabbage);
     }
 
     public void UpdateAttributeGrid(AttributeType selectedAttribute)
     {
+        this.isDoubleAttribute = false;
+
         this.DestroyCurrentButtons();
 
         Sprite[] attributeSprites;
@@ -38,15 +42,13 @@ public class AttributeButtonPanel : MonoBehaviour
             case AttributeType.Headpiece:
                 attributeSprites = Resources.LoadAll<Sprite>("CharacterCreator/Headpiece");
                 break;
-            case AttributeType.EyebrowL:
-            case AttributeType.EyebrowR:
-            case AttributeType.EyebrowB:
+            case AttributeType.Eyebrows:
                 attributeSprites = Resources.LoadAll<Sprite>("CharacterCreator/Eyebrows");
+                this.isDoubleAttribute = true;
                 break;
-            case AttributeType.EyeL:
-            case AttributeType.EyeR:
-            case AttributeType.EyeB:
+            case AttributeType.Eyes:
                 attributeSprites = Resources.LoadAll<Sprite>("CharacterCreator/Eyes");
+                this.isDoubleAttribute = true;
                 break;
             case AttributeType.Nose:
                 attributeSprites = Resources.LoadAll<Sprite>("CharacterCreator/Nose");
@@ -72,8 +74,7 @@ public class AttributeButtonPanel : MonoBehaviour
             buttonInstance.GetComponent<AttributeButton>().isClearButton = true;
         }
 
-        if (selectedAttribute != AttributeType.EyebrowL && selectedAttribute != AttributeType.EyebrowR && selectedAttribute != AttributeType.EyebrowB &&
-            selectedAttribute != AttributeType.EyeL && selectedAttribute != AttributeType.EyeR && selectedAttribute != AttributeType.EyeB)
+        if (this.isDoubleAttribute == false)
         {
             foreach (Sprite newSprite in attributeSprites)
             {
