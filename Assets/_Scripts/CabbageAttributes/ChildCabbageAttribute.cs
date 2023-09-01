@@ -17,8 +17,16 @@ public class ChildCabbageAttribute : SingleCabbageAttribute
         this.attributeTransform.localRotation = Quaternion.Euler(0.0f, 0.0f, settingsData.rot);
         this.attributeTransform.localScale = new Vector3(settingsData.scaleX, settingsData.scaleY, 1.0f);
 
-        Sprite[] spritesheet = Resources.LoadAll<Sprite>(this.GetSpritePath() + settingsData.name);
-        this.attributeSprite.sprite = spritesheet[this.childIndex];
+        if (settingsData.name == string.Empty)
+        {
+            this.attributeSprite.sprite = null;
+        }
+        else
+        {
+            Sprite[] spritesheet = Resources.LoadAll<Sprite>(this.GetSpritePath() + settingsData.name);
+            this.attributeSprite.sprite = spritesheet[this.childIndex];
+        }
+        
         this.attributeSprite.sortingOrder = settingsData.dep;
         this.attributeSprite.flipX = settingsData.flipX;
         this.attributeSprite.flipY = settingsData.flipY;
@@ -35,6 +43,7 @@ public class ChildCabbageAttribute : SingleCabbageAttribute
         switch (settingToReset)
         {
             case SliderSetting.Horizontal_Position:
+            case SliderSetting.Spacing:
                 AttributeSettingsManager.SetHorizontalPosition(this.childAttributeType, AttributeSettingsManager.defaultAttributeSettings.GetAttributeSettingsData(this.childAttributeType).horPos);
                 break;
             case SliderSetting.Vertical_Position:

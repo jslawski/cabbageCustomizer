@@ -52,11 +52,11 @@ public class AttributeButton : MonoBehaviour
 
     public void EquipAttribute()
     {
-        CabbageAttribute currentAttribute = CharacterPreview.instance.GetAttribute(this.attributeType);
+        CabbageAttribute currentAttribute = CharacterPreview.instance.GetCachedAttribute(this.attributeType);
 
         if (this.isClearButton == true)
         {
-            currentAttribute.SetAssetName("");
+            currentAttribute.SetAssetName(string.Empty);
         }
         else
         {
@@ -64,6 +64,8 @@ public class AttributeButton : MonoBehaviour
             string[] spriteNames = this.attributeSprites[0].name.Split("_");
 
             currentAttribute.SetAssetName(spriteNames[0]);
-        }        
+        }
+
+        currentAttribute.UpdateAttributeObject();
     }    
 }

@@ -18,5 +18,6 @@ public class DefaultWidget : SettingsWidget
     {
         this.associatedAttribute.ResetAttribute();
         this.associatedAttribute.UpdateAttributeObject();
+        SettingsPanel.instance.RefreshWidgets(this.associatedAttribute.attributeType);
     }
 }

@@ -81,6 +81,12 @@ public class SettingsSliderWidget : SettingsWidget
         }
     }
 
+    protected void SetMinMaxValues(float minValue, float maxValue)
+    {
+        this.settingSlider.minValue = minValue;
+        this.settingSlider.maxValue = maxValue;
+    }
+
     protected virtual void UpdateValue()
     {
         this.associatedAttribute.UpdateAttributeObject();

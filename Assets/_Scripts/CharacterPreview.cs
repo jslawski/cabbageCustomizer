@@ -9,12 +9,18 @@ public class CharacterPreview : MonoBehaviour
 
     private Dictionary<AttributeType, CabbageAttribute> attributeDict;
 
+    public Dictionary<AttributeType, AttributeType> attributeSideCache;
+
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
-        }             
+        }
+
+        this.attributeSideCache = new Dictionary<AttributeType, AttributeType>();
+        this.attributeSideCache[AttributeType.Eyebrows] = AttributeType.Eyebrows;
+        this.attributeSideCache[AttributeType.Eyes] = AttributeType.Eyes;
     }
 
     private void Start()
@@ -31,8 +37,26 @@ public class CharacterPreview : MonoBehaviour
 
         this.SetupDict();
         
-
         this.RandomlyGenerateCharacter();
+
+        SettingsPanel.instance.UpdateSettingsPanel(AttributeType.BaseCabbage);
+    }
+
+    public void UpdateSideCache(AttributeType keyAttribute, AttributeType valueAttribute)
+    {
+        this.attributeSideCache[keyAttribute] = valueAttribute;
+    }
+
+    public AttributeType TryGetCachedAttributetype(AttributeType attType)
+    {
+        AttributeType returnType = attType;
+
+        if (this.attributeSideCache.ContainsKey(attType))
+        {
+            returnType = this.attributeSideCache[attType];
+        }
+
+        return returnType;
     }
 
     private void SetupDict()
@@ -156,6 +180,18 @@ public class CharacterPreview : MonoBehaviour
         {
             associatedAttribute.SetFlipY();
         }
+
+        //Randomize scale individually
+        associatedAttribute.GetChildren()[0].SetScaleX(UnityEngine.Random.Range(2.0f, 4.0f));
+        associatedAttribute.GetChildren()[0].SetScaleY(UnityEngine.Random.Range(2.0f, 4.0f));
+        associatedAttribute.GetChildren()[1].SetScaleX(UnityEngine.Random.Range(2.0f, 4.0f));
+        associatedAttribute.GetChildren()[1].SetScaleY(UnityEngine.Random.Range(2.0f, 4.0f));
+
+        //Randomize position individually
+        associatedAttribute.GetChildren()[0].SetHorizontalPosition(UnityEngine.Random.Range(-4.0f, -2.0f));
+        associatedAttribute.GetChildren()[0].SetVerticalPosition(UnityEngine.Random.Range(0.0f, 2.0f));
+        associatedAttribute.GetChildren()[1].SetHorizontalPosition(UnityEngine.Random.Range(2.0f, 4.0f));
+        associatedAttribute.GetChildren()[1].SetVerticalPosition(UnityEngine.Random.Range(0.0f, 2.0f));
     }
 
     private void RandomlyGenerateEyes()
@@ -189,6 +225,18 @@ public class CharacterPreview : MonoBehaviour
         {
             associatedAttribute.SetFlipY();
         }
+
+        //Randomize scale individually
+        associatedAttribute.GetChildren()[0].SetScaleX(UnityEngine.Random.Range(2.0f, 4.0f));
+        associatedAttribute.GetChildren()[0].SetScaleY(UnityEngine.Random.Range(2.0f, 4.0f));
+        associatedAttribute.GetChildren()[1].SetScaleX(UnityEngine.Random.Range(2.0f, 4.0f));
+        associatedAttribute.GetChildren()[1].SetScaleY(UnityEngine.Random.Range(2.0f, 4.0f));
+
+        //Randomize position individually
+        associatedAttribute.GetChildren()[0].SetHorizontalPosition(UnityEngine.Random.Range(-4.0f, -2.0f));
+        associatedAttribute.GetChildren()[0].SetVerticalPosition(UnityEngine.Random.Range(-2.0f, 0.5f));
+        associatedAttribute.GetChildren()[1].SetHorizontalPosition(UnityEngine.Random.Range(2.0f, 4.0f));
+        associatedAttribute.GetChildren()[1].SetVerticalPosition(UnityEngine.Random.Range(-2.0f, 0.5f));
     }
 
     private void RandomlyGenerateNose()
@@ -204,6 +252,9 @@ public class CharacterPreview : MonoBehaviour
         {
             associatedAttribute.SetFlipX();
         }
+
+        associatedAttribute.SetScaleX(UnityEngine.Random.Range(2.0f, 4.0f));
+        associatedAttribute.SetScaleY(UnityEngine.Random.Range(2.0f, 4.0f));
     }
 
     private void RandomlyGenerateMouth()
@@ -223,11 +274,20 @@ public class CharacterPreview : MonoBehaviour
         if (this.FlipCoin() == true)
         {
             associatedAttribute.SetFlipY();
-        }        
+        }
+
+        associatedAttribute.SetScaleX(UnityEngine.Random.Range(2.0f, 4.0f));
+        associatedAttribute.SetScaleY(UnityEngine.Random.Range(2.0f, 4.0f));
     }
 
     private void RandomlyGenerateAccessory(AttributeType accNum)
     {
+        //50% chance to not spawn an accessory
+        if (this.FlipCoin() == true)
+        {
+            return;
+        }
+
         Sprite[] allSprites = Resources.LoadAll<Sprite>("CharacterCreator/Accessory");
         Sprite randomSprite = allSprites[UnityEngine.Random.Range(0, allSprites.Length)];
 
@@ -238,7 +298,12 @@ public class CharacterPreview : MonoBehaviour
         if (this.FlipCoin() == true)
         {
             associatedAttribute.SetFlipX();
-        }       
+        }
+
+        float uniformScale = UnityEngine.Random.Range(0.5f, 1.5f);
+
+        associatedAttribute.SetScaleX(uniformScale);
+        associatedAttribute.SetScaleY(uniformScale);
     }
 
     public void LoadCharacterFromPresetData(string settingsJSON)
@@ -260,6 +325,18 @@ public class CharacterPreview : MonoBehaviour
 
     public CabbageAttribute GetAttribute(AttributeType attType)
     {
-        return this.attributeDict[attType];
+        return this.attributeDict[attType];        
+    }
+
+    public CabbageAttribute GetCachedAttribute(AttributeType attType)
+    {
+        return this.attributeDict[this.TryGetCachedAttributetype(attType)];
+    }
+
+    public void ClearAllAttributes()
+    {
+        AttributeSettingsManager.LoadData(AttributeSettingsManager.defaultAttributeSettings);
+        this.attributeDict[AttributeType.BaseCabbage].SetAssetName("cabbage");
+        this.UpdateAllAttributes();
     }
 }

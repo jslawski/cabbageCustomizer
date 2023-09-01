@@ -7,7 +7,7 @@ public class SettingsPanel : MonoBehaviour
 {
     public static SettingsPanel instance;
 
-    public Dictionary<AttributeType, AttributeType> attributeSideCache;
+    
 
     private SettingsWidget[] widgets;
     
@@ -18,9 +18,7 @@ public class SettingsPanel : MonoBehaviour
             instance = this;
         }
 
-        this.attributeSideCache = new Dictionary<AttributeType, AttributeType>();
-        this.attributeSideCache[AttributeType.Eyebrows] = AttributeType.Eyebrows;
-        this.attributeSideCache[AttributeType.Eyes] = AttributeType.Eyes;
+        
     }
 
     public void Initialize()
@@ -29,22 +27,7 @@ public class SettingsPanel : MonoBehaviour
         this.SetupWidgets();
     }
 
-    public void UpdateSideCache(AttributeType keyAttribute, AttributeType valueAttribute)
-    {
-        this.attributeSideCache[keyAttribute] = valueAttribute;
-    }
-
-    private AttributeType TryGetCacheEntry(AttributeType attType)
-    {
-        AttributeType returnType = AttributeType.None;
-
-        if (this.attributeSideCache.ContainsKey(attType))
-        {
-            returnType = this.attributeSideCache[attType];
-        }
-
-        return returnType;
-    }
+    
 
     //Only called when a tab is clicked
     public void UpdateSettingsPanel(AttributeType attType)
@@ -63,16 +46,7 @@ public class SettingsPanel : MonoBehaviour
 
     public void RefreshWidgets(AttributeType attType)
     {
-        CabbageAttribute attObj;
-
-        if (this.TryGetCacheEntry(attType) != AttributeType.None)
-        {
-            attObj = CharacterPreview.instance.GetAttribute(this.TryGetCacheEntry(attType));
-        }
-        else
-        {
-            attObj = CharacterPreview.instance.GetAttribute(attType);
-        }
+        CabbageAttribute attObj = CharacterPreview.instance.GetCachedAttribute(attType);
         
         foreach (SettingsWidget widget in this.widgets)
         {

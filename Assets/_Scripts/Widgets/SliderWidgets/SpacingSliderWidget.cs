@@ -32,7 +32,7 @@ public class SpacingSliderWidget : SettingsSliderWidget
     {
         base.ResetAttributeSetting();
 
-        this.settingSlider.value = this.associatedAttribute.GetHorizontalPosition();
+        this.settingSlider.value = AttributeSettingsManager.defaultAttributeSettings.GetAttributeSettingsData(AttributeType.EyebrowR).horPos;
 
         this.associatedAttribute.UpdateAttributeObject();
     }

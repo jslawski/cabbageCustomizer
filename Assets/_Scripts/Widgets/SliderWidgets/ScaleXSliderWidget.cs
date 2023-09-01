@@ -8,7 +8,15 @@ public class ScaleXSliderWidget : SettingsSliderWidget
     {
         base.RefreshWidget(attObj);
 
-        //Change min/max value here if attribute type is BaseCabbage?
+        if (attObj.attributeType == AttributeType.BaseCabbage)
+        {
+            this.SetMinMaxValues(0.5f, 2.0f);
+        }
+        else
+        {
+            this.SetMinMaxValues(0.25f, 5.0f);
+        }
+
         this.gameObject.SetActive(true);
 
         this.AnimateSliderToValue(this.associatedAttribute.GetScaleX());

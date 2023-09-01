@@ -85,10 +85,8 @@ public class DoubleCabbageAttribute : CabbageAttribute
 
     public override void SetRotation(float newRot)
     {
-        foreach (ChildCabbageAttribute att in this.childAttributes)
-        {
-            att.SetRotation(newRot);
-        }
+        this.childAttributes[0].SetRotation(newRot);
+        this.childAttributes[1].SetRotation(-newRot);
     }
 
     public override void SetDepth(int newDepth)

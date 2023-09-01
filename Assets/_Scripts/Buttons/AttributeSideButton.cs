@@ -20,7 +20,7 @@ public class AttributeSideButton : MonoBehaviour
     
     public void UpdateAttributeSide()
     {
-        SettingsPanel.instance.UpdateSideCache(this.parentAttribute, this.buttonAttribute);
+        CharacterPreview.instance.UpdateSideCache(this.parentAttribute, this.buttonAttribute);
         this.widget.UpdateAttributeSide(this.buttonAttribute);
     }
 }

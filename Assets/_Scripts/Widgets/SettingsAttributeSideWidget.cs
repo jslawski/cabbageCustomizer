@@ -66,7 +66,7 @@ public class SettingsAttributeSideWidget : SettingsWidget
 
     private void ToggleButtons()
     {
-        this.EnableAndDisableButtons(SettingsPanel.instance.attributeSideCache[this.associatedAttribute.attributeType]);        
+        this.EnableAndDisableButtons(CharacterPreview.instance.TryGetCachedAttributetype(this.associatedAttribute.attributeType));
     }
 
     private void EnableAndDisableButtons(AttributeType attSide)
