@@ -7,8 +7,6 @@ public class PresetManager : MonoBehaviour
 {
     public static PresetManager instance;
 
-    public int selectedPreset;
-
     private void Awake()
     {
         if (instance == null)
@@ -18,7 +16,7 @@ public class PresetManager : MonoBehaviour
     }
 
     public void LoadPreset(int newPreset)
-    {
+    {        
         StartCoroutine(this.LoadPresetAttributeSettings(newPreset));
     }
 
@@ -29,17 +27,17 @@ public class PresetManager : MonoBehaviour
 
         WWWForm form = new WWWForm();
         form.AddField("username", CurrentPlayerData.data.username);
-        form.AddField("preset", CurrentPlayerData.data.equippedPreset);
+        form.AddField("preset", newPreset);
 
         using (UnityWebRequest www = UnityWebRequest.Post(fullURL, form))
         {
             yield return www.SendWebRequest();
+
+            CurrentPlayerData.data.attributeSettingsJSON = www.downloadHandler.text;
         }
 
-            this.selectedPreset = newPreset;
+        CurrentPlayerData.data.equippedPreset = newPreset;        
 
-        //Modify cabbage preview with latest preset attribute settings
+        CharacterPreview.instance.LoadCharacter(CurrentPlayerData.data.attributeSettingsJSON);
     }
-
-
 }

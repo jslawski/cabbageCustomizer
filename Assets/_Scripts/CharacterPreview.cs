@@ -36,8 +36,8 @@ public class CharacterPreview : MonoBehaviour
         AttributeButtonPanel.instance.Initialize();
 
         this.SetupDict();
-        
-        this.RandomlyGenerateCharacter();
+
+        this.LoadCharacter(CurrentPlayerData.data.attributeSettingsJSON);
 
         SettingsPanel.instance.UpdateSettingsPanel(AttributeType.BaseCabbage);
     }
@@ -306,12 +306,19 @@ public class CharacterPreview : MonoBehaviour
         associatedAttribute.SetScaleY(uniformScale);
     }
 
-    public void LoadCharacterFromPresetData(string settingsJSON)
+    public void LoadCharacter(string settingsJSON)
     {
         AllAttributeSettingsData settingsData = JsonUtility.FromJson<AllAttributeSettingsData>(settingsJSON);
 
-        AttributeSettingsManager.LoadData(settingsData);
-
+        if (settingsData.baseCabbage.name != string.Empty)
+        {
+            AttributeSettingsManager.LoadData(settingsData);
+        }
+        else
+        {
+            this.RandomlyGenerateCharacter();
+        }
+        
         this.UpdateAllAttributes();
     }
 
