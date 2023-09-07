@@ -32,40 +32,12 @@ public class AttributeButtonPanel : MonoBehaviour
 
         this.DestroyCurrentButtons();
 
-        Sprite[] attributeSprites;
+        List<Sprite> attributeSprites = AttributeDicts.GetAllSprites(selectedAttribute);
 
-        switch (selectedAttribute)
+        if (selectedAttribute == AttributeType.Eyebrows || selectedAttribute == AttributeType.Eyes)
         {
-            case AttributeType.BaseCabbage:
-                attributeSprites = Resources.LoadAll<Sprite>("CharacterCreator/Base");
-                break;
-            case AttributeType.Headpiece:
-                attributeSprites = Resources.LoadAll<Sprite>("CharacterCreator/Headpiece");
-                break;
-            case AttributeType.Eyebrows:
-                attributeSprites = Resources.LoadAll<Sprite>("CharacterCreator/Eyebrows");
-                this.isDoubleAttribute = true;
-                break;
-            case AttributeType.Eyes:
-                attributeSprites = Resources.LoadAll<Sprite>("CharacterCreator/Eyes");
-                this.isDoubleAttribute = true;
-                break;
-            case AttributeType.Nose:
-                attributeSprites = Resources.LoadAll<Sprite>("CharacterCreator/Nose");
-                break;
-            case AttributeType.Mouth:
-                attributeSprites = Resources.LoadAll<Sprite>("CharacterCreator/Mouth");
-                break;
-            case AttributeType.Acc1:
-            case AttributeType.Acc2:
-            case AttributeType.Acc3:
-                attributeSprites = Resources.LoadAll<Sprite>("CharacterCreator/Accessory");
-                break;
-            default:
-                attributeSprites = new Sprite[1];
-                Debug.LogError("Unknown Attribute Type: " + selectedAttribute);
-                break;
-        }
+            this.isDoubleAttribute = true;
+        }        
 
         if (selectedAttribute != AttributeType.BaseCabbage)
         {
@@ -84,7 +56,7 @@ public class AttributeButtonPanel : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < attributeSprites.Length - 1; i += 2)
+            for (int i = 0; i < attributeSprites.Count - 1; i += 2)
             {
                 GameObject buttonInstance = Instantiate(this.attributeButtonPrefab, this.gridLayoutParent.transform);
                 buttonInstance.GetComponent<AttributeButton>().

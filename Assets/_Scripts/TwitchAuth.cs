@@ -27,12 +27,32 @@ public class TwitchAuth : MonoBehaviour
     private GameObject characterCanvas;
     [SerializeField]
     private GameObject characterPreview;
-    
+
+    private void Awake()
+    {
+        AttributeDicts.Setup();
+    }
+
+    private string GenerateState()
+    {
+        Int64 timestamp = (Int64)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+        Int64 salt = (Int64)UnityEngine.Random.Range(0, 10000);
+
+        int sign = (UnityEngine.Random.Range(0.0f, 1.0f) > 0.5f) ? 1 : -1;
+
+        return (timestamp + (salt * sign)).ToString();
+
+    }
+
     public void ExecuteTwitchAuth()
     {
         this.loginButton.interactable = false;
 
-        this.twitchAuthStateVerify = ((Int64)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString();
+        int salt = (int)UnityEngine.Random.Range(0, 10000);
+
+        this.twitchAuthStateVerify = this.GenerateState();
+
+        //this.twitchAuthStateVerify = salt.ToString() + ((Int64)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString() + salt.ToString();
 
         string totalAuthURL = this.twitchAuthURL + "?" +
                                 "response_type=code&" + 
@@ -77,7 +97,9 @@ public class TwitchAuth : MonoBehaviour
     }
 
     private IEnumerator RequestUserData()
-    {    
+    {
+        Debug.LogError(this.authCode);
+
         string fullURL = TwitchSecrets.ServerName + "/getInitialUserData.php";
 
         WWWForm form = new WWWForm();
@@ -97,6 +119,13 @@ public class TwitchAuth : MonoBehaviour
 
     private void LoadUserData(string data)
     {
-        CurrentPlayerData.data = JsonUtility.FromJson<PlayerData>(data);        
+        Debug.LogError("Data: " + data);
+
+        CurrentPlayerData.data = JsonUtility.FromJson<PlayerData>(data);
+
+        foreach (string cabbageName in CurrentPlayerData.data.customCabbages)
+        {
+            AttributeDicts.AddCustomCabbage(cabbageName);
+        }
     }
 }

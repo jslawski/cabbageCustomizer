@@ -51,12 +51,11 @@ public class SingleCabbageAttribute : CabbageAttribute
     public override void UpdateAttributeObject()
     {
         AttributeSettingsData settingsData = AttributeSettingsManager.GetLatestAttributeSettingsData(this.attributeType);
-        Sprite newSprite = Resources.Load<Sprite>(this.GetSpritePath() + settingsData.name);
+        Sprite newSprite = AttributeDicts.GetSprite(this.attributeType, settingsData.name);
 
         this.attributeTransform.localPosition = new Vector3(settingsData.horPos, settingsData.verPos, 0.0f);
         this.attributeTransform.localRotation = Quaternion.Euler(0.0f, 0.0f, settingsData.rot);
         this.attributeTransform.localScale = new Vector3(settingsData.scaleX, settingsData.scaleY, 1.0f);
-
 
         this.attributeSprite.sprite = newSprite;
         this.attributeSprite.sortingOrder = settingsData.dep;

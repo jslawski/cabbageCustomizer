@@ -9,6 +9,7 @@ public class ChildCabbageAttribute : SingleCabbageAttribute
 
     public AttributeType childAttributeType;
 
+    
     public override void UpdateAttributeObject()
     {
         AttributeSettingsData settingsData = AttributeSettingsManager.GetLatestAttributeSettingsData(this.childAttributeType);
@@ -23,8 +24,12 @@ public class ChildCabbageAttribute : SingleCabbageAttribute
         }
         else
         {
-            Sprite[] spritesheet = Resources.LoadAll<Sprite>(this.GetSpritePath() + settingsData.name);
-            this.attributeSprite.sprite = spritesheet[this.childIndex];
+            //Sprite[] spritesheet = Resources.LoadAll<Sprite>(this.GetSpritePath() + settingsData.name);
+
+            string specificSpriteName = settingsData.name + "_" + this.childIndex;
+            //this.attributeSprite.sprite = spritesheet[specificSpriteName];
+
+            this.attributeSprite.sprite = AttributeDicts.GetSprite(this.attributeType, specificSpriteName);
         }
         
         this.attributeSprite.sortingOrder = settingsData.dep;
@@ -32,7 +37,7 @@ public class ChildCabbageAttribute : SingleCabbageAttribute
         this.attributeSprite.flipY = settingsData.flipY;
         //Do colors later
     }
-
+    
     public override void ResetAttribute()
     {
         AttributeSettingsManager.SetAttributeSettings(this.childAttributeType, AttributeSettingsManager.defaultAttributeSettings.GetAttributeSettingsData(this.childAttributeType), true);

@@ -136,8 +136,8 @@ public class CharacterPreview : MonoBehaviour
 
     private void RandomlyGenerateHeadpiece()
     {
-        Sprite[] allSprites = Resources.LoadAll<Sprite>("CharacterCreator/Headpiece");
-        Sprite randomSprite = allSprites[UnityEngine.Random.Range(0, allSprites.Length)];
+        List<Sprite> allSprites = AttributeDicts.GetAllSprites(AttributeType.Headpiece);
+        Sprite randomSprite = allSprites[UnityEngine.Random.Range(0, allSprites.Count)];
 
         CabbageAttribute associatedAttribute = this.GetAttribute(AttributeType.Headpiece);
 
@@ -151,9 +151,9 @@ public class CharacterPreview : MonoBehaviour
 
     private void RandomlyGenerateEyebrows()
     {
-        Sprite[] allSprites = Resources.LoadAll<Sprite>("CharacterCreator/Eyebrows");
+        List<Sprite> allSprites = AttributeDicts.GetAllSprites(AttributeType.Headpiece);
 
-        int randomOddIndex = UnityEngine.Random.Range(0, allSprites.Length);
+        int randomOddIndex = UnityEngine.Random.Range(0, allSprites.Count);
 
         if (randomOddIndex % 2 != 0)
         {
@@ -196,9 +196,9 @@ public class CharacterPreview : MonoBehaviour
 
     private void RandomlyGenerateEyes()
     {
-        Sprite[] allSprites = Resources.LoadAll<Sprite>("CharacterCreator/Eyes");
+        List<Sprite> allSprites = AttributeDicts.GetAllSprites(AttributeType.Eyes);
 
-        int randomOddIndex = UnityEngine.Random.Range(0, allSprites.Length);
+        int randomOddIndex = UnityEngine.Random.Range(0, allSprites.Count);
 
         if (randomOddIndex % 2 != 0)
         {
@@ -241,8 +241,8 @@ public class CharacterPreview : MonoBehaviour
 
     private void RandomlyGenerateNose()
     {
-        Sprite[] allSprites = Resources.LoadAll<Sprite>("CharacterCreator/Nose");
-        Sprite randomSprite = allSprites[UnityEngine.Random.Range(0, allSprites.Length)];
+        List<Sprite> allSprites = AttributeDicts.GetAllSprites(AttributeType.Nose);
+        Sprite randomSprite = allSprites[UnityEngine.Random.Range(0, allSprites.Count)];
 
         CabbageAttribute associatedAttribute = this.GetAttribute(AttributeType.Nose);
 
@@ -259,8 +259,8 @@ public class CharacterPreview : MonoBehaviour
 
     private void RandomlyGenerateMouth()
     {
-        Sprite[] allSprites = Resources.LoadAll<Sprite>("CharacterCreator/Mouth");
-        Sprite randomSprite = allSprites[UnityEngine.Random.Range(0, allSprites.Length)];
+        List<Sprite> allSprites = AttributeDicts.GetAllSprites(AttributeType.Mouth);
+        Sprite randomSprite = allSprites[UnityEngine.Random.Range(0, allSprites.Count)];
 
         CabbageAttribute associatedAttribute = this.GetAttribute(AttributeType.Mouth);
 
@@ -288,8 +288,8 @@ public class CharacterPreview : MonoBehaviour
             return;
         }
 
-        Sprite[] allSprites = Resources.LoadAll<Sprite>("CharacterCreator/Accessory");
-        Sprite randomSprite = allSprites[UnityEngine.Random.Range(0, allSprites.Length)];
+        List<Sprite> allSprites = AttributeDicts.GetAllSprites(accNum);
+        Sprite randomSprite = allSprites[UnityEngine.Random.Range(0, allSprites.Count)];
 
         CabbageAttribute associatedAttribute = this.GetAttribute(accNum);
 
