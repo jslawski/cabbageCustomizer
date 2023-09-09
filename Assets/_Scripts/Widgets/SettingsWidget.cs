@@ -1,4 +1,5 @@
 using UnityEngine;
+using CabbageCustomizer;
 
 public abstract class SettingsWidget : MonoBehaviour
 {    

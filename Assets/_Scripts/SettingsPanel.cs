@@ -1,14 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using CabbageCustomizer;
 
 public class SettingsPanel : MonoBehaviour
 {
     public static SettingsPanel instance;
-
     
-
     private SettingsWidget[] widgets;
     
     private void Awake()
@@ -16,9 +14,7 @@ public class SettingsPanel : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-        }
-
-        
+        }        
     }
 
     public void Initialize()
@@ -26,8 +22,6 @@ public class SettingsPanel : MonoBehaviour
         this.widgets = GetComponentsInChildren<SettingsWidget>(true);
         this.SetupWidgets();
     }
-
-    
 
     //Only called when a tab is clicked
     public void UpdateSettingsPanel(AttributeType attType)
