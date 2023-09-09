@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public enum SliderSetting { Horizontal_Position, Spacing, Vertical_Position, Scale_X, Scale_Y, Rotation, Depth }
-
 public class SettingsSliderWidget : SettingsWidget
 {
     [SerializeField]
@@ -13,7 +11,7 @@ public class SettingsSliderWidget : SettingsWidget
     [SerializeField]
     protected TextMeshProUGUI sliderLabel;
     [SerializeField]
-    protected SliderSetting associatedSetting;
+    protected AttributeSettingType associatedSetting;
     [SerializeField]
     protected float minValue;
     [SerializeField]
@@ -140,7 +138,7 @@ public class SettingsSliderWidget : SettingsWidget
 
         this.settingSlider.interactable = true;
 
-        if (this.associatedSetting == SliderSetting.Depth)
+        if (this.associatedSetting == AttributeSettingType.Depth)
         {
             this.settingSlider.wholeNumbers = true;
         }

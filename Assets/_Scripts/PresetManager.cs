@@ -38,6 +38,6 @@ public class PresetManager : MonoBehaviour
 
         CurrentPlayerData.data.equippedPreset = newPreset;        
 
-        CharacterPreview.instance.LoadCharacter(CurrentPlayerData.data.attributeSettingsJSON);
+        CharacterPreview.instance.character.LoadCharacterFromJSON(CurrentPlayerData.data.attributeSettingsJSON);
     }
 }

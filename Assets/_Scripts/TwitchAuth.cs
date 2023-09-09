@@ -30,7 +30,7 @@ public class TwitchAuth : MonoBehaviour
 
     private void Awake()
     {
-        AttributeDicts.Setup();
+        AttributeSpriteDicts.Setup();
     }
 
     private string GenerateState()
@@ -51,8 +51,6 @@ public class TwitchAuth : MonoBehaviour
         int salt = (int)UnityEngine.Random.Range(0, 10000);
 
         this.twitchAuthStateVerify = this.GenerateState();
-
-        //this.twitchAuthStateVerify = salt.ToString() + ((Int64)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds).ToString() + salt.ToString();
 
         string totalAuthURL = this.twitchAuthURL + "?" +
                                 "response_type=code&" + 
@@ -125,7 +123,7 @@ public class TwitchAuth : MonoBehaviour
 
         foreach (string cabbageName in CurrentPlayerData.data.customCabbages)
         {
-            AttributeDicts.AddCustomCabbage(cabbageName);
+            AttributeSpriteDicts.AddCustomCabbage(cabbageName);
         }
     }
 }

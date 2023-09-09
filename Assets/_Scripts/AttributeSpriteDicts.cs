@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class AttributeDicts
+public static class AttributeSpriteDicts
 {
     private static Dictionary<string, Sprite> BaseCabbageDict;
     private static Dictionary<string, Sprite> HeadpieceDict;
@@ -14,13 +14,13 @@ public static class AttributeDicts
 
     public static void Setup()
     {
-        AttributeDicts.BaseCabbageDict = AttributeDicts.PopulateDict("Base");
-        AttributeDicts.HeadpieceDict = AttributeDicts.PopulateDict("Headpiece");
-        AttributeDicts.EyebrowsDict = AttributeDicts.PopulateDict("Eyebrows");
-        AttributeDicts.EyesDict = AttributeDicts.PopulateDict("Eyes");
-        AttributeDicts.NoseDict = AttributeDicts.PopulateDict("Nose");
-        AttributeDicts.MouthDict = AttributeDicts.PopulateDict("Mouth");
-        AttributeDicts.AccDict = AttributeDicts.PopulateDict("Accessory");
+        AttributeSpriteDicts.BaseCabbageDict = AttributeSpriteDicts.PopulateDict("Base");
+        AttributeSpriteDicts.HeadpieceDict = AttributeSpriteDicts.PopulateDict("Headpiece");
+        AttributeSpriteDicts.EyebrowsDict = AttributeSpriteDicts.PopulateDict("Eyebrows");
+        AttributeSpriteDicts.EyesDict = AttributeSpriteDicts.PopulateDict("Eyes");
+        AttributeSpriteDicts.NoseDict = AttributeSpriteDicts.PopulateDict("Nose");
+        AttributeSpriteDicts.MouthDict = AttributeSpriteDicts.PopulateDict("Mouth");
+        AttributeSpriteDicts.AccDict = AttributeSpriteDicts.PopulateDict("Accessory");
     }
 
     private static Dictionary<string, Sprite> PopulateDict(string resourcesFolder)
@@ -39,7 +39,7 @@ public static class AttributeDicts
 
     public static void AddCustomCabbage(string customCabbageName)
     {
-        AttributeDicts.BaseCabbageDict[customCabbageName] = Resources.Load<Sprite>("CharacterCreator/CustomCabbages/" + customCabbageName);
+        AttributeSpriteDicts.BaseCabbageDict[customCabbageName] = Resources.Load<Sprite>("CharacterCreator/CustomCabbages/" + customCabbageName);
     }
 
     private static Dictionary<string, Sprite> GetDict(AttributeType attType)
@@ -47,25 +47,25 @@ public static class AttributeDicts
         switch (attType)
         {
             case AttributeType.BaseCabbage:
-                return AttributeDicts.BaseCabbageDict;
+                return AttributeSpriteDicts.BaseCabbageDict;
             case AttributeType.Headpiece:
-                return AttributeDicts.HeadpieceDict;
+                return AttributeSpriteDicts.HeadpieceDict;
             case AttributeType.Eyebrows:
             case AttributeType.EyebrowL:
             case AttributeType.EyebrowR:
-                return AttributeDicts.EyebrowsDict;
+                return AttributeSpriteDicts.EyebrowsDict;
             case AttributeType.Eyes:
             case AttributeType.EyeL:
             case AttributeType.EyeR:
-                return AttributeDicts.EyesDict;
+                return AttributeSpriteDicts.EyesDict;
             case AttributeType.Nose:
-                return AttributeDicts.NoseDict;
+                return AttributeSpriteDicts.NoseDict;
             case AttributeType.Mouth:
-                return AttributeDicts.MouthDict;
+                return AttributeSpriteDicts.MouthDict;
             case AttributeType.Acc1:
             case AttributeType.Acc2:
             case AttributeType.Acc3:
-                return AttributeDicts.AccDict;
+                return AttributeSpriteDicts.AccDict;
             default:
                 Debug.LogError("Unknown AttributeType: " + attType);
                 return null;

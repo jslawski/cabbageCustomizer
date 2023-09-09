@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum AttributeSettingType { Horizontal_Position, Spacing, Vertical_Position, Scale_X, Scale_Y, Rotation, Depth }
 public enum AttributeType { BaseCabbage, Headpiece, Eyebrows, EyebrowL, EyebrowR, Eyes, EyeL, EyeR, Nose, Mouth, Acc1, Acc2, Acc3, None };
 
 public abstract class CabbageAttribute : MonoBehaviour
@@ -13,7 +14,7 @@ public abstract class CabbageAttribute : MonoBehaviour
     public abstract void UpdateAttributeObject();
 
     public abstract void ResetAttribute();
-    public abstract void ResetAttributeSetting(SliderSetting settingToReset);
+    public abstract void ResetAttributeSetting(AttributeSettingType settingToReset);
 
     public abstract void SetAssetName(string newName);
     public abstract void SetHorizontalPosition(float newPos);

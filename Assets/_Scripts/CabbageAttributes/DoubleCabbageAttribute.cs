@@ -33,7 +33,7 @@ public class DoubleCabbageAttribute : CabbageAttribute
         }                
     }
 
-    public override void ResetAttributeSetting(SliderSetting settingToReset)
+    public override void ResetAttributeSetting(AttributeSettingType settingToReset)
     {
         foreach (ChildCabbageAttribute att in this.childAttributes)
         {

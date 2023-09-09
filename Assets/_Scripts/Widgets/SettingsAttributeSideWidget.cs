@@ -25,7 +25,7 @@ public class SettingsAttributeSideWidget : SettingsWidget
     public override void RefreshWidget(CabbageAttribute attObj)
     {
         //This is always the PARENT attribute
-        this.associatedAttribute = CharacterPreview.instance.GetAttribute(attObj.attributeType);
+        this.associatedAttribute = CharacterPreview.instance.character.GetAttribute(attObj.attributeType);
 
         if (this.IsDoubleAttribute())
         {
@@ -57,8 +57,8 @@ public class SettingsAttributeSideWidget : SettingsWidget
         //Reset eyebrows or eyes if the "both" button is clicked
         if (newType == AttributeType.Eyebrows || newType == AttributeType.Eyes)
         {
-            CharacterPreview.instance.GetAttribute(newType).ResetAttribute();
-            CharacterPreview.instance.GetAttribute(newType).UpdateAttributeObject();
+            CharacterPreview.instance.character.GetAttribute(newType).ResetAttribute();
+            CharacterPreview.instance.character.GetAttribute(newType).UpdateAttributeObject();
         }
 
         SettingsPanel.instance.RefreshWidgets(newType);
@@ -66,7 +66,7 @@ public class SettingsAttributeSideWidget : SettingsWidget
 
     private void ToggleButtons()
     {
-        this.EnableAndDisableButtons(CharacterPreview.instance.TryGetCachedAttributetype(this.associatedAttribute.attributeType));
+        this.EnableAndDisableButtons(CharacterPreview.instance.TryGetCachedAttributeType(this.associatedAttribute.attributeType));
     }
 
     private void EnableAndDisableButtons(AttributeType attSide)

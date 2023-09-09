@@ -9,7 +9,7 @@ public class SaveButton : MonoBehaviour
     //When clicked, equip the preset and update the attribute values
     public void SaveButtonClicked()
     {
-        CurrentPlayerData.data.attributeSettingsJSON = JsonConvert.SerializeObject(AttributeSettingsManager.currentSettings);
+        CurrentPlayerData.data.attributeSettingsJSON = JsonConvert.SerializeObject(AttributeSettings.CurrentSettings);
 
         StartCoroutine(this.SaveUserPreset());
     }

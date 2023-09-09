@@ -6,35 +6,7 @@ public class SingleCabbageAttribute : CabbageAttribute
 {
     protected SpriteRenderer attributeSprite;
     protected Transform attributeTransform;
-
-    protected string GetSpritePath()
-    {
-        string spritePath = "CharacterCreator/";
-
-        switch (this.attributeType)
-        {
-            case AttributeType.BaseCabbage:
-                return spritePath + "Base/";
-            case AttributeType.Headpiece:
-                return spritePath + "Headpiece/";
-            case AttributeType.Eyebrows:
-                return spritePath + "Eyebrows/";
-            case AttributeType.Eyes:
-                return spritePath + "Eyes/";
-            case AttributeType.Nose:
-                return spritePath + "Nose/";
-            case AttributeType.Mouth:
-                return spritePath + "Mouth/";
-            case AttributeType.Acc1:
-            case AttributeType.Acc2:
-            case AttributeType.Acc3:
-                return spritePath + "Accessory/";
-            default:
-                Debug.LogError("Unknown AttributeType: " + attributeType);
-                return "";
-        }
-    }
-
+    
     public override void Initialize()
     {
         if (this.attributeSprite == null)
@@ -50,8 +22,8 @@ public class SingleCabbageAttribute : CabbageAttribute
 
     public override void UpdateAttributeObject()
     {
-        AttributeSettingsData settingsData = AttributeSettingsManager.GetLatestAttributeSettingsData(this.attributeType);
-        Sprite newSprite = AttributeDicts.GetSprite(this.attributeType, settingsData.name);
+        AttributeSettingsData settingsData = AttributeSettings.GetLatestAttributeSettingsData(this.attributeType);
+        Sprite newSprite = AttributeSpriteDicts.GetSprite(this.attributeType, settingsData.name);
 
         this.attributeTransform.localPosition = new Vector3(settingsData.horPos, settingsData.verPos, 0.0f);
         this.attributeTransform.localRotation = Quaternion.Euler(0.0f, 0.0f, settingsData.rot);
@@ -66,30 +38,30 @@ public class SingleCabbageAttribute : CabbageAttribute
 
     public override void ResetAttribute()
     {
-        AttributeSettingsManager.SetAttributeSettings(this.attributeType, AttributeSettingsManager.defaultAttributeSettings.GetAttributeSettingsData(this.attributeType), true);
+        AttributeSettings.SetAttributeSettings(this.attributeType, AttributeSettings.DefaultSettings.GetAttributeSettingsData(this.attributeType), true);
     }
 
-    public override void ResetAttributeSetting(SliderSetting settingToReset)
+    public override void ResetAttributeSetting(AttributeSettingType settingToReset)
     {
         switch (settingToReset)
         {
-            case SliderSetting.Horizontal_Position:
-                this.SetHorizontalPosition(AttributeSettingsManager.defaultAttributeSettings.GetAttributeSettingsData(this.attributeType).horPos);
+            case AttributeSettingType.Horizontal_Position:
+                this.SetHorizontalPosition(AttributeSettings.DefaultSettings.GetAttributeSettingsData(this.attributeType).horPos);
                 break;
-            case SliderSetting.Vertical_Position:
-                this.SetVerticalPosition(AttributeSettingsManager.defaultAttributeSettings.GetAttributeSettingsData(this.attributeType).verPos);
+            case AttributeSettingType.Vertical_Position:
+                this.SetVerticalPosition(AttributeSettings.DefaultSettings.GetAttributeSettingsData(this.attributeType).verPos);
                 break;
-            case SliderSetting.Scale_X:
-                this.SetScaleX(AttributeSettingsManager.defaultAttributeSettings.GetAttributeSettingsData(this.attributeType).scaleX);
+            case AttributeSettingType.Scale_X:
+                this.SetScaleX(AttributeSettings.DefaultSettings.GetAttributeSettingsData(this.attributeType).scaleX);
                 break;
-            case SliderSetting.Scale_Y:
-                this.SetScaleY(AttributeSettingsManager.defaultAttributeSettings.GetAttributeSettingsData(this.attributeType).scaleY);
+            case AttributeSettingType.Scale_Y:
+                this.SetScaleY(AttributeSettings.DefaultSettings.GetAttributeSettingsData(this.attributeType).scaleY);
                 break;
-            case SliderSetting.Rotation:
-               this.SetRotation(AttributeSettingsManager.defaultAttributeSettings.GetAttributeSettingsData(this.attributeType).rot);
+            case AttributeSettingType.Rotation:
+               this.SetRotation(AttributeSettings.DefaultSettings.GetAttributeSettingsData(this.attributeType).rot);
                 break;
-            case SliderSetting.Depth:
-                this.SetDepth(AttributeSettingsManager.defaultAttributeSettings.GetAttributeSettingsData(this.attributeType).dep);
+            case AttributeSettingType.Depth:
+                this.SetDepth(AttributeSettings.DefaultSettings.GetAttributeSettingsData(this.attributeType).dep);
                 break;
             default:
                 Debug.LogError("Unknown Setting: " + settingToReset);
@@ -100,103 +72,103 @@ public class SingleCabbageAttribute : CabbageAttribute
     #region Setters
     public override void SetAssetName(string newName)
     {
-        AttributeSettingsManager.SetName(this.attributeType, newName);        
+        AttributeSettings.SetName(this.attributeType, newName);        
     }
 
     public override void SetHorizontalPosition(float newPos)
     {
-        AttributeSettingsManager.SetHorizontalPosition(this.attributeType, newPos);        
+        AttributeSettings.SetHorizontalPosition(this.attributeType, newPos);        
     }
 
     public override void SetVerticalPosition(float newPos)
     {
-        AttributeSettingsManager.SetVerticalPosition(this.attributeType, newPos);        
+        AttributeSettings.SetVerticalPosition(this.attributeType, newPos);        
     }
 
     public override void SetScaleX(float newScale)
     {
-        AttributeSettingsManager.SetScaleX(this.attributeType, newScale);        
+        AttributeSettings.SetScaleX(this.attributeType, newScale);        
     }
 
     public override void SetScaleY(float newScale)
     {
-        AttributeSettingsManager.SetScaleY(this.attributeType, newScale);        
+        AttributeSettings.SetScaleY(this.attributeType, newScale);        
     }
 
     public override void SetRotation(float newRot)
     {
-        AttributeSettingsManager.SetRotation(this.attributeType, newRot);        
+        AttributeSettings.SetRotation(this.attributeType, newRot);        
     }
 
     public override void SetDepth(int newDepth)
     {
-        AttributeSettingsManager.SetDepth(this.attributeType, newDepth);        
+        AttributeSettings.SetDepth(this.attributeType, newDepth);        
     }
 
     public override void SetColor(int colorIndex, int newColor)
     {
-        AttributeSettingsManager.SetColor(this.attributeType, colorIndex, newColor);        
+        AttributeSettings.SetColor(this.attributeType, colorIndex, newColor);        
     }
 
     public override void SetFlipX()
     {
-        AttributeSettingsManager.SetFlipX(this.attributeType);        
+        AttributeSettings.SetFlipX(this.attributeType);        
     }
 
     public override void SetFlipY()
     {
-        AttributeSettingsManager.SetFlipY(this.attributeType);        
+        AttributeSettings.SetFlipY(this.attributeType);        
     }
     #endregion
 
     #region Getters
     public override string GetAssetName()
     {
-        return AttributeSettingsManager.GetAttributeSpriteName(this.attributeType);
+        return AttributeSettings.GetAttributeSpriteName(this.attributeType);
     }
 
     public override float GetHorizontalPosition()
     {
-        return AttributeSettingsManager.GetAttributePosition(this.attributeType).x;
+        return AttributeSettings.GetAttributePosition(this.attributeType).x;
     }
     public override float GetVerticalPosition()
     {
-        return AttributeSettingsManager.GetAttributePosition(this.attributeType).y;
+        return AttributeSettings.GetAttributePosition(this.attributeType).y;
     }
 
     public override float GetScaleX()
     {
-        return AttributeSettingsManager.GetAttributeScale(this.attributeType).x;
+        return AttributeSettings.GetAttributeScale(this.attributeType).x;
     }
 
     public override float GetScaleY()
     {
-        return AttributeSettingsManager.GetAttributeScale(this.attributeType).y;
+        return AttributeSettings.GetAttributeScale(this.attributeType).y;
     }
 
     public override float GetRotation()
     {
-        return AttributeSettingsManager.GetAttributeRotation(this.attributeType);
+        return AttributeSettings.GetAttributeRotation(this.attributeType);
     }
 
     public override int GetDepth()
     {
-        return AttributeSettingsManager.GetAttributeDepth(this.attributeType);
+        return AttributeSettings.GetAttributeDepth(this.attributeType);
     }
 
     public override int[] GetColors()
     {
-        return AttributeSettingsManager.GetAttributeColors(this.attributeType);
+        return AttributeSettings.GetAttributeColors(this.attributeType);
     }
 
     public override bool GetFlipX()
     {
-        return AttributeSettingsManager.GetAttributeFlipX(this.attributeType);
+        return AttributeSettings.GetAttributeFlipX(this.attributeType);
     }
 
     public override bool GetFlipY()
     {
-        return AttributeSettingsManager.GetAttributeFlipY(this.attributeType);
+        return AttributeSettings.GetAttributeFlipY(this.attributeType);
     }
 
     public override ChildCabbageAttribute[] GetChildren()

@@ -32,7 +32,7 @@ public class AttributeButtonPanel : MonoBehaviour
 
         this.DestroyCurrentButtons();
 
-        List<Sprite> attributeSprites = AttributeDicts.GetAllSprites(selectedAttribute);
+        List<Sprite> attributeSprites = AttributeSpriteDicts.GetAllSprites(selectedAttribute);
 
         if (selectedAttribute == AttributeType.Eyebrows || selectedAttribute == AttributeType.Eyes)
         {
