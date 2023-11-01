@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CabbageCustomizer;
+using CharacterCustomizer;
 
 public class SettingsPanel : MonoBehaviour
 {
@@ -40,7 +40,7 @@ public class SettingsPanel : MonoBehaviour
 
     public void RefreshWidgets(AttributeType attType)
     {
-        CabbageAttribute attObj = CharacterPreview.instance.GetCachedAttribute(attType);
+        CharacterAttribute attObj = CharacterPreview.instance.GetCachedAttribute(attType);
         
         foreach (SettingsWidget widget in this.widgets)
         {

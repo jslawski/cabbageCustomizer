@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CabbageCustomizer;
+using CharacterCustomizer;
 
 public class AttributeButtonPanel : MonoBehaviour
 {

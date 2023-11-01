@@ -1,13 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
 using System.Runtime.InteropServices;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.UI;
-using CabbageCustomizer;
+using CharacterCustomizer;
 
 public class TwitchAuth : MonoBehaviour
 {
@@ -18,8 +13,6 @@ public class TwitchAuth : MonoBehaviour
 
     private string twitchAuthStateVerify;
     private string authCode = "";
-
-    private HttpClient httpClient = new HttpClient();
 
     [SerializeField]
     private Button loginButton;
@@ -42,7 +35,6 @@ public class TwitchAuth : MonoBehaviour
         int sign = (UnityEngine.Random.Range(0.0f, 1.0f) > 0.5f) ? 1 : -1;
 
         return (timestamp + (salt * sign)).ToString();
-
     }
 
     public void ExecuteTwitchAuth()
@@ -55,71 +47,59 @@ public class TwitchAuth : MonoBehaviour
 
         string totalAuthURL = this.twitchAuthURL + "?" +
                                 "response_type=code&" + 
-                                "client_id=" + TwitchSecrets.ClientID + "&" +
-                                "redirect_uri=" + TwitchSecrets.RedirectURL + "&" +
+                                "client_id=" + ServerSecrets.ClientID + "&" +
+                                "redirect_uri=" + ServerSecrets.RedirectURL + "&" +
                                 "scope=user:read:email&" +
                                 "state=" + this.twitchAuthStateVerify;
         
         Application.OpenURL(totalAuthURL);
 
-        StartCoroutine(this.WaitForAuthToken());
+        this.SendAuthTokenRequest();
     }
 
-    private IEnumerator WaitForAuthToken()
-    {        
-        while (this.authCode == "")
-        {
-            yield return new WaitForSeconds(1.0f);
+    #region Get Auth Token
+    private void SendAuthTokenRequest()
+    {
+        GetAuthCodeAsyncRequest authTokenRequest = new GetAuthCodeAsyncRequest(this.twitchAuthStateVerify, this.AuthCodeSuccess, this.AuthCodeFailure);
+        authTokenRequest.Send();
+    }
 
-            string fullURL = TwitchSecrets.ServerName + "/getAuthCode.php";
-
-            WWWForm form = new WWWForm();
-            form.AddField("state", this.twitchAuthStateVerify);
-
-            using (UnityWebRequest www = UnityWebRequest.Post(fullURL, form))
-            {
-                yield return www.SendWebRequest();
-
-                if (www.downloadHandler.text != string.Empty)
-                {                    
-                    this.authCode = www.downloadHandler.text;
-                }
-            }
-        }
-
+    private void AuthCodeSuccess(string data)
+    {
+        this.authCode = data;
         this.GetUserData();
     }
 
+    private void AuthCodeFailure()
+    {
+        Invoke("SendAuthTokenRequest", 1.0f);
+    }
+    #endregion
+
+    #region Get User Data
     private void GetUserData()
     {
-        StartCoroutine(this.RequestUserData());        
+        GetUserDataAsyncRequest getUserDataRequest = new GetUserDataAsyncRequest(this.authCode, this.GetUserDataSuccess, this.GetUserDataFailure);
+        getUserDataRequest.Send();
     }
 
-    private IEnumerator RequestUserData()
+    private void GetUserDataSuccess(string data)
     {
-        Debug.LogError(this.authCode);
+        this.LoadUserData(data);
 
-        string fullURL = TwitchSecrets.ServerName + "/getInitialUserData.php";
-
-        WWWForm form = new WWWForm();
-        form.AddField("authCode", this.authCode);
-
-        using (UnityWebRequest www = UnityWebRequest.Post(fullURL, form))
-        {
-            yield return www.SendWebRequest();            
-
-            this.LoadUserData(www.downloadHandler.text);         
-        }
-        
         this.loginButton.gameObject.SetActive(false);
         this.characterCanvas.SetActive(true);
         this.characterPreview.SetActive(true);
     }
 
+    private void GetUserDataFailure()
+    {
+        Debug.LogError("Error: unable to get initial user data");
+    }
+
+    
     private void LoadUserData(string data)
     {
-        Debug.LogError("Data: " + data);
-
         CurrentPlayerData.data = JsonUtility.FromJson<PlayerData>(data);
 
         foreach (string cabbageName in CurrentPlayerData.data.customCabbages)
@@ -127,4 +107,5 @@ public class TwitchAuth : MonoBehaviour
             AttributeSpriteDicts.AddCustomCabbage(cabbageName);
         }
     }
+    #endregion
 }

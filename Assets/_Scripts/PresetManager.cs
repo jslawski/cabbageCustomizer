@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
-using CabbageCustomizer;
+using CharacterCustomizer;
 
 public class PresetManager : MonoBehaviour
 {
     public static PresetManager instance;
+
+    private int previousPreset = -1;
 
     private void Awake()
     {
@@ -18,27 +17,21 @@ public class PresetManager : MonoBehaviour
 
     public void LoadPreset(int newPreset)
     {        
-        StartCoroutine(this.LoadPresetAttributeSettings(newPreset));
+        this.previousPreset = CurrentPlayerData.data.equippedPreset;
+        CurrentPlayerData.data.equippedPreset = newPreset;
+
+        GetPresetAsyncRequest getPresetRequest = new GetPresetAsyncRequest(CurrentPlayerData.data.username, newPreset, this.PresetLoadSuccess, this.PresetLoadFailure);
+        getPresetRequest.Send();
     }
 
-
-    private IEnumerator LoadPresetAttributeSettings(int newPreset)
+    private void PresetLoadSuccess(string data)
     {
-        string fullURL = TwitchSecrets.ServerName + "/getPreset.php";
-
-        WWWForm form = new WWWForm();
-        form.AddField("username", CurrentPlayerData.data.username);
-        form.AddField("preset", newPreset);
-
-        using (UnityWebRequest www = UnityWebRequest.Post(fullURL, form))
-        {
-            yield return www.SendWebRequest();
-
-            CurrentPlayerData.data.attributeSettingsJSON = www.downloadHandler.text;
-        }
-
-        CurrentPlayerData.data.equippedPreset = newPreset;        
-
+        CurrentPlayerData.data.attributeSettingsJSON = data;
         CharacterPreview.instance.character.LoadCharacterFromJSON(CurrentPlayerData.data.attributeSettingsJSON);
+    }
+
+    private void PresetLoadFailure()
+    {
+        CurrentPlayerData.data.equippedPreset = this.previousPreset;
     }
 }

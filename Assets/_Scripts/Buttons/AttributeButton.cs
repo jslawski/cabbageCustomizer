@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using CabbageCustomizer;
+using CharacterCustomizer;
 
 public class AttributeButton : MonoBehaviour
 {
@@ -52,7 +52,7 @@ public class AttributeButton : MonoBehaviour
 
     public void EquipAttribute()
     {
-        CabbageAttribute currentAttribute = CharacterPreview.instance.GetCachedAttribute(this.attributeType);
+        CharacterAttribute currentAttribute = CharacterPreview.instance.GetCachedAttribute(this.attributeType);
 
         if (this.isClearButton == true)
         {
@@ -60,10 +60,29 @@ public class AttributeButton : MonoBehaviour
         }
         else
         {
-            //Parse it this way to handle the case of single-sprite buttons and multi-sprite buttons
             string[] spriteNames = this.attributeSprites[0].name.Split("_");
 
-            currentAttribute.SetAssetName(spriteNames[0]);
+            //Is a single attribute
+            if (this.attributeSprites.Length == 1)
+            {
+                currentAttribute.SetAssetName(this.attributeSprites[0].name);
+            }
+            //Is a double attribute with "Both" selected
+            else if (currentAttribute.GetChildren().Length > 1)
+            {
+                currentAttribute.GetChildren()[0].SetAssetName(this.attributeSprites[0].name);
+                currentAttribute.GetChildren()[1].SetAssetName(this.attributeSprites[1].name);
+            }
+            //Is a double attribute with "Left" selected
+            else if (currentAttribute.attributeType == AttributeType.EyebrowL || currentAttribute.attributeType == AttributeType.EyeL)
+            {
+                currentAttribute.SetAssetName(this.attributeSprites[0].name);
+            }
+            //Is a double attribute with "Right" selected
+            else
+            {
+                currentAttribute.SetAssetName(this.attributeSprites[1].name);
+            }            
         }
 
         currentAttribute.UpdateAttributeObject();

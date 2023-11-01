@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CabbageCustomizer;
+using CharacterCustomizer;
 
 public class FlipWidget : SettingsWidget
 {
@@ -10,7 +10,7 @@ public class FlipWidget : SettingsWidget
         this.associatedAttribute = null;
     }
 
-    public override void RefreshWidget(CabbageAttribute attObj)
+    public override void RefreshWidget(CharacterAttribute attObj)
     {
         this.associatedAttribute = attObj;
     }

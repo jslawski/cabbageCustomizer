@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using CabbageCustomizer;
+using CharacterCustomizer;
 
 public class SettingsSliderWidget : SettingsWidget
 {
@@ -38,7 +38,7 @@ public class SettingsSliderWidget : SettingsWidget
         this.settingSlider.maxValue = this.maxValue;
     }
 
-    public override void RefreshWidget(CabbageAttribute attObj)
+    public override void RefreshWidget(CharacterAttribute attObj)
     {
         this.associatedAttribute = attObj;
     }

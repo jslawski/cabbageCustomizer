@@ -1,36 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 using Newtonsoft.Json;
-using CabbageCustomizer;
+using CharacterCustomizer;
 
 public class SaveButton : MonoBehaviour
 {
+    private string previousSettings;
+
     //When clicked, equip the preset and update the attribute values
     public void SaveButtonClicked()
     {
+        this.previousSettings = CurrentPlayerData.data.attributeSettingsJSON;
         CurrentPlayerData.data.attributeSettingsJSON = JsonConvert.SerializeObject(AttributeSettings.CurrentSettings);
-
-        StartCoroutine(this.SaveUserPreset());
+        
+        SaveAsyncRequest saveRequest = new SaveAsyncRequest(CurrentPlayerData.data.username, CurrentPlayerData.data.equippedPreset, CurrentPlayerData.data.attributeSettingsJSON, this.SaveSuccess, this.SaveFailure);
+        saveRequest.Send();
     }
 
-    private IEnumerator SaveUserPreset()
+    private void SaveSuccess(string data)
     {
-        string fullURL = TwitchSecrets.ServerName + "/setEquippedPreset.php";
+        Debug.Log("Save Success!");
+    }
 
-        WWWForm form = new WWWForm();
-        form.AddField("username", CurrentPlayerData.data.username);
-        form.AddField("preset", CurrentPlayerData.data.equippedPreset);
-        form.AddField("attributeSettings", CurrentPlayerData.data.attributeSettingsJSON);
-
-        using (UnityWebRequest www = UnityWebRequest.Post(fullURL, form))
-        {
-            yield return www.SendWebRequest();
-
-            Debug.LogError(www.downloadHandler.text);
-        }
-
-        Debug.LogError("Saved!");
+    private void SaveFailure()
+    {
+        Debug.Log("Save Failed...");
+        CurrentPlayerData.data.attributeSettingsJSON = this.previousSettings;
     }
 }

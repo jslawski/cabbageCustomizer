@@ -910,7 +910,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1224333149}
         m_TargetAssemblyTypeName: CharacterPreview, Assembly-CSharp
         m_MethodName: ClearAllAttributes
         m_Mode: 1
@@ -4085,8 +4085,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CharacterPreview, Assembly-CSharp
+      - m_Target: {fileID: 1224333148}
+        m_TargetAssemblyTypeName: CharacterCustomizer.CustomCharacter, CharacterCustomizer
         m_MethodName: RandomlyGenerateCharacter
         m_Mode: 1
         m_Arguments:
@@ -4548,6 +4548,28 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6612685848520066565, guid: 699f5019a26e4884a9c29456aea2cbaa, type: 3}
   m_PrefabInstance: {fileID: 1675975518}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1224333148 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5878420526372449353, guid: 699f5019a26e4884a9c29456aea2cbaa, type: 3}
+  m_PrefabInstance: {fileID: 1675975518}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224333147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -981363783, guid: 7bfa6dd0f0e96a3459677711dea00cf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1224333149 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6612685848520066567, guid: 699f5019a26e4884a9c29456aea2cbaa, type: 3}
+  m_PrefabInstance: {fileID: 1675975518}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224333147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d0aadaea7675fe4087e07fb080a2b96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1286995671 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6218358969975050232, guid: dd2a2688e6b726747ad428a8335b144f, type: 3}
@@ -5846,10 +5868,6 @@ PrefabInstance:
     - target: {fileID: 6612685848520066565, guid: 699f5019a26e4884a9c29456aea2cbaa, type: 3}
       propertyPath: m_Name
       value: CabbagePreview
-      objectReference: {fileID: 0}
-    - target: {fileID: 6612685848520066565, guid: 699f5019a26e4884a9c29456aea2cbaa, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6612685848520066566, guid: 699f5019a26e4884a9c29456aea2cbaa, type: 3}
       propertyPath: m_RootOrder

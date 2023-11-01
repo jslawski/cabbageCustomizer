@@ -2,13 +2,13 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using CabbageCustomizer;
+using CharacterCustomizer;
 
 public class CharacterPreview : MonoBehaviour
 {
     public static CharacterPreview instance;
 
-    public CabbageCharacter character;
+    public CustomCharacter character;
 
     public Dictionary<AttributeType, AttributeType> attributeSideCache;
 
@@ -56,7 +56,7 @@ public class CharacterPreview : MonoBehaviour
         return returnType;
     }
 
-    public CabbageAttribute GetCachedAttribute(AttributeType attType)
+    public CharacterAttribute GetCachedAttribute(AttributeType attType)
     {
         return this.character.GetAttribute(this.TryGetCachedAttributeType(attType));
     }

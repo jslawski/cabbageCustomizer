@@ -1,10 +1,10 @@
 using UnityEngine;
-using CabbageCustomizer;
+using CharacterCustomizer;
 
 public abstract class SettingsWidget : MonoBehaviour
 {    
-    protected CabbageAttribute associatedAttribute;
+    protected CharacterAttribute associatedAttribute;
 
     public abstract void SetupWidget();
-    public abstract void RefreshWidget(CabbageAttribute attObj);
+    public abstract void RefreshWidget(CharacterAttribute attObj);
 }

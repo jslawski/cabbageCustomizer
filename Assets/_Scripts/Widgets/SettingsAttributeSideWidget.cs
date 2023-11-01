@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using CabbageCustomizer;
+using CharacterCustomizer;
 
 public class SettingsAttributeSideWidget : SettingsWidget
 {
@@ -23,7 +23,7 @@ public class SettingsAttributeSideWidget : SettingsWidget
         this.associatedAttribute = null;
     }
 
-    public override void RefreshWidget(CabbageAttribute attObj)
+    public override void RefreshWidget(CharacterAttribute attObj)
     {
         //This is always the PARENT attribute
         this.associatedAttribute = CharacterPreview.instance.character.GetAttribute(attObj.attributeType);
