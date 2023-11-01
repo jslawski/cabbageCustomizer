@@ -101,11 +101,6 @@ public class TwitchAuth : MonoBehaviour
     private void LoadUserData(string data)
     {
         CurrentPlayerData.data = JsonUtility.FromJson<PlayerData>(data);
-
-        foreach (string cabbageName in CurrentPlayerData.data.customCabbages)
-        {
-            AttributeSpriteDicts.AddCustomCabbage(cabbageName);
-        }
     }
     #endregion
 }

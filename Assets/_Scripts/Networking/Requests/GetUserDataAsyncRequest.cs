@@ -1,6 +1,5 @@
 using UnityEngine;
-using UnityEngine.Networking;
-
+using CabbageNetwork;
 public class GetUserDataAsyncRequest : AsyncRequest
 {
     public GetUserDataAsyncRequest(string authCode, NetworkRequestSuccess successCallback = null, NetworkRequestFailure failureCallback = null)

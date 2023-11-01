@@ -49,6 +49,18 @@ public class AttributeButtonPanel : MonoBehaviour
 
         if (this.isDoubleAttribute == false)
         {
+            if (selectedAttribute == AttributeType.BaseCabbage || selectedAttribute == AttributeType.Acc1 ||
+                selectedAttribute == AttributeType.Acc2 || selectedAttribute == AttributeType.Acc3)
+            {
+                List<Sprite> customCabbages = AttributeSpriteDicts.GetAllCustomCabbageSprites(CurrentPlayerData.data.customCabbages);
+
+                for (int i = 0; i < customCabbages.Count; i++)
+                {
+                    GameObject buttonInstance = Instantiate(this.attributeButtonPrefab, this.gridLayoutParent.transform);
+                    buttonInstance.GetComponent<AttributeButton>().SetupButton(selectedAttribute, new Sprite[] { customCabbages[i] });
+                }
+            }
+
             foreach (Sprite newSprite in attributeSprites)
             {
                 GameObject buttonInstance = Instantiate(this.attributeButtonPrefab, this.gridLayoutParent.transform);

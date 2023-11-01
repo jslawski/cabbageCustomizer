@@ -17,8 +17,7 @@ public class AttributeButton : MonoBehaviour
     private Image rightImage;
     [SerializeField]
     private Image centerImage;
-
-    [HideInInspector]
+    
     public bool isClearButton = false;
 
     public void SetupButton(AttributeType newType, Sprite[] newSprites)

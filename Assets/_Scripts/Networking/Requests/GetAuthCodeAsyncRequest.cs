@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.Networking;
+using CabbageNetwork;
 
 public class GetAuthCodeAsyncRequest : AsyncRequest
 {
