@@ -3473,8 +3473,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 1
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3498,7 +3498,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4155,8 +4155,8 @@ MonoBehaviour:
   settingSlider: {fileID: 47594841}
   sliderLabel: {fileID: 801893464}
   associatedSetting: 3
-  minValue: 0.25
-  maxValue: 5
+  minValue: 0.1
+  maxValue: 2
   animationCurve:
     serializedVersion: 2
     m_Curve:
@@ -4807,8 +4807,8 @@ MonoBehaviour:
   settingSlider: {fileID: 922514289}
   sliderLabel: {fileID: 462414411}
   associatedSetting: 0
-  minValue: -8
-  maxValue: 8
+  minValue: -0.5
+  maxValue: 0.5
   animationCurve:
     serializedVersion: 2
     m_Curve:
@@ -5226,7 +5226,7 @@ MonoBehaviour:
   sliderLabel: {fileID: 1445499295}
   associatedSetting: 1
   minValue: 0
-  maxValue: 8
+  maxValue: 0.5
   animationCurve:
     serializedVersion: 2
     m_Curve:
@@ -5651,8 +5651,8 @@ MonoBehaviour:
   settingSlider: {fileID: 192048390}
   sliderLabel: {fileID: 1592740799}
   associatedSetting: 4
-  minValue: 0.25
-  maxValue: 5
+  minValue: 0.1
+  maxValue: 2
   animationCurve:
     serializedVersion: 2
     m_Curve:
@@ -5875,7 +5875,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6612685848520066566, guid: 699f5019a26e4884a9c29456aea2cbaa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 6612685848520066566, guid: 699f5019a26e4884a9c29456aea2cbaa, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6481,8 +6481,8 @@ MonoBehaviour:
   settingSlider: {fileID: 224800928}
   sliderLabel: {fileID: 18920524}
   associatedSetting: 2
-  minValue: -8
-  maxValue: 12
+  minValue: -0.5
+  maxValue: 0.5
   animationCurve:
     serializedVersion: 2
     m_Curve:
