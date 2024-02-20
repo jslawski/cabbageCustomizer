@@ -7,7 +7,7 @@ public class ButtonPanel : MonoBehaviour
 {
     protected enum DisplayOrigin { Left, Right, Top, Bottom, UpperLeft, UpperRight, LowerLeft, LowerRight };
 
-    public bool displayNavigationPanel = false;    
+    public bool displayNavigationPanel = false;
 
     [SerializeField]
     private GameObject _buttonsParent;
@@ -24,6 +24,7 @@ public class ButtonPanel : MonoBehaviour
     protected void Awake()
     {
         this._panelButtons = this._buttonsParent.GetComponentsInChildren<PanelButton>();
+
         this.ReorderButtons();
     }
 
@@ -66,7 +67,7 @@ public class ButtonPanel : MonoBehaviour
         StartCoroutine(this.RevealButtons());
     }
 
-    public void HidePanel()
+    public virtual void HidePanel()
     {
         StartCoroutine(this.HideButtons());
     }

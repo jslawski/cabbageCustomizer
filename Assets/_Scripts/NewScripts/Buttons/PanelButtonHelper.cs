@@ -4,6 +4,9 @@ using UnityEngine.UI;
 public class PanelButtonHelper : MonoBehaviour
 {
     public Image buttonBackground;
+    public Image centerAttributeSprite;
+    public Image leftAttributeSprite;
+    public Image rightAttributeSprite;
 
     public Sprite NormalSprite;
     public Sprite HighlightedSprite;

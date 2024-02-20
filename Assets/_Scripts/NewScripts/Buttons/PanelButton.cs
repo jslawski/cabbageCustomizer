@@ -5,10 +5,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(PanelButtonHelper))]
 public class PanelButton : Button, IAnimatedUIElement
 {
-    protected PanelButtonHelper panelButtonHelper_;
+    public PanelButtonHelper panelButtonHelper;
 
     protected AudioChannelSettings sfxSettingsDefault_;
     protected AudioChannelSettings sfxSettingsRandomPitch_;
@@ -17,10 +16,12 @@ public class PanelButton : Button, IAnimatedUIElement
     {
         base.Awake();
 
-        this.panelButtonHelper_ = GetComponent<PanelButtonHelper>();
+        this.panelButtonHelper = GetComponent<PanelButtonHelper>();
 
         this.sfxSettingsDefault_ = new AudioChannelSettings(false, 1.0f, 1.0f, 1.0f, "SFX");
         this.sfxSettingsRandomPitch_ = new AudioChannelSettings(false, 0.9f, 1.1f, 1.0f, "SFX");
+
+        this.onClick.AddListener(this.SelectButton);
     }
 
     public void Reveal()
@@ -52,14 +53,14 @@ public class PanelButton : Button, IAnimatedUIElement
 
         this.ChangeAnimationState(AnimatedUIElementState.Hovered);
 
-        if (this.panelButtonHelper_.HighlightedSprite != null)
+        if (this.panelButtonHelper.HighlightedSprite != null)
         {
-            this.panelButtonHelper_.buttonBackground.sprite = this.panelButtonHelper_.HighlightedSprite;
+            this.panelButtonHelper.buttonBackground.sprite = this.panelButtonHelper.HighlightedSprite;
         }
 
-        if (this.panelButtonHelper_.onPointerEnterSound != null)
+        if (this.panelButtonHelper.onPointerEnterSound != null)
         {
-            AudioManager.instance.Play(this.panelButtonHelper_.onPointerEnterSound, this.sfxSettingsRandomPitch_);
+            AudioManager.instance.Play(this.panelButtonHelper.onPointerEnterSound, this.sfxSettingsRandomPitch_);
         }
     }
 
@@ -74,9 +75,9 @@ public class PanelButton : Button, IAnimatedUIElement
         
         this.ChangeAnimationState(AnimatedUIElementState.Neutral);
 
-        if (this.panelButtonHelper_.NormalSprite != null)
+        if (this.panelButtonHelper.NormalSprite != null)
         {
-            this.panelButtonHelper_.buttonBackground.sprite = this.panelButtonHelper_.NormalSprite;
+            this.panelButtonHelper.buttonBackground.sprite = this.panelButtonHelper.NormalSprite;
         }
     }
 
@@ -91,14 +92,14 @@ public class PanelButton : Button, IAnimatedUIElement
 
         this.ChangeAnimationState(AnimatedUIElementState.Pushed);
 
-        if (this.panelButtonHelper_.PushedSprite != null)
+        if (this.panelButtonHelper.PushedSprite != null)
         {
-            this.panelButtonHelper_.buttonBackground.sprite = this.panelButtonHelper_.PushedSprite;
+            this.panelButtonHelper.buttonBackground.sprite = this.panelButtonHelper.PushedSprite;
         }
 
-        if (this.panelButtonHelper_.onPointerDownSound != null)
+        if (this.panelButtonHelper.onPointerDownSound != null)
         {
-            AudioManager.instance.Play(this.panelButtonHelper_.onPointerDownSound, this.sfxSettingsDefault_);
+            AudioManager.instance.Play(this.panelButtonHelper.onPointerDownSound, this.sfxSettingsDefault_);
         }
     }
 
@@ -106,14 +107,14 @@ public class PanelButton : Button, IAnimatedUIElement
     {
         this.ChangeAnimationState(AnimatedUIElementState.Released);
 
-        if (this.panelButtonHelper_.NormalSprite != null)
+        if (this.panelButtonHelper.NormalSprite != null)
         {
-            this.panelButtonHelper_.buttonBackground.sprite = this.panelButtonHelper_.NormalSprite;
+            this.panelButtonHelper.buttonBackground.sprite = this.panelButtonHelper.NormalSprite;
         }
 
-        if (this.panelButtonHelper_.onPointerUpSound != null)
+        if (this.panelButtonHelper.onPointerUpSound != null)
         {
-            AudioManager.instance.Play(this.panelButtonHelper_.onPointerUpSound, this.sfxSettingsDefault_);
+            AudioManager.instance.Play(this.panelButtonHelper.onPointerUpSound, this.sfxSettingsDefault_);
         }
 
         this.SelectedCallback();
