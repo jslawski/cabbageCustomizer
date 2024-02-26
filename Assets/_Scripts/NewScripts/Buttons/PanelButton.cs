@@ -35,6 +35,37 @@ public class PanelButton : Button, IAnimatedUIElement
         this.ChangeAnimationState(AnimatedUIElementState.Hide);
     }
 
+    public void EnableButton()
+    {
+        this.interactable = true;
+
+        StartCoroutine(this.EnableButtonCoroutine());
+    }
+
+    private IEnumerator EnableButtonCoroutine()
+    {
+        //Yield for one frame in case another Animation trigger is activated this frame
+        yield return null;
+        this.ChangeAnimationState(AnimatedUIElementState.Enabled);
+    }
+
+    public void DisableButton(bool animatedDisable)
+    {
+        this.interactable = false;
+
+        if (animatedDisable == true)
+        {
+            StartCoroutine(this.DisableButtonCoroutine());
+        }
+    }
+
+    private IEnumerator DisableButtonCoroutine()
+    {
+        //Yield for one frame in case another Animation trigger is activated this frame
+        yield return null;
+        this.ChangeAnimationState(AnimatedUIElementState.Disabled);
+    }
+
     public override void OnPointerEnter(PointerEventData eventData)
     {
         base.OnPointerEnter(eventData);

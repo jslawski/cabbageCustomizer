@@ -19,7 +19,7 @@ public class ButtonPanel : MonoBehaviour
 
     protected int selectedButtonIndex = -1;
 
-    protected float _updatePanelSpeed = 0.025f;
+    protected float updatePanelSpeed_ = 0.025f;
     
     protected void Awake()
     {
@@ -85,7 +85,7 @@ public class ButtonPanel : MonoBehaviour
     {
         for (int i = 0; i < this.panelButtons.Length; i++)
         {
-            this.panelButtons[i].interactable = false;
+            this.panelButtons[i].DisableButton(false);
         }
     }
 
@@ -93,7 +93,7 @@ public class ButtonPanel : MonoBehaviour
     {
         for (int i = 0; i < this.panelButtons.Length; i++)
         {
-            this.panelButtons[i].interactable = true;
+            this.panelButtons[i].EnableButton();
         }
     }
 
@@ -107,13 +107,16 @@ public class ButtonPanel : MonoBehaviour
         {
             this.panelButtons[i].Reveal();
 
-            yield return new WaitForSeconds(this._updatePanelSpeed);
+            yield return new WaitForSeconds(this.updatePanelSpeed_);
         }
-
-        this.EnableAllButtons();
+        
+        this.RevealButtonsCallback();
     }
 
-    protected virtual void RevealButtonsCallback() { }
+    protected virtual void RevealButtonsCallback()     
+    {
+        this.EnableAllButtons();
+    }
 
     protected IEnumerator HideButtons()
     {
@@ -128,7 +131,7 @@ public class ButtonPanel : MonoBehaviour
             else
             {
                 this.panelButtons[i].Hide();
-                yield return new WaitForSeconds(this._updatePanelSpeed);
+                yield return new WaitForSeconds(this.updatePanelSpeed_);
             }
         }
     }

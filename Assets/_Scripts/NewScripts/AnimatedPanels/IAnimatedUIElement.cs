@@ -1,4 +1,4 @@
-public enum AnimatedUIElementState { Neutral, Appear, Hide, Released, Wait, Pushed, Hovered };
+public enum AnimatedUIElementState { Neutral, Appear, Hide, Released, Wait, Pushed, Hovered, Disabled, Enabled };
 
 public interface IAnimatedUIElement
 {
