@@ -71,7 +71,7 @@ public class ButtonPanel : MonoBehaviour
     {
         StartCoroutine(this.HideButtons());
     }
-
+    
     public void SelectPanelButton(PanelButton selectedButton)
     {
         this.selectedButtonIndex = Array.FindIndex<PanelButton>(this.panelButtons, (x => x == selectedButton));
@@ -81,24 +81,43 @@ public class ButtonPanel : MonoBehaviour
         this.SelectPanelButtonCallback();
     }
 
+    protected void DisableAllButtons()
+    {
+        for (int i = 0; i < this.panelButtons.Length; i++)
+        {
+            this.panelButtons[i].interactable = false;
+        }
+    }
+
+    protected void EnableAllButtons()
+    {
+        for (int i = 0; i < this.panelButtons.Length; i++)
+        {
+            this.panelButtons[i].interactable = true;
+        }
+    }
+
     protected virtual void SelectPanelButtonCallback() { }
 
     protected IEnumerator RevealButtons()
     {
+        this.DisableAllButtons();
+
         for (int i = 0; i < this.panelButtons.Length; i++)
         {
             this.panelButtons[i].Reveal();
 
             yield return new WaitForSeconds(this._updatePanelSpeed);
         }
+
+        this.EnableAllButtons();
     }
+
+    protected virtual void RevealButtonsCallback() { }
 
     protected IEnumerator HideButtons()
     {
-        for (int i = 0; i < this.panelButtons.Length; i++)
-        {
-            this.panelButtons[i].interactable = false;
-        }
+        this.DisableAllButtons();
 
         for (int i = 0; i < this.panelButtons.Length; i++)
         {
@@ -112,19 +131,5 @@ public class ButtonPanel : MonoBehaviour
                 yield return new WaitForSeconds(this._updatePanelSpeed);
             }
         }
-
-        /*
-        if (this.selectedButtonIndex >= 0)
-        {
-            this.TransitionPanels();
-        }
-
-        yield return new WaitForSeconds(0.5f);
-
-        for (int i = 0; i < this.panelButtons.Length; i++)
-        {
-            this.panelButtons[i].animator.SetTrigger("Wait");
-        }
-        */
     }
 }

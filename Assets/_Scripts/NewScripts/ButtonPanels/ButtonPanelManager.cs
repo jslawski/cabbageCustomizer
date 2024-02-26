@@ -50,7 +50,6 @@ public class ButtonPanelManager : MonoBehaviour
         this.DisplayPreviousPanel();
     }
 
-
     private void HideCurrentPanel()
     {
         this._buttonPanels[this.currentPanelIndex].HidePanel();

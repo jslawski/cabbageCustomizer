@@ -27,19 +27,12 @@ public class PanelButton : Button, IAnimatedUIElement
     public void Reveal()
     {
         this.ChangeAnimationState(AnimatedUIElementState.Appear);
-        StartCoroutine(EnableButton());
     }
 
     public void Hide()
     {
         this.interactable = false;
         this.ChangeAnimationState(AnimatedUIElementState.Hide);
-    }
-
-    private IEnumerator EnableButton()
-    {
-        yield return new WaitForSeconds(0.5f);
-        this.interactable = true;
     }
 
     public override void OnPointerEnter(PointerEventData eventData)

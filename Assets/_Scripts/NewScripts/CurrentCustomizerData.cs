@@ -3,18 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using CharacterCustomizer;
 
-public static class CurrentCustomizerData
+public class CurrentCustomizerData : MonoBehaviour
 {
-    public static AttributeType currentAttributeType;
-    public static AttributeSettingsData currentAttributeSettingsData;
+    public static CurrentCustomizerData instance;
 
-    static public bool IsSingleAttribute()
+    public AttributeType currentAttributeType;
+    public AttributeSettingsData currentAttributeSettingsData;
+
+    public void Awake()
     {
-        return (CurrentCustomizerData.currentAttributeType != AttributeType.Eyebrows &&
-            CurrentCustomizerData.currentAttributeType != AttributeType.EyebrowL &&
-            CurrentCustomizerData.currentAttributeType != AttributeType.EyebrowR &&
-            CurrentCustomizerData.currentAttributeType != AttributeType.Eyes &&
-            CurrentCustomizerData.currentAttributeType != AttributeType.EyeL &&
-            CurrentCustomizerData.currentAttributeType != AttributeType.EyeR);
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
+
+    public bool IsSingleAttribute()
+    {
+        return (this.currentAttributeType != AttributeType.Eyebrows &&
+                this.currentAttributeType != AttributeType.EyebrowL &&
+                this.currentAttributeType != AttributeType.EyebrowR &&
+                this.currentAttributeType != AttributeType.Eyes &&
+                this.currentAttributeType != AttributeType.EyeL &&
+                this.currentAttributeType != AttributeType.EyeR);
+    }
+
+    public void SetCurrentAttributeType(int newAttributeType)
+    {
+        this.currentAttributeType = (AttributeType)newAttributeType;
+        AttributeSettings.CurrentSettings.GetAttributeSettingsData((AttributeType)newAttributeType);
     }
 }

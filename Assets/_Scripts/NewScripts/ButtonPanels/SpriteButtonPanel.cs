@@ -47,7 +47,7 @@ public class SpriteButtonPanel : ButtonPanel
 
     private void LoadAttributeSprites()
     {
-        switch (CurrentCustomizerData.currentAttributeType)
+        switch (CurrentCustomizerData.instance.currentAttributeType)
         {
             case AttributeType.BaseCabbage:
                 this._attributeSprites = Resources.LoadAll<Sprite>("CharacterCreator/Base");
@@ -84,7 +84,7 @@ public class SpriteButtonPanel : ButtonPanel
                 this.DisplayInitialSingleAttributeButtonImages();
                 break;
             default:
-                Debug.LogError("Error: Unknown AttributeType: " + CurrentCustomizerData.currentAttributeType);
+                Debug.LogError("Error: Unknown AttributeType: " + CurrentCustomizerData.instance.currentAttributeType);
                 break;
         }        
 
@@ -120,7 +120,7 @@ public class SpriteButtonPanel : ButtonPanel
 
     private void UpdatePageButtons()
     {
-        if (CurrentCustomizerData.IsSingleAttribute() == true)
+        if (CurrentCustomizerData.instance.IsSingleAttribute() == true)
         {
             this._currentPage = this.GetSingleAttributePage("00");
         }
