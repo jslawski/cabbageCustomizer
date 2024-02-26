@@ -15,7 +15,7 @@ public class ButtonPanel : MonoBehaviour
     [SerializeField]
     protected DisplayOrigin buttonDisplayOrigin = DisplayOrigin.Left;
     
-    protected PanelButton[] _panelButtons;
+    public PanelButton[] panelButtons;
 
     protected int selectedButtonIndex = -1;
 
@@ -23,7 +23,7 @@ public class ButtonPanel : MonoBehaviour
     
     protected void Awake()
     {
-        this._panelButtons = this._buttonsParent.GetComponentsInChildren<PanelButton>();
+        this.panelButtons = this._buttonsParent.GetComponentsInChildren<PanelButton>();
 
         this.ReorderButtons();
     }
@@ -33,28 +33,28 @@ public class ButtonPanel : MonoBehaviour
         switch (this.buttonDisplayOrigin)
         {
             case DisplayOrigin.Left:
-                this._panelButtons = this._panelButtons.OrderBy(button => (button.transform.position.x)).ToArray();
+                this.panelButtons = this.panelButtons.OrderBy(button => (button.transform.position.x)).ToArray();
                 break;
             case DisplayOrigin.Right:
-                this._panelButtons = this._panelButtons.OrderBy(button => (-button.transform.position.x)).ToArray();
+                this.panelButtons = this.panelButtons.OrderBy(button => (-button.transform.position.x)).ToArray();
                 break;
             case DisplayOrigin.Top:
-                this._panelButtons = this._panelButtons.OrderBy(button => (-button.transform.position.y)).ToArray();
+                this.panelButtons = this.panelButtons.OrderBy(button => (-button.transform.position.y)).ToArray();
                 break;
             case DisplayOrigin.Bottom:
-                this._panelButtons = this._panelButtons.OrderBy(button => (button.transform.position.y)).ToArray();
+                this.panelButtons = this.panelButtons.OrderBy(button => (button.transform.position.y)).ToArray();
                 break;
             case DisplayOrigin.UpperLeft:
-                this._panelButtons = this._panelButtons.OrderBy(button => (button.transform.position.x - button.transform.position.y)).ToArray();
+                this.panelButtons = this.panelButtons.OrderBy(button => (button.transform.position.x - button.transform.position.y)).ToArray();
                 break;
             case DisplayOrigin.UpperRight:
-                this._panelButtons = this._panelButtons.OrderBy(button => (-button.transform.position.x - button.transform.position.y)).ToArray();
+                this.panelButtons = this.panelButtons.OrderBy(button => (-button.transform.position.x - button.transform.position.y)).ToArray();
                 break;
             case DisplayOrigin.LowerLeft:
-                this._panelButtons = this._panelButtons.OrderBy(button => (button.transform.position.x + button.transform.position.y)).ToArray();
+                this.panelButtons = this.panelButtons.OrderBy(button => (button.transform.position.x + button.transform.position.y)).ToArray();
                 break;
             case DisplayOrigin.LowerRight:
-                this._panelButtons = this._panelButtons.OrderBy(button => (-button.transform.position.x + button.transform.position.y)).ToArray();
+                this.panelButtons = this.panelButtons.OrderBy(button => (-button.transform.position.x + button.transform.position.y)).ToArray();
                 break;
             default:
                 Debug.LogError("Unknown DisplayOrigin: " + this.buttonDisplayOrigin);
@@ -74,9 +74,9 @@ public class ButtonPanel : MonoBehaviour
 
     public void SelectPanelButton(PanelButton selectedButton)
     {
-        this.selectedButtonIndex = Array.FindIndex<PanelButton>(this._panelButtons, (x => x == selectedButton));
+        this.selectedButtonIndex = Array.FindIndex<PanelButton>(this.panelButtons, (x => x == selectedButton));
 
-        this._panelButtons[this.selectedButtonIndex].SelectButton();
+        this.panelButtons[this.selectedButtonIndex].SelectButton();
 
         this.SelectPanelButtonCallback();
     }
@@ -85,9 +85,9 @@ public class ButtonPanel : MonoBehaviour
 
     protected IEnumerator RevealButtons()
     {
-        for (int i = 0; i < this._panelButtons.Length; i++)
+        for (int i = 0; i < this.panelButtons.Length; i++)
         {
-            this._panelButtons[i].Reveal();
+            this.panelButtons[i].Reveal();
 
             yield return new WaitForSeconds(this._updatePanelSpeed);
         }
@@ -95,12 +95,12 @@ public class ButtonPanel : MonoBehaviour
 
     protected IEnumerator HideButtons()
     {
-        for (int i = 0; i < this._panelButtons.Length; i++)
+        for (int i = 0; i < this.panelButtons.Length; i++)
         {
-            this._panelButtons[i].interactable = false;
+            this.panelButtons[i].interactable = false;
         }
 
-        for (int i = 0; i < this._panelButtons.Length; i++)
+        for (int i = 0; i < this.panelButtons.Length; i++)
         {
             if (i == this.selectedButtonIndex)
             {
@@ -108,7 +108,7 @@ public class ButtonPanel : MonoBehaviour
             }
             else
             {
-                this._panelButtons[i].Hide();
+                this.panelButtons[i].Hide();
                 yield return new WaitForSeconds(this._updatePanelSpeed);
             }
         }
@@ -121,9 +121,9 @@ public class ButtonPanel : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        for (int i = 0; i < this._panelButtons.Length; i++)
+        for (int i = 0; i < this.panelButtons.Length; i++)
         {
-            this._panelButtons[i].animator.SetTrigger("Wait");
+            this.panelButtons[i].animator.SetTrigger("Wait");
         }
         */
     }
