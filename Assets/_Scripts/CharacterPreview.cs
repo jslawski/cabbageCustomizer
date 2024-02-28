@@ -30,13 +30,8 @@ public class CharacterPreview : MonoBehaviour
     }
 
     private void Initialize()
-    {        
-        SettingsPanel.instance.Initialize();
-        AttributeButtonPanel.instance.Initialize();        
-
+    { 
         this.character.LoadCharacterFromJSON(CurrentPlayerData.data.attributeSettingsJSON);
-
-        SettingsPanel.instance.UpdateSettingsPanel(AttributeType.BaseCabbage);
     }
 
     public void UpdateSideCache(AttributeType keyAttribute, AttributeType valueAttribute)
@@ -64,7 +59,7 @@ public class CharacterPreview : MonoBehaviour
     public void ClearAllAttributes()
     {
         AttributeSettings.LoadData(AttributeSettings.DefaultSettings);
-        this.character.GetAttribute(AttributeType.BaseCabbage).SetAssetName("cabbage");
+        this.character.GetAttribute(AttributeType.BaseCabbage).SetAssetName("02");
         this.character.UpdateAllAttributes();
     }
 }
