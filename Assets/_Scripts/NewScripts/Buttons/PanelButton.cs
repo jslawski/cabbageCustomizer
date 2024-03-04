@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class PanelButton : Button, IAnimatedUIElement
+public enum PanelButtonAnimationTriggers { Neutral, Appear, Hide, Release, Push, Hover, Disable, Enable }
+
+public class PanelButton : Button
 {
     public PanelButtonHelper panelButtonHelper;
 
@@ -26,15 +26,26 @@ public class PanelButton : Button, IAnimatedUIElement
 
     public void Reveal()
     {
-        this.ChangeAnimationState(AnimatedUIElementState.Appear);
+        this.interactable = true;
+        this.ChangeAnimationState(PanelButtonAnimationTriggers.Appear);
     }
 
     public void Hide()
     {
         this.interactable = false;
-        this.ChangeAnimationState(AnimatedUIElementState.Hide);
+        this.ChangeAnimationState(PanelButtonAnimationTriggers.Hide);
     }
 
+    public void EnableHighlight()
+    {
+        this.panelButtonHelper.highlightBackground.enabled = true;
+    }
+
+    public void DisableHighlight()
+    {
+        this.panelButtonHelper.highlightBackground.enabled = false;
+    }
+    
     public void EnableButton()
     {
         this.interactable = true;
@@ -46,7 +57,7 @@ public class PanelButton : Button, IAnimatedUIElement
     {
         //Yield for one frame in case another Animation trigger is activated this frame
         yield return null;
-        this.ChangeAnimationState(AnimatedUIElementState.Enabled);
+        this.ChangeAnimationState(PanelButtonAnimationTriggers.Enable);
     }
 
     public void DisableButton(bool animatedDisable)
@@ -63,7 +74,7 @@ public class PanelButton : Button, IAnimatedUIElement
     {
         //Yield for one frame in case another Animation trigger is activated this frame
         yield return null;
-        this.ChangeAnimationState(AnimatedUIElementState.Disabled);
+        this.ChangeAnimationState(PanelButtonAnimationTriggers.Disable);
     }
 
     public override void OnPointerEnter(PointerEventData eventData)
@@ -75,7 +86,7 @@ public class PanelButton : Button, IAnimatedUIElement
             return;
         }
 
-        this.ChangeAnimationState(AnimatedUIElementState.Hovered);
+        this.ChangeAnimationState(PanelButtonAnimationTriggers.Hover);
 
         if (this.panelButtonHelper.HighlightedSprite != null)
         {
@@ -97,7 +108,7 @@ public class PanelButton : Button, IAnimatedUIElement
             return;
         }
         
-        this.ChangeAnimationState(AnimatedUIElementState.Neutral);
+        this.ChangeAnimationState(PanelButtonAnimationTriggers.Neutral);
 
         if (this.panelButtonHelper.NormalSprite != null)
         {
@@ -114,7 +125,7 @@ public class PanelButton : Button, IAnimatedUIElement
             return;
         }
 
-        this.ChangeAnimationState(AnimatedUIElementState.Pushed);
+        this.ChangeAnimationState(PanelButtonAnimationTriggers.Push);
 
         if (this.panelButtonHelper.PushedSprite != null)
         {
@@ -129,7 +140,7 @@ public class PanelButton : Button, IAnimatedUIElement
 
     public void SelectButton()
     {
-        this.ChangeAnimationState(AnimatedUIElementState.Released);
+        this.ChangeAnimationState(PanelButtonAnimationTriggers.Neutral);
 
         if (this.panelButtonHelper.NormalSprite != null)
         {
@@ -149,10 +160,10 @@ public class PanelButton : Button, IAnimatedUIElement
 
     }
 
-    protected void ChangeAnimationState(AnimatedUIElementState newState)
+    protected void ChangeAnimationState(PanelButtonAnimationTriggers newState)
     {
-        AnimatedUIElementState[] states =
-            (AnimatedUIElementState[])Enum.GetValues(typeof(AnimatedUIElementState));
+        PanelButtonAnimationTriggers[] states =
+            (PanelButtonAnimationTriggers[])Enum.GetValues(typeof(PanelButtonAnimationTriggers));
 
         for (int i = 0; i < states.Length; i++)
         {

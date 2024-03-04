@@ -31,6 +31,6 @@ public class CurrentCustomizerData : MonoBehaviour
     public void SetCurrentAttributeType(int newAttributeType)
     {
         this.currentAttributeType = (AttributeType)newAttributeType;
-        AttributeSettings.CurrentSettings.GetAttributeSettingsData((AttributeType)newAttributeType);
+        this.currentAttributeSettingsData = AttributeSettings.CurrentSettings.GetAttributeSettingsData((AttributeType)newAttributeType);
     }
 }

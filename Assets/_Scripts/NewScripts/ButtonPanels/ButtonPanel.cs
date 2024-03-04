@@ -6,15 +6,18 @@ using UnityEngine;
 public class ButtonPanel : MonoBehaviour
 {
     protected enum DisplayOrigin { Left, Right, Top, Bottom, UpperLeft, UpperRight, LowerLeft, LowerRight };
-
+    
     public bool displayNavigationPanel = false;
+
+    [SerializeField]
+    private bool highlightOnButtonSelect = false;
 
     [SerializeField]
     private GameObject _buttonsParent;
     
     [SerializeField]
     protected DisplayOrigin buttonDisplayOrigin = DisplayOrigin.Left;
-    
+
     public PanelButton[] panelButtons;
 
     protected int selectedButtonIndex = -1;
@@ -78,6 +81,11 @@ public class ButtonPanel : MonoBehaviour
 
         this.panelButtons[this.selectedButtonIndex].SelectButton();
 
+        if (this.highlightOnButtonSelect == true)
+        {
+            this.UpdateHighlightedButton();
+        }
+
         this.SelectPanelButtonCallback();
     }
 
@@ -113,7 +121,7 @@ public class ButtonPanel : MonoBehaviour
         this.RevealButtonsCallback();
     }
 
-    protected virtual void RevealButtonsCallback()     
+    protected virtual void RevealButtonsCallback()
     {
         this.EnableAllButtons();
     }
@@ -132,6 +140,21 @@ public class ButtonPanel : MonoBehaviour
             {
                 this.panelButtons[i].Hide();
                 yield return new WaitForSeconds(this.updatePanelSpeed_);
+            }
+        }
+    }
+
+    protected void UpdateHighlightedButton()
+    {
+        for (int i = 0; i < this.panelButtons.Length; i++)
+        {
+            if (i == this.selectedButtonIndex)
+            {
+                this.panelButtons[i].EnableHighlight();
+            }
+            else
+            {
+                this.panelButtons[i].DisableHighlight();
             }
         }
     }

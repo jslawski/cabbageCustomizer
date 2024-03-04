@@ -32,11 +32,11 @@ public class SpriteButtonPanel : ButtonPanel
 
         if (CurrentCustomizerData.instance.IsSingleAttribute() == true)
         {
-            startingPageIndex = this.GetSingleAttributePage("00");
+            startingPageIndex = this.GetSingleAttributePage(CurrentCustomizerData.instance.currentAttributeSettingsData.name);
         }
         else
         {
-            startingPageIndex = this.GetDoubleAttributePage("00");
+            startingPageIndex = this.GetDoubleAttributePage(CurrentCustomizerData.instance.currentAttributeSettingsData.name);
         }
 
         int maxPages = Mathf.FloorToInt(this._attributeSprites.Length / this.panelButtons.Length);
@@ -85,6 +85,23 @@ public class SpriteButtonPanel : ButtonPanel
                 this.panelButtons[i].EnableButton();
             }
         }
+    }
+
+    protected override void SelectPanelButtonCallback()
+    {
+        this.SelectSingleAttribute();
+    }
+
+    private void SelectSingleAttribute()
+    {
+        CharacterAttribute currentAttribute = CharacterPreview.instance.GetCachedAttribute(CurrentCustomizerData.instance.currentAttributeType);
+        currentAttribute.SetAssetName(this.panelButtons[this.selectedButtonIndex].panelButtonHelper.centerAttributeSprite.name);
+        currentAttribute.UpdateAttributeObject();
+    }
+
+    private void SelectDoubleAttribute()
+    { 
+    
     }
 
     private IEnumerator HideSpriteButtons()
