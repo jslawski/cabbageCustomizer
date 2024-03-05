@@ -10,9 +10,6 @@ public class ButtonPanel : MonoBehaviour
     public bool displayNavigationPanel = false;
 
     [SerializeField]
-    private bool highlightOnButtonSelect = false;
-
-    [SerializeField]
     private GameObject _buttonsParent;
     
     [SerializeField]
@@ -79,13 +76,8 @@ public class ButtonPanel : MonoBehaviour
     {
         this.selectedButtonIndex = Array.FindIndex<PanelButton>(this.panelButtons, (x => x == selectedButton));
 
-        this.panelButtons[this.selectedButtonIndex].SelectButton();
-
-        if (this.highlightOnButtonSelect == true)
-        {
-            this.UpdateHighlightedButton();
-        }
-
+        this.UpdateHighlightedButton();
+        
         this.SelectPanelButtonCallback();
     }
 
@@ -113,6 +105,7 @@ public class ButtonPanel : MonoBehaviour
 
         for (int i = 0; i < this.panelButtons.Length; i++)
         {
+            this.panelButtons[i].DisableHighlight();
             this.panelButtons[i].Reveal();
 
             yield return new WaitForSeconds(this.updatePanelSpeed_);
@@ -131,16 +124,9 @@ public class ButtonPanel : MonoBehaviour
         this.DisableAllButtons();
 
         for (int i = 0; i < this.panelButtons.Length; i++)
-        {
-            if (i == this.selectedButtonIndex)
-            {
-                yield return null;
-            }
-            else
-            {
-                this.panelButtons[i].Hide();
-                yield return new WaitForSeconds(this.updatePanelSpeed_);
-            }
+        {    
+            this.panelButtons[i].Hide();
+            yield return new WaitForSeconds(this.updatePanelSpeed_);
         }
     }
 

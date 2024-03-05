@@ -38,12 +38,18 @@ public class PanelButton : Button
 
     public void EnableHighlight()
     {
-        this.panelButtonHelper.highlightBackground.enabled = true;
+        if (this.panelButtonHelper.highlightBackground != null)
+        {
+            this.panelButtonHelper.highlightBackground.enabled = true;
+        }
     }
 
     public void DisableHighlight()
     {
-        this.panelButtonHelper.highlightBackground.enabled = false;
+        if (this.panelButtonHelper.highlightBackground != null)
+        {
+            this.panelButtonHelper.highlightBackground.enabled = false;
+        }
     }
     
     public void EnableButton()
@@ -173,7 +179,7 @@ public class PanelButton : Button
             }
             else
             {
-                this.animator.ResetTrigger(states[i].ToString());
+                //this.animator.ResetTrigger(states[i].ToString());
             }
         }
     }

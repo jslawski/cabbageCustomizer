@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using CharacterCustomizer;
 
 public class SpriteButtonPanel : ButtonPanel
@@ -85,23 +86,6 @@ public class SpriteButtonPanel : ButtonPanel
                 this.panelButtons[i].EnableButton();
             }
         }
-    }
-
-    protected override void SelectPanelButtonCallback()
-    {
-        this.SelectSingleAttribute();
-    }
-
-    private void SelectSingleAttribute()
-    {
-        CharacterAttribute currentAttribute = CharacterPreview.instance.GetCachedAttribute(CurrentCustomizerData.instance.currentAttributeType);
-        currentAttribute.SetAssetName(this.panelButtons[this.selectedButtonIndex].panelButtonHelper.centerAttributeSprite.name);
-        currentAttribute.UpdateAttributeObject();
-    }
-
-    private void SelectDoubleAttribute()
-    { 
-    
     }
 
     private IEnumerator HideSpriteButtons()

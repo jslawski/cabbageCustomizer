@@ -16,7 +16,7 @@ public class ButtonPanelManager : MonoBehaviour
     private Stack<int> previousPanelIndices;
     private int currentPanelIndex = 0;
 
-    private float timeBetweenPanels = 0.55f;
+    private float timeBetweenPanels = 0.7f;
 
     private void Awake()
     {
