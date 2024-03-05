@@ -1,9 +1,8 @@
 using System;
 using System.Collections;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
-public enum PanelButtonAnimationTriggers { Neutral, Appear, Hide, Release, Push, Hover, Disable, Enable }
 
 public class PanelButton : Button
 {
@@ -27,13 +26,13 @@ public class PanelButton : Button
     public void Reveal()
     {
         this.interactable = true;
-        this.ChangeAnimationState(PanelButtonAnimationTriggers.Appear);
+        this.ChangeAnimationState("Appear");
     }
 
     public void Hide()
     {
         this.interactable = false;
-        this.ChangeAnimationState(PanelButtonAnimationTriggers.Hide);
+        this.ChangeAnimationState("Hide");
     }
 
     public void EnableHighlight()
@@ -63,7 +62,7 @@ public class PanelButton : Button
     {
         //Yield for one frame in case another Animation trigger is activated this frame
         yield return null;
-        this.ChangeAnimationState(PanelButtonAnimationTriggers.Enable);
+        this.ChangeAnimationState("Enable");
     }
 
     public void DisableButton(bool animatedDisable)
@@ -80,7 +79,7 @@ public class PanelButton : Button
     {
         //Yield for one frame in case another Animation trigger is activated this frame
         yield return null;
-        this.ChangeAnimationState(PanelButtonAnimationTriggers.Disable);
+        this.ChangeAnimationState("Disable");
     }
 
     public override void OnPointerEnter(PointerEventData eventData)
@@ -92,7 +91,7 @@ public class PanelButton : Button
             return;
         }
 
-        this.ChangeAnimationState(PanelButtonAnimationTriggers.Hover);
+        this.ChangeAnimationState("Hover");
 
         if (this.panelButtonHelper.HighlightedSprite != null)
         {
@@ -114,7 +113,7 @@ public class PanelButton : Button
             return;
         }
         
-        this.ChangeAnimationState(PanelButtonAnimationTriggers.Neutral);
+        this.ChangeAnimationState("Neutral");
 
         if (this.panelButtonHelper.NormalSprite != null)
         {
@@ -131,7 +130,7 @@ public class PanelButton : Button
             return;
         }
 
-        this.ChangeAnimationState(PanelButtonAnimationTriggers.Push);
+        this.ChangeAnimationState("Push");
 
         if (this.panelButtonHelper.PushedSprite != null)
         {
@@ -146,7 +145,7 @@ public class PanelButton : Button
 
     public void SelectButton()
     {
-        this.ChangeAnimationState(PanelButtonAnimationTriggers.Neutral);
+        this.ChangeAnimationState("Neutral");
 
         if (this.panelButtonHelper.NormalSprite != null)
         {
@@ -166,21 +165,17 @@ public class PanelButton : Button
 
     }
 
-    protected void ChangeAnimationState(PanelButtonAnimationTriggers newState)
+    protected void ChangeAnimationState(string newState)
     {
-        PanelButtonAnimationTriggers[] states =
-            (PanelButtonAnimationTriggers[])Enum.GetValues(typeof(PanelButtonAnimationTriggers));
+        StartCoroutine(this.FireAnimationTrigger(newState));
+    }
 
-        for (int i = 0; i < states.Length; i++)
-        {
-            if (states[i] == newState)
-            {
-                this.animator.SetTrigger(states[i].ToString());
-            }
-            else
-            {
-                //this.animator.ResetTrigger(states[i].ToString());
-            }
-        }
+    protected IEnumerator FireAnimationTrigger(string newState)
+    {
+        this.animator.SetTrigger(newState);
+
+        yield return new WaitForSeconds(0.5f);
+
+        this.animator.ResetTrigger(newState);
     }
 }

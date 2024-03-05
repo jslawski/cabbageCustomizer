@@ -19,8 +19,8 @@ public class PageButtonPanel : ButtonPanel
     {
         this.currentPage = startingPage;
         this._maxPages = maxPageNum;
-    }
-   
+    }    
+
     private void UpdatePageButtons()
     {
         if (this.currentPage <= 0)

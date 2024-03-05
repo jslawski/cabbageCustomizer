@@ -210,6 +210,8 @@ public class SpriteButtonPanel : ButtonPanel
             this.buttonDisplayOrigin = DisplayOrigin.UpperLeft;
         }
 
+        this.ReorderButtons();
+
         StartCoroutine(this.UpdateSpriteButtonsCoroutine());
     }
 
