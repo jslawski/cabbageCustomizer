@@ -142,6 +142,11 @@ public class SpriteButtonPanel : ButtonPanel
 
     private int GetSingleAttributePage(string spriteName)
     {
+        if (spriteName == string.Empty)
+        {
+            return 0;
+        }
+    
         Sprite targetSprite = this._attributeSprites.First(attSprite => attSprite.name == spriteName);
         int targetIndex = Array.IndexOf(this._attributeSprites, targetSprite);
 
@@ -159,13 +164,22 @@ public class SpriteButtonPanel : ButtonPanel
     {
         int startingSpriteIndex = this._pageButtonPanel.currentPage * this.panelButtons.Length;
 
+        int equippedIndex = -1;
+
         for (int i = 0, j = startingSpriteIndex; i < this.panelButtons.Length; i++, j++)
         {
             if (j < this._attributeSprites.Length)
             {
                 this.panelButtons[i].panelButtonHelper.centerAttributeSprite.sprite = this._attributeSprites[j];
+
+                if (this._attributeSprites[j].name == CurrentCustomizerData.instance.currentAttributeSettingsData.name)
+                {
+                    equippedIndex = i;
+                }
             }
         }
+
+        this.HighlightButtonAtIndex(equippedIndex);
     }
 
     private void UpdateDoubleAttributeButtonSprites()

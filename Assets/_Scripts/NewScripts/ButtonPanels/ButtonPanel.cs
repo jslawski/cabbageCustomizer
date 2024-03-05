@@ -17,8 +17,6 @@ public class ButtonPanel : MonoBehaviour
 
     public PanelButton[] panelButtons;
 
-    protected int selectedButtonIndex = -1;
-
     protected float updatePanelSpeed_ = 0.025f;
     
     protected void Awake()
@@ -74,9 +72,7 @@ public class ButtonPanel : MonoBehaviour
     
     public void SelectPanelButton(PanelButton selectedButton)
     {
-        this.selectedButtonIndex = Array.FindIndex<PanelButton>(this.panelButtons, (x => x == selectedButton));
-
-        this.UpdateHighlightedButton();
+        this.HighlightButtonAtIndex(Array.FindIndex<PanelButton>(this.panelButtons, (x => x == selectedButton)));        
         
         this.SelectPanelButtonCallback();
     }
@@ -129,12 +125,12 @@ public class ButtonPanel : MonoBehaviour
             yield return new WaitForSeconds(this.updatePanelSpeed_);
         }
     }
-
-    protected void UpdateHighlightedButton()
+    
+    protected void HighlightButtonAtIndex(int index)
     {
         for (int i = 0; i < this.panelButtons.Length; i++)
         {
-            if (i == this.selectedButtonIndex)
+            if (i == index)
             {
                 this.panelButtons[i].EnableHighlight();
             }
