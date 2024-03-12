@@ -28,9 +28,9 @@ public class CurrentCustomizerData : MonoBehaviour
                 this.currentAttributeType != AttributeType.EyeR);
     }
 
-    public void SetCurrentAttributeType(int newAttributeType)
+    public void SetCurrentAttributeType(AttributeType newAttributeType)
     {
-        this.currentAttributeType = (AttributeType)newAttributeType;
-        this.currentAttributeSettingsData = AttributeSettings.CurrentSettings.GetAttributeSettingsData((AttributeType)newAttributeType);
+        this.currentAttributeType = newAttributeType;
+        this.currentAttributeSettingsData = AttributeSettings.CurrentSettings.GetAttributeSettingsData(newAttributeType);
     }
 }

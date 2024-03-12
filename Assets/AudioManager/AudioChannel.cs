@@ -77,6 +77,7 @@ public class AudioChannel : MonoBehaviour
     private IEnumerator PlayCoroutine()
     {        
         this.source.pitch = Random.Range(this.channelSettings.minPitch, this.channelSettings.maxPitch);
+        this.source.volume = this.channelSettings.volume;
         this.source.loop = this.channelSettings.loop;
         this.transform.position = this.channelSettings.sourceTransform.position;
 

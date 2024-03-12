@@ -15,7 +15,7 @@ public class ButtonPanel : MonoBehaviour
     [SerializeField]
     protected DisplayOrigin buttonDisplayOrigin = DisplayOrigin.Left;
 
-    public PanelButton[] panelButtons;
+    protected PanelButton[] panelButtons;
 
     protected float updatePanelSpeed_ = 0.025f;
     

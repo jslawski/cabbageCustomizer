@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class FlipXPanelButton : PanelButton
 {
-    protected override void SelectedCallback()
+    public override void SelectButton()
     {
+        base.SelectButton();
         CharacterAttribute currentAttribute = CharacterPreview.instance.GetCachedAttribute(CurrentCustomizerData.instance.currentAttributeType);
         currentAttribute.SetFlipX();
         currentAttribute.UpdateAttributeObject();

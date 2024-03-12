@@ -1,12 +1,14 @@
 using CharacterCustomizer;
 using UnityEngine;
 
-public class AttributeSpritePanelButton : PanelButton
+public class SpritePanelButton : PanelButton
 {
-    protected override void SelectedCallback()
+    public override void SelectButton()
     {
+        base.SelectButton();
+
         CharacterAttribute currentAttribute = CharacterPreview.instance.GetCachedAttribute(CurrentCustomizerData.instance.currentAttributeType);
-        currentAttribute.SetAssetName(this.panelButtonHelper.centerAttributeSprite.sprite.name);
+        currentAttribute.SetAssetName(this.centerAttributeSprite.sprite.name);
         currentAttribute.UpdateAttributeObject();
     }
 }

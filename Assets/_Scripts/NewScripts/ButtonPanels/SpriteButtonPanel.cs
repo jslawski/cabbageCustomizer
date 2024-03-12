@@ -170,7 +170,7 @@ public class SpriteButtonPanel : ButtonPanel
         {
             if (j < this._attributeSprites.Length)
             {
-                this.panelButtons[i].panelButtonHelper.centerAttributeSprite.sprite = this._attributeSprites[j];
+                this.panelButtons[i].centerAttributeSprite.sprite = this._attributeSprites[j];
 
                 if (this._attributeSprites[j].name == CurrentCustomizerData.instance.currentAttributeSettingsData.name)
                 {

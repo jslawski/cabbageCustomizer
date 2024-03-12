@@ -6,24 +6,45 @@ using UnityEngine.UI;
 
 public class PanelButton : Button
 {
-    public PanelButtonHelper panelButtonHelper;
+    public Image centerAttributeSprite;
+    public Image leftAttributeSprite;
+    public Image rightAttributeSprite;
+
+    [SerializeField]
+    protected Image buttonBackground_;
+    [SerializeField]
+    protected Image highlightBackground_;
+
+    [SerializeField]
+    protected Sprite normalSprite_;
+    [SerializeField]
+    protected Sprite highlightedSprite_;
+    [SerializeField]
+    protected Sprite pushedSprite_;
+
+    [SerializeField]
+    protected AudioClip onPointerEnterSound_;
+    [SerializeField]
+    protected AudioClip onPointerDownSound_;
+    [SerializeField]
+    protected AudioClip onPointerUpSound_;
 
     protected AudioChannelSettings sfxSettingsDefault_;
     protected AudioChannelSettings sfxSettingsRandomPitch_;
+
+    protected ButtonPanel buttonPanel_;
 
     protected override void Awake()
     {
         base.Awake();
 
-        this.panelButtonHelper = GetComponent<PanelButtonHelper>();
+        this.sfxSettingsDefault_ = new AudioChannelSettings(false, 1.0f, 1.0f, 0.5f, "SFX");
+        this.sfxSettingsRandomPitch_ = new AudioChannelSettings(false, 0.9f, 1.1f, 0.5f, "SFX");
 
-        this.sfxSettingsDefault_ = new AudioChannelSettings(false, 1.0f, 1.0f, 1.0f, "SFX");
-        this.sfxSettingsRandomPitch_ = new AudioChannelSettings(false, 0.9f, 1.1f, 1.0f, "SFX");
-
-        this.onClick.AddListener(this.SelectButton);
+        this.buttonPanel_ = GetComponentInParent<ButtonPanel>();
     }
 
-    public void Reveal()
+    public virtual void Reveal()
     {
         this.interactable = true;
         this.ChangeAnimationState("Appear");
@@ -37,17 +58,17 @@ public class PanelButton : Button
 
     public void EnableHighlight()
     {
-        if (this.panelButtonHelper.highlightBackground != null)
+        if (this.highlightBackground_ != null)
         {
-            this.panelButtonHelper.highlightBackground.enabled = true;
+            this.highlightBackground_.enabled = true;
         }
     }
 
     public void DisableHighlight()
     {
-        if (this.panelButtonHelper.highlightBackground != null)
+        if (this.highlightBackground_ != null)
         {
-            this.panelButtonHelper.highlightBackground.enabled = false;
+            this.highlightBackground_.enabled = false;
         }
     }
     
@@ -93,14 +114,14 @@ public class PanelButton : Button
 
         this.ChangeAnimationState("Hover");
 
-        if (this.panelButtonHelper.HighlightedSprite != null)
+        if (this.highlightedSprite_ != null)
         {
-            this.panelButtonHelper.buttonBackground.sprite = this.panelButtonHelper.HighlightedSprite;
+            this.buttonBackground_.sprite = this.highlightedSprite_;
         }
 
-        if (this.panelButtonHelper.onPointerEnterSound != null)
+        if (this.onPointerEnterSound_ != null)
         {
-            AudioManager.instance.Play(this.panelButtonHelper.onPointerEnterSound, this.sfxSettingsRandomPitch_);
+            AudioManager.instance.Play(this.onPointerEnterSound_, this.sfxSettingsRandomPitch_);
         }
     }
 
@@ -115,9 +136,9 @@ public class PanelButton : Button
         
         this.ChangeAnimationState("Neutral");
 
-        if (this.panelButtonHelper.NormalSprite != null)
+        if (this.normalSprite_ != null)
         {
-            this.panelButtonHelper.buttonBackground.sprite = this.panelButtonHelper.NormalSprite;
+            this.buttonBackground_.sprite = this.normalSprite_;
         }
     }
 
@@ -132,37 +153,32 @@ public class PanelButton : Button
 
         this.ChangeAnimationState("Push");
 
-        if (this.panelButtonHelper.PushedSprite != null)
+        if (this.pushedSprite_ != null)
         {
-            this.panelButtonHelper.buttonBackground.sprite = this.panelButtonHelper.PushedSprite;
+            this.buttonBackground_.sprite = this.pushedSprite_;
         }
 
-        if (this.panelButtonHelper.onPointerDownSound != null)
+        if (this.onPointerDownSound_ != null)
         {
-            AudioManager.instance.Play(this.panelButtonHelper.onPointerDownSound, this.sfxSettingsDefault_);
+            AudioManager.instance.Play(this.onPointerDownSound_, this.sfxSettingsDefault_);
         }
     }
 
-    public void SelectButton()
+    public virtual void SelectButton()
     {
         this.ChangeAnimationState("Neutral");
 
-        if (this.panelButtonHelper.NormalSprite != null)
+        if (this.normalSprite_ != null)
         {
-            this.panelButtonHelper.buttonBackground.sprite = this.panelButtonHelper.NormalSprite;
+            this.buttonBackground_.sprite = this.normalSprite_;
         }
 
-        if (this.panelButtonHelper.onPointerUpSound != null)
+        if (this.onPointerUpSound_ != null)
         {
-            AudioManager.instance.Play(this.panelButtonHelper.onPointerUpSound, this.sfxSettingsDefault_);
+            AudioManager.instance.Play(this.onPointerUpSound_, this.sfxSettingsDefault_);
         }
 
-        this.SelectedCallback();
-    }
-
-    protected virtual void SelectedCallback()
-    {
-
+        this.buttonPanel_.SelectPanelButton(this);
     }
 
     protected void ChangeAnimationState(string newState)
