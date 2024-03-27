@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -34,6 +35,9 @@ public class PanelButton : Button
 
     protected ButtonPanel buttonPanel_;
 
+    protected Queue<string> animationStateQueue_;
+    protected Coroutine animationCoroutine_;
+
     protected override void Awake()
     {
         base.Awake();
@@ -42,6 +46,13 @@ public class PanelButton : Button
         this.sfxSettingsRandomPitch_ = new AudioChannelSettings(false, 0.9f, 1.1f, 0.5f, "SFX");
 
         this.buttonPanel_ = GetComponentInParent<ButtonPanel>();
+
+        this.animationStateQueue_ = new Queue<string>();
+    }
+
+    protected void Update()
+    {
+        this.ProcessQueue();
     }
 
     public virtual void Reveal()
@@ -75,16 +86,8 @@ public class PanelButton : Button
     public void EnableButton()
     {
         this.interactable = true;
-
-        StartCoroutine(this.EnableButtonCoroutine());
     }
 
-    private IEnumerator EnableButtonCoroutine()
-    {
-        //Yield for one frame in case another Animation trigger is activated this frame
-        yield return null;
-        this.ChangeAnimationState("Enable");
-    }
 
     public void DisableButton(bool animatedDisable)
     {
@@ -92,15 +95,8 @@ public class PanelButton : Button
 
         if (animatedDisable == true)
         {
-            StartCoroutine(this.DisableButtonCoroutine());
+            this.ChangeAnimationState("Disable");
         }
-    }
-
-    private IEnumerator DisableButtonCoroutine()
-    {
-        //Yield for one frame in case another Animation trigger is activated this frame
-        yield return null;
-        this.ChangeAnimationState("Disable");
     }
 
     public override void OnPointerEnter(PointerEventData eventData)
@@ -183,15 +179,39 @@ public class PanelButton : Button
 
     protected void ChangeAnimationState(string newState)
     {
-        StartCoroutine(this.FireAnimationTrigger(newState));
+        this.QueueAnimation(newState);
+    }
+
+    protected void QueueAnimation(string newState)
+    {
+        this.animationStateQueue_.Enqueue(newState);
+    }
+
+    protected void ProcessQueue()
+    {
+        if (this.animationCoroutine_ == null && this.animationStateQueue_.Count > 0)
+        {
+            this.animationCoroutine_ = StartCoroutine(this.FireAnimationTrigger(this.animationStateQueue_.Dequeue()));
+        }
     }
 
     protected IEnumerator FireAnimationTrigger(string newState)
     {
+        
+        while (this.animator.IsInTransition(0) == true)
+        {
+            yield return null;
+        }
+    
         this.animator.SetTrigger(newState);
 
-        yield return new WaitForSeconds(0.5f);
+        while (this.animator.GetCurrentAnimatorStateInfo(0).IsName(newState) == false || this.animator.IsInTransition(0) == true)
+        {
+            yield return null;  
+        }
 
         this.animator.ResetTrigger(newState);
+
+        this.animationCoroutine_ = null;
     }
 }

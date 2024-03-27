@@ -140,7 +140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3304305947508673485, guid: 6fdb8636ab59cc54a8f10324e2b48ed6, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3304305947508673485, guid: 6fdb8636ab59cc54a8f10324e2b48ed6, type: 3}
       propertyPath: m_AnchorMax.x
@@ -659,6 +659,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EyebrowsAttributeButton
       objectReference: {fileID: 0}
+    - target: {fileID: 7846590506741869689, guid: 71eebaecb63f0924a86b8516c2d9aa01, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8605379393934064026, guid: 71eebaecb63f0924a86b8516c2d9aa01, type: 3}
       propertyPath: _attributeType
       value: 2
@@ -978,6 +982,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Accessory2AttributeButton
       objectReference: {fileID: 0}
+    - target: {fileID: 7846590506741869689, guid: 71eebaecb63f0924a86b8516c2d9aa01, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8605379393934064026, guid: 71eebaecb63f0924a86b8516c2d9aa01, type: 3}
       propertyPath: _attributeType
       value: 11
@@ -1248,6 +1256,10 @@ PrefabInstance:
     - target: {fileID: 7846590506741869689, guid: 71eebaecb63f0924a86b8516c2d9aa01, type: 3}
       propertyPath: m_Name
       value: Accessory1AttributeButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 7846590506741869689, guid: 71eebaecb63f0924a86b8516c2d9aa01, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8605379393934064026, guid: 71eebaecb63f0924a86b8516c2d9aa01, type: 3}
       propertyPath: _attributeType
@@ -1847,6 +1859,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 100262546}
     m_Modifications:
+    - target: {fileID: 1324486470417815657, guid: 4aeadcbf7c40c8b429294c26c8943591, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -2.9999695
+      objectReference: {fileID: 0}
     - target: {fileID: 2396409279638003466, guid: 4aeadcbf7c40c8b429294c26c8943591, type: 3}
       propertyPath: m_Name
       value: SpritePanelButton
@@ -2084,6 +2100,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Accessory3AttributeButton
       objectReference: {fileID: 0}
+    - target: {fileID: 7846590506741869689, guid: 71eebaecb63f0924a86b8516c2d9aa01, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8605379393934064026, guid: 71eebaecb63f0924a86b8516c2d9aa01, type: 3}
       propertyPath: _attributeType
       value: 12
@@ -2238,6 +2258,10 @@ PrefabInstance:
     - target: {fileID: 7846590506741869689, guid: 71eebaecb63f0924a86b8516c2d9aa01, type: 3}
       propertyPath: m_Name
       value: HeadpieceAttributeButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 7846590506741869689, guid: 71eebaecb63f0924a86b8516c2d9aa01, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8605379393934064026, guid: 71eebaecb63f0924a86b8516c2d9aa01, type: 3}
       propertyPath: _attributeType
@@ -2541,7 +2565,7 @@ PrefabInstance:
     - target: {fileID: 6081095351798619666, guid: a7e8a52737d38af43ba8d48b135138f8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 9178075776063375781}
     - target: {fileID: 6081095351798619666, guid: a7e8a52737d38af43ba8d48b135138f8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -3076,7 +3100,7 @@ PrefabInstance:
     - target: {fileID: 6081095351798619666, guid: a7e8a52737d38af43ba8d48b135138f8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 9178075776063375781}
     - target: {fileID: 6081095351798619666, guid: a7e8a52737d38af43ba8d48b135138f8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -3281,6 +3305,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MouthAttributeButton
       objectReference: {fileID: 0}
+    - target: {fileID: 7846590506741869689, guid: 71eebaecb63f0924a86b8516c2d9aa01, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8605379393934064026, guid: 71eebaecb63f0924a86b8516c2d9aa01, type: 3}
       propertyPath: _attributeType
       value: 9
@@ -3397,6 +3425,10 @@ PrefabInstance:
     - target: {fileID: 7846590506741869689, guid: 71eebaecb63f0924a86b8516c2d9aa01, type: 3}
       propertyPath: m_Name
       value: EyesAttributeButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 7846590506741869689, guid: 71eebaecb63f0924a86b8516c2d9aa01, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8605379393934064026, guid: 71eebaecb63f0924a86b8516c2d9aa01, type: 3}
       propertyPath: _attributeType
@@ -4368,6 +4400,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseAttributeButton
       objectReference: {fileID: 0}
+    - target: {fileID: 7846590506741869689, guid: 71eebaecb63f0924a86b8516c2d9aa01, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71eebaecb63f0924a86b8516c2d9aa01, type: 3}
 --- !u!1001 &9178075776063375779
@@ -4707,7 +4743,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3184470588684681600, guid: 046937ecf5404d644922f9dfe3237a6c, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3258482902492185244, guid: 046937ecf5404d644922f9dfe3237a6c, type: 3}
       propertyPath: m_Transition
