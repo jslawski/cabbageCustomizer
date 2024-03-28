@@ -10,6 +10,8 @@ public class CurrentCustomizerData : MonoBehaviour
     public AttributeType currentAttributeType;
     public AttributeSettingsData currentAttributeSettingsData;
 
+    public ButtonPanel currentSettingsPanel;
+
     public void Awake()
     {
         if (instance == null)
@@ -32,5 +34,18 @@ public class CurrentCustomizerData : MonoBehaviour
     {
         this.currentAttributeType = newAttributeType;
         this.currentAttributeSettingsData = AttributeSettings.CurrentSettings.GetAttributeSettingsData(newAttributeType);
+
+        this.currentSettingsPanel.Reveal();
+    }
+
+    public void SetCurrentAttributeSettingPanel(ButtonPanel newSettingsPanel)
+    {
+        if (this.currentSettingsPanel != null)
+        {
+            this.currentSettingsPanel.Hide();
+        }
+    
+        this.currentSettingsPanel = newSettingsPanel;
+        this.currentSettingsPanel.Reveal();
     }
 }

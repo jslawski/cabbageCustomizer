@@ -21,8 +21,6 @@ public class AttributeTypePanelButtonController : PanelButtonController
     protected override void ButtonClicked()
     {
         base.ButtonClicked();
-
-        Debug.LogError("Current Attribute: " + this._attributeType);
         
         CurrentCustomizerData.instance.SetCurrentAttributeType(this._attributeType);
     }
@@ -63,15 +61,7 @@ public class AttributeTypePanelButtonController : PanelButtonController
             leftSpriteName = AttributeSettings.CurrentSettings.GetAttributeSettingsData(AttributeType.EyeL).name;
             rightSpriteName = AttributeSettings.CurrentSettings.GetAttributeSettingsData(AttributeType.EyeR).name;
         }
-
-        if (leftSpriteName == "" && rightSpriteName == null)
-        {
-            this.centerSprite_.enabled = true;
-            this.leftSprite_.enabled = false;
-            this.rightSprite_.enabled = false;
-            this.centerSprite_.sprite = this._defaultSprite;
-        }
-
+        
         if (leftSpriteName != "")
         {
             this.leftSprite_.sprite = this.GetSpritesheetSprite(folderName, leftSpriteName);
@@ -79,7 +69,15 @@ public class AttributeTypePanelButtonController : PanelButtonController
         if (rightSpriteName != "")
         {
             this.rightSprite_.sprite = this.GetSpritesheetSprite(folderName, rightSpriteName);
-        }        
+        }
+
+        if (leftSpriteName == "" && rightSpriteName == "")
+        {
+            this.centerSprite_.enabled = true;
+            this.leftSprite_.enabled = false;
+            this.rightSprite_.enabled = false;
+            this.centerSprite_.sprite = this._defaultSprite;
+        }
     }
 
     private Sprite GetSpritesheetSprite(string folderName, string spriteName)

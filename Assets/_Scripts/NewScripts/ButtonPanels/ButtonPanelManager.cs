@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class ButtonPanelManager : MonoBehaviour
 {
-    public static ButtonPanelManager instance;
+/*    
+public static ButtonPanelManager instance;
 
     [SerializeField]
     private ButtonPanel[] _buttonPanels;
@@ -82,4 +83,5 @@ public class ButtonPanelManager : MonoBehaviour
             StartCoroutine(this.TransitionPanels(this.previousPanelIndices.Pop()));
         }
     }
+    */
 }

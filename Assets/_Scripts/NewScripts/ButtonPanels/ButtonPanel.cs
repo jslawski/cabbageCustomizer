@@ -10,26 +10,53 @@ public class ButtonPanel : MonoBehaviour
 
     protected PanelButtonController[] panelButtons_;
 
-    public bool displayNavigationPanel = false;
+    protected int selectedButtonIndex_;
     
-    protected void Awake()
+    public virtual void Reveal()
     {
         this.panelButtons_ = this._buttonsParent.GetComponentsInChildren<PanelButtonController>();
-    }
 
-    public virtual void DisplayPanel()
-    {
         for (int i = 0; i < this.panelButtons_.Length; i++)
         {
             this.panelButtons_[i].Reveal();
         }
+
+        this.RevealCallback();
     }
 
-    public virtual void HidePanel()
+    public virtual void Hide()
     {
         for (int i = 0; i < this.panelButtons_.Length; i++)
         {
             this.panelButtons_[i].Hide();
         }
+
+        this.HideCallback();
     }
+
+    protected void HighlightButtonAtIndex(int index)
+    {
+        for (int i = 0; i < this.panelButtons_.Length; i++)
+        {
+            if (i == index)
+            {
+                this.panelButtons_[i].HighlightButton();
+            }
+            else
+            {
+                this.panelButtons_[i].UnhighlightButton();
+            }
+        }
+    }
+
+    public virtual void ButtonSelected(PanelButtonController selectedButton) 
+    {
+        this.selectedButtonIndex_ = Array.FindIndex<PanelButtonController>(this.panelButtons_, (x => x == selectedButton));
+    }
+
+    protected virtual void RevealCallback() { }
+
+    protected virtual void HideCallback() { }
+
+    
 }

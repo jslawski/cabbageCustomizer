@@ -1,110 +1,39 @@
 using System;
 using System.Linq;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using CharacterCustomizer;
 
 public class SpriteButtonPanel : ButtonPanel
-{    
-/*    
-private PageButtonPanel _pageButtonPanel;
-
+{
     private Sprite[] _attributeSprites;
 
-    private float timeBetweenPageChanges = 0.6f;
-
-    public override void DisplayPanel()
-    {
-        this._pageButtonPanel = GetComponentInChildren<PageButtonPanel>();    
+    private PageButtonPanel _pageButtonPanel;
     
-        this.LoadAttributeSprites();
+    public override void Reveal()
+    {
+        base.Reveal();
 
-        this.DisplayPageButtonPanel();
+        this._pageButtonPanel = GetComponentInChildren<PageButtonPanel>();
 
+        this.Setup();
+    }
+
+    private void Setup()
+    {
+        this.LoadAttributeSpritesArray();
+        this.SetupPageButtonPanel();
         this.UpdateButtonSprites();
-
-        StartCoroutine(this.RevealSpriteButtons());
     }
 
-    private void DisplayPageButtonPanel()
+    private void HideSpriteButtons()
     {
-        int startingPageIndex = 0;
-
-        if (CurrentCustomizerData.instance.IsSingleAttribute() == true)
+        for (int i = 0; i < this.panelButtons_.Length; i++)
         {
-            startingPageIndex = this.GetSingleAttributePage(CurrentCustomizerData.instance.currentAttributeSettingsData.name);
-        }
-        else
-        {
-            startingPageIndex = this.GetDoubleAttributePage(CurrentCustomizerData.instance.currentAttributeSettingsData.name);
-        }
-
-        int maxPages = Mathf.FloorToInt(this._attributeSprites.Length / this.panelButtons.Length);
-
-        this._pageButtonPanel.SetupPageButtons(startingPageIndex, maxPages);
-        this._pageButtonPanel.DisplayPanel();
-    }
-
-    public override void HidePanel()
-    {
-        base.HidePanel();    
-
-        this._pageButtonPanel.HidePanel();
-    }
-
-    private void TemporarilyHidePanel()
-    {
-        StartCoroutine(this.HideSpriteButtons());
-    }
-
-    private IEnumerator RevealSpriteButtons()
-    {
-        int startingSpriteIndex = this._pageButtonPanel.currentPage * this.panelButtons.Length;
-
-        for (int i = 0, j = startingSpriteIndex; i < this.panelButtons.Length; i++, j++)
-        {
-            if (j < this._attributeSprites.Length)
-            {
-                this.panelButtons[i].Reveal();
-
-                yield return new WaitForSeconds(this.updatePanelSpeed_);
-            }
-        }
-
-        this.RevealButtonsCallback();
-    }
-
-    protected override void RevealButtonsCallback()
-    {
-        int startingSpriteIndex = this._pageButtonPanel.previousPage * this.panelButtons.Length;
-
-        for (int i = 0, j = startingSpriteIndex; i < this.panelButtons.Length; i++, j++)
-        {
-            if (j < this._attributeSprites.Length)
-            {
-                this.panelButtons[i].EnableButton();
-            }
+            this.panelButtons_[i].Hide();
         }
     }
 
-    private IEnumerator HideSpriteButtons()
-    {
-        int startingSpriteIndex = this._pageButtonPanel.previousPage * this.panelButtons.Length;
-
-        for (int i = 0, j = startingSpriteIndex; i < this.panelButtons.Length; i++, j++)
-        {
-            if (j < this._attributeSprites.Length)
-            {
-                this.panelButtons[i].Hide();
-
-                yield return new WaitForSeconds(this.updatePanelSpeed_);
-            }
-        }
-    }
-
-    private void LoadAttributeSprites()
+    private void LoadAttributeSpritesArray()
     {
         switch (CurrentCustomizerData.instance.currentAttributeType)
         {
@@ -138,58 +67,55 @@ private PageButtonPanel _pageButtonPanel;
             default:
                 Debug.LogError("Error: Unknown AttributeType: " + CurrentCustomizerData.instance.currentAttributeType);
                 break;
-        }        
+        }
     }
 
-    private int GetSingleAttributePage(string spriteName)
+    private void SetupPageButtonPanel()
+    {
+        int startingPageIndex = 0;
+        int maxPages = 0;
+
+        this._pageButtonPanel.Reveal();
+
+        if (CurrentCustomizerData.instance.IsSingleAttribute() == true)
+        {
+            startingPageIndex = this.GetSingleAttributeStartingPageIndex(CurrentCustomizerData.instance.currentAttributeSettingsData.name);
+            maxPages = Mathf.FloorToInt(this._attributeSprites.Length / this.panelButtons_.Length);
+        }
+        else
+        {
+            startingPageIndex = this.GetDoubleAttributeStartingPageIndex(CurrentCustomizerData.instance.currentAttributeSettingsData.name);
+            maxPages = Mathf.FloorToInt((this._attributeSprites.Length / 2) / this.panelButtons_.Length);
+        }
+
+        this._pageButtonPanel.Setup(startingPageIndex, maxPages);
+    }
+
+    private int GetSingleAttributeStartingPageIndex(string spriteName)
     {
         if (spriteName == string.Empty)
         {
             return 0;
         }
-    
+
         Sprite targetSprite = this._attributeSprites.First(attSprite => attSprite.name == spriteName);
         int targetIndex = Array.IndexOf(this._attributeSprites, targetSprite);
 
-        int pageIndex = Mathf.FloorToInt(targetIndex / this.panelButtons.Length);
+        int pageIndex = Mathf.FloorToInt(targetIndex / this.panelButtons_.Length);
 
         return pageIndex;
     }
 
-    private int GetDoubleAttributePage(string spriteName)
+    private int GetDoubleAttributeStartingPageIndex(string spriteName)
     {
+        Debug.LogError("TODO: DO THIS LATER!");
         return 0;
-    }
-
-    private void UpdateSingleAttributeButtonSprites()
-    {
-        int startingSpriteIndex = this._pageButtonPanel.currentPage * this.panelButtons.Length;
-
-        int equippedIndex = -1;
-
-        for (int i = 0, j = startingSpriteIndex; i < this.panelButtons.Length; i++, j++)
-        {
-            if (j < this._attributeSprites.Length)
-            {
-                this.panelButtons[i].centerAttributeSprite.sprite = this._attributeSprites[j];
-
-                if (this._attributeSprites[j].name == CurrentCustomizerData.instance.currentAttributeSettingsData.name)
-                {
-                    equippedIndex = i;
-                }
-            }
-        }
-
-        this.HighlightButtonAtIndex(equippedIndex);
-    }
-
-    private void UpdateDoubleAttributeButtonSprites()
-    {
-
     }
 
     private void UpdateButtonSprites()
     {
+        this.HideSpriteButtons();
+   
         if (CurrentCustomizerData.instance.IsSingleAttribute() == true)
         {
             this.UpdateSingleAttributeButtonSprites();
@@ -198,35 +124,60 @@ private PageButtonPanel _pageButtonPanel;
         {
             this.UpdateDoubleAttributeButtonSprites();
         }
+        
     }
 
-    public void UpdateSpriteButtons(bool nextPressed)
+    private void UpdateSingleAttributeButtonSprites()
     {
-        if (nextPressed == true)
+        int startingSpriteIndex = this._pageButtonPanel.currentPage * this.panelButtons_.Length;
+
+        int equippedIndex = -1;
+
+        for (int i = 0, j = startingSpriteIndex; i < this.panelButtons_.Length; i++, j++)
         {
-            this.buttonDisplayOrigin = DisplayOrigin.UpperRight;
-        }
-        else
-        {
-            this.buttonDisplayOrigin = DisplayOrigin.UpperLeft;
+            if (j < this._attributeSprites.Length)
+            {                
+                this.panelButtons_[i].UpdateCenterSprite(this._attributeSprites[j]);
+
+                if (this._attributeSprites[j].name == CurrentCustomizerData.instance.currentAttributeSettingsData.name)
+                {
+                    equippedIndex = i;
+                }
+
+                this.panelButtons_[i].Reveal();
+            }
         }
 
-        this.ReorderButtons();
-
-        StartCoroutine(this.UpdateSpriteButtonsCoroutine());
+        this.HighlightButtonAtIndex(equippedIndex);
     }
 
-    private IEnumerator UpdateSpriteButtonsCoroutine()
+    private void UpdateDoubleAttributeButtonSprites()
     {
-        //Hide
-        StartCoroutine(this.HideSpriteButtons());
+        int startingSpriteIndex = this._pageButtonPanel.currentPage * this.panelButtons_.Length;
 
-        yield return new WaitForSeconds(this.timeBetweenPageChanges);
+        int equippedIndex = -1;
 
+        for (int i = 0, j = startingSpriteIndex; i < (this.panelButtons_.Length - 1); i++, j++)
+        {
+            if (j < (this._attributeSprites.Length - 1))
+            {
+                this.panelButtons_[i].UpdateLeftRightSprite(this._attributeSprites[j], this._attributeSprites[j+1]);
+
+                //TODO: This is incorrect for double attributes.  Fix it.
+                /*
+                if (this._attributeSprites[j].name == CurrentCustomizerData.instance.currentAttributeSettingsData.name)
+                {
+                    equippedIndex = i;
+                }
+                */
+            }
+        }
+
+        this.HighlightButtonAtIndex(equippedIndex);
+    }
+
+    public void PageUpdated()
+    {
         this.UpdateButtonSprites();
-
-        //Reveal
-        StartCoroutine(this.RevealSpriteButtons());
     }
-    */
 }

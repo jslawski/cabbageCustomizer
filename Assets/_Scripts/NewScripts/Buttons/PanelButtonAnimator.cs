@@ -6,12 +6,7 @@ using UnityEngine.UI;
 
 public class PanelButtonAnimator : MonoBehaviour
 {
-    private Button _button;
-
-    private void Awake()
-    {
-        this._button = GetComponent<Button>();
-    }
+    private Image[] buttonImages;
 
     public void PlayRevealAnimation(Action revealCompletedCallback)
     {
@@ -20,8 +15,13 @@ public class PanelButtonAnimator : MonoBehaviour
 
     private IEnumerator RevealAnimation(Action revealCompletedCallback)
     {
-        this._button.enabled = true;
-    
+        Image[] buttonImages = GetComponentsInChildren<Image>(true);
+
+        for (int i = 0; i < buttonImages.Length; i++)
+        {
+            buttonImages[i].enabled = true;
+        }
+
         yield return null; //Wait for animation to complete
 
         revealCompletedCallback();
@@ -34,7 +34,12 @@ public class PanelButtonAnimator : MonoBehaviour
 
     private IEnumerator HideAnimation(Action hideCompletedCallback)
     {
-        this._button.enabled = false;    
+        Image[] buttonImages = GetComponentsInChildren<Image>(true);
+
+        for (int i = 0; i < buttonImages.Length; i++)
+        {
+            buttonImages[i].enabled = false;
+        }
 
         yield return null; //Wait for animation to complete
 
