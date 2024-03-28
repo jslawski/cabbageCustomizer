@@ -8,6 +8,9 @@ public class AttributeTypePanelButtonController : PanelButtonController
     [SerializeField]
     private AttributeType _attributeType;
 
+    [SerializeField]
+    private Sprite _defaultSprite;
+
     public override void Reveal()
     {
         base.Reveal();
@@ -53,28 +56,47 @@ public class AttributeTypePanelButtonController : PanelButtonController
             folderName += "Eyebrows/";
             leftSpriteName = AttributeSettings.CurrentSettings.GetAttributeSettingsData(AttributeType.EyebrowL).name;
             rightSpriteName = AttributeSettings.CurrentSettings.GetAttributeSettingsData(AttributeType.EyebrowR).name;
-            Debug.LogError("Left Eyebrow Sprite Name: " + leftSpriteName);
-            Debug.LogError("Right Eyebrow Sprite Name: " + rightSpriteName);
         }
         else if (this._attributeType == AttributeType.Eyes)
         {
             folderName += "Eyes/";
             leftSpriteName = AttributeSettings.CurrentSettings.GetAttributeSettingsData(AttributeType.EyeL).name;
             rightSpriteName = AttributeSettings.CurrentSettings.GetAttributeSettingsData(AttributeType.EyeR).name;
-            Debug.LogError("Left Eye Sprite Name: " + leftSpriteName);
-            Debug.LogError("Right Eye Sprite Name: " + rightSpriteName);
+        }
+
+        if (leftSpriteName == "" && rightSpriteName == null)
+        {
+            this.centerSprite_.enabled = true;
+            this.leftSprite_.enabled = false;
+            this.rightSprite_.enabled = false;
+            this.centerSprite_.sprite = this._defaultSprite;
         }
 
         if (leftSpriteName != "")
         {
-            Debug.LogError("Left Directory: " + folderName + leftSpriteName);
-            this.leftSprite_.sprite = Resources.Load<Sprite>(folderName + leftSpriteName);
-        }
+            this.leftSprite_.sprite = this.GetSpritesheetSprite(folderName, leftSpriteName);
+        }        
         if (rightSpriteName != "")
         {
-            Debug.LogError("Right Directory: " + folderName + rightSpriteName);
-            this.rightSprite_.sprite = Resources.Load<Sprite>(folderName + rightSpriteName);
+            this.rightSprite_.sprite = this.GetSpritesheetSprite(folderName, rightSpriteName);
+        }        
+    }
+
+    private Sprite GetSpritesheetSprite(string folderName, string spriteName)
+    {
+        string[] spriteInfo = spriteName.Split("_");
+
+        Sprite[] spritesheet = Resources.LoadAll<Sprite>(folderName + spriteInfo[0]);
+
+        for (int i = 0; i < spritesheet.Length; i++)
+        {
+            if (spritesheet[i].name == spriteName)
+            {
+                return spritesheet[i];
+            }
         }
+
+        return null;
     }
 
     private void SetSingleAttributeSprite()
@@ -82,10 +104,9 @@ public class AttributeTypePanelButtonController : PanelButtonController
         string folderName = "CharacterCreator/";
         string spriteName = AttributeSettings.CurrentSettings.GetAttributeSettingsData(this._attributeType).name;
 
-        Debug.LogError(this._attributeType.ToString() + " Sprite Name: " + spriteName);
-
         if (spriteName == "")
         {
+            this.centerSprite_.sprite = this._defaultSprite;
             return;
         }
 
