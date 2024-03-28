@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 using CharacterCustomizer;
+using System.Collections;
 
 public class TwitchAuth : MonoBehaviour
 {
@@ -87,9 +88,21 @@ public class TwitchAuth : MonoBehaviour
     {
         this.LoadUserData(data);
 
+        StartCoroutine(this.LoadMainCanvas());
+    }
+
+
+    //There needs to be a frame delay between loading the character preview and
+    //loading the button canvas because we need a cycle to properly load the 
+    //AttributeSettings data so that the buttons display the proper attribute sprites
+    private IEnumerator LoadMainCanvas()
+    {
         this.loginButton.gameObject.SetActive(false);
-        this.characterCanvas.SetActive(true);
         this.characterPreview.SetActive(true);
+
+        yield return null;
+
+        this.characterCanvas.SetActive(true);
     }
 
     private void GetUserDataFailure()

@@ -5,7 +5,7 @@ using CharacterCustomizer;
 
 public class AttributeTypePanelButton : PanelButton
 {
-
+/*
     [SerializeField]
     private AttributeType _attributeType;
 
@@ -80,4 +80,5 @@ public class AttributeTypePanelButton : PanelButton
         }
         
     }
+    */
 }

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PageButtonPanel : ButtonPanel
 {
-    public int previousPage;
+/*    
+public int previousPage;
     public int currentPage;
 
     private int _maxPages;
@@ -61,4 +62,5 @@ public class PageButtonPanel : ButtonPanel
 
         this.UpdatePageButtons();
     }
+    */
 }

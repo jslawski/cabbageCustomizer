@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class AttributeSettingsPanelButton : PanelButton
 {
-    [SerializeField]
+/*    
+[SerializeField]
     private int _targetPanel;
 
     public override void SelectButton()
@@ -13,4 +14,5 @@ public class AttributeSettingsPanelButton : PanelButton
 
         ButtonPanelManager.instance.DisplayNewPanel(this._targetPanel);
     }
+    */
 }

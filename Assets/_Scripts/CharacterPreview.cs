@@ -26,7 +26,7 @@ public class CharacterPreview : MonoBehaviour
 
     private void Start()
     {
-        this.Initialize();        
+        this.Initialize();
     }
 
     private void Initialize()

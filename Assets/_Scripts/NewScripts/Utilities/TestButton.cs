@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class TestButton : MonoBehaviour
 {
-    [SerializeField]
+/*    
+[SerializeField]
     private PanelButton _panelButton;
    
     // Update is called once per frame
@@ -27,4 +28,5 @@ public class TestButton : MonoBehaviour
             this._panelButton.DisableButton(true);
         }
     }
+    */
 }

@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class SpritePanelButton : PanelButton
 {
-    public override void SelectButton()
+/*    
+public override void SelectButton()
     {
         base.SelectButton();
 
@@ -11,4 +12,5 @@ public class SpritePanelButton : PanelButton
         currentAttribute.SetAssetName(this.centerAttributeSprite.sprite.name);
         currentAttribute.UpdateAttributeObject();
     }
+    */
 }

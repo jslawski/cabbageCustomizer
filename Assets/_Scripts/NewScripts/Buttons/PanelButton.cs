@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class PanelButton : Button
 {
+    /*
     public Image centerAttributeSprite;
     public Image leftAttributeSprite;
     public Image rightAttributeSprite;
@@ -214,4 +215,5 @@ public class PanelButton : Button
 
         this.animationCoroutine_ = null;
     }
+    */
 }

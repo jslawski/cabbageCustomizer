@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class FlipXPanelButton : PanelButton
 {
-    public override void SelectButton()
+/*   
+public override void SelectButton()
     {
         base.SelectButton();
         CharacterAttribute currentAttribute = CharacterPreview.instance.GetCachedAttribute(CurrentCustomizerData.instance.currentAttributeType);
         currentAttribute.SetFlipX();
         currentAttribute.UpdateAttributeObject();
     }
+    */
 }

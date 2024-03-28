@@ -8,7 +8,8 @@ using CharacterCustomizer;
 
 public class SpriteButtonPanel : ButtonPanel
 {    
-    private PageButtonPanel _pageButtonPanel;
+/*    
+private PageButtonPanel _pageButtonPanel;
 
     private Sprite[] _attributeSprites;
 
@@ -227,4 +228,5 @@ public class SpriteButtonPanel : ButtonPanel
         //Reveal
         StartCoroutine(this.RevealSpriteButtons());
     }
+    */
 }

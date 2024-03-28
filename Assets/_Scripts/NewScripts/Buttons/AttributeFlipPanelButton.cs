@@ -3,7 +3,8 @@ using CharacterCustomizer;
 
 public class AttributeFlipPanelButton : PanelButton
 {
-    [SerializeField]
+/*    
+[SerializeField]
     private bool _flipX;
     [SerializeField]
     private bool _flipY;
@@ -25,4 +26,5 @@ public class AttributeFlipPanelButton : PanelButton
         
         currentAttribute.UpdateAttributeObject();
     }
+    */
 }
