@@ -104,7 +104,7 @@ public class TwitchAuth : MonoBehaviour
 
         this.characterCanvas.SetActive(true);
 
-        CurrentCustomizerData.instance.currentSettingsPanel.Reveal();
+        //CurrentCustomizerData.instance.currentSettingsPanel.Reveal();
     }
 
     private void GetUserDataFailure()

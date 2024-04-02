@@ -6,10 +6,10 @@ using CharacterCustomizer;
 public class AttributeTypePanelButtonController : PanelButtonController
 {
     [SerializeField]
-    private AttributeType _attributeType;
+    protected AttributeType attributeType_;
 
     [SerializeField]
-    private Sprite _defaultSprite;
+    protected Sprite defaultSprite_;
 
     public override void Reveal()
     {
@@ -22,93 +22,29 @@ public class AttributeTypePanelButtonController : PanelButtonController
     {
         base.ButtonClicked();
         
-        CurrentCustomizerData.instance.SetCurrentAttributeType(this._attributeType);
+        CurrentCustomizerData.instance.SetCurrentAttributeType(this.attributeType_);
     }
 
-    private void SetEquippedAttributeSprite()
+    protected virtual void SetEquippedAttributeSprite()
     {
-        if (this._attributeType == AttributeType.Eyebrows || this._attributeType == AttributeType.Eyes)
-        {
-            this.centerSprite_.enabled = false;
-            this.leftSprite_.enabled = true;
-            this.rightSprite_.enabled = true;
-            this.SetDoubleAttributeSprites();
-        }
-        else
-        {
-            this.centerSprite_.enabled = true;
-            this.leftSprite_.enabled = false;
-            this.rightSprite_.enabled = false;
-            this.SetSingleAttributeSprite();
-        }
+        this.centerSprite_.enabled = true;
+        this.leftSprite_.enabled = false;
+        this.rightSprite_.enabled = false;
+        this.SetAttributeSprite();
     }
 
-    private void SetDoubleAttributeSprites()
+    protected virtual void SetAttributeSprite()
     {
         string folderName = "CharacterCreator/";
-        string leftSpriteName = "";
-        string rightSpriteName = "";
-
-        if (this._attributeType == AttributeType.Eyebrows)
-        {
-            folderName += "Eyebrows/";
-            leftSpriteName = AttributeSettings.CurrentSettings.GetAttributeSettingsData(AttributeType.EyebrowL).name;
-            rightSpriteName = AttributeSettings.CurrentSettings.GetAttributeSettingsData(AttributeType.EyebrowR).name;
-        }
-        else if (this._attributeType == AttributeType.Eyes)
-        {
-            folderName += "Eyes/";
-            leftSpriteName = AttributeSettings.CurrentSettings.GetAttributeSettingsData(AttributeType.EyeL).name;
-            rightSpriteName = AttributeSettings.CurrentSettings.GetAttributeSettingsData(AttributeType.EyeR).name;
-        }
-        
-        if (leftSpriteName != "")
-        {
-            this.leftSprite_.sprite = this.GetSpritesheetSprite(folderName, leftSpriteName);
-        }        
-        if (rightSpriteName != "")
-        {
-            this.rightSprite_.sprite = this.GetSpritesheetSprite(folderName, rightSpriteName);
-        }
-
-        if (leftSpriteName == "" && rightSpriteName == "")
-        {
-            this.centerSprite_.enabled = true;
-            this.leftSprite_.enabled = false;
-            this.rightSprite_.enabled = false;
-            this.centerSprite_.sprite = this._defaultSprite;
-        }
-    }
-
-    private Sprite GetSpritesheetSprite(string folderName, string spriteName)
-    {
-        string[] spriteInfo = spriteName.Split("_");
-
-        Sprite[] spritesheet = Resources.LoadAll<Sprite>(folderName + spriteInfo[0]);
-
-        for (int i = 0; i < spritesheet.Length; i++)
-        {
-            if (spritesheet[i].name == spriteName)
-            {
-                return spritesheet[i];
-            }
-        }
-
-        return null;
-    }
-
-    private void SetSingleAttributeSprite()
-    {
-        string folderName = "CharacterCreator/";
-        string spriteName = AttributeSettings.CurrentSettings.GetAttributeSettingsData(this._attributeType).name;
+        string spriteName = AttributeSettings.CurrentSettings.GetAttributeSettingsData(this.attributeType_).name;
 
         if (spriteName == "")
         {
-            this.centerSprite_.sprite = this._defaultSprite;
+            this.centerSprite_.sprite = this.defaultSprite_;
             return;
         }
 
-        switch (this._attributeType)
+        switch (this.attributeType_)
         {
             case AttributeType.BaseCabbage:
                 folderName += "Base/";
@@ -128,7 +64,7 @@ public class AttributeTypePanelButtonController : PanelButtonController
                 folderName += "Accessory/";
                 break;
             default:
-                Debug.LogError("Unknown AttributeType: " + this._attributeType);
+                Debug.LogError("Unknown AttributeType: " + this.attributeType_);
                 break;
         }
         

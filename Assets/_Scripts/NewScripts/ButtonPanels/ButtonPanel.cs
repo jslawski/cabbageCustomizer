@@ -14,7 +14,7 @@ public class ButtonPanel : MonoBehaviour
     
     public virtual void Reveal()
     {
-        this.panelButtons_ = this._buttonsParent.GetComponentsInChildren<PanelButtonController>();
+        this.panelButtons_ = this._buttonsParent.GetComponentsInChildren<PanelButtonController>(true);
 
         for (int i = 0; i < this.panelButtons_.Length; i++)
         {
