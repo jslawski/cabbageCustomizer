@@ -15,6 +15,8 @@ public class AttributeTypeButtonModel : MonoBehaviour
     [HideInInspector]    
     public bool isSelected = false;
     [HideInInspector]
+    public bool isEquipped = false;
+    [HideInInspector]
     public Sprite leftSprite;
     [HideInInspector]
     public Sprite rightSprite;

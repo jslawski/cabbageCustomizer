@@ -72,10 +72,13 @@ public class AttributeTypeButtonController : MonoBehaviour
     {
         string folderName = "CharacterCreator/";
 
+        this._model.isEquipped = true;
+
         if (spriteName == "")
         {
+            this._model.isEquipped = false;
             return this._model.defaultSprite;
-        }
+        }        
 
         switch (this._model.attributeType)
         {
@@ -83,10 +86,12 @@ public class AttributeTypeButtonController : MonoBehaviour
                 return (Resources.Load<Sprite>(folderName + "Base/" + spriteName));
             case AttributeType.Headpiece:
                 return (Resources.Load<Sprite>(folderName + "Headpiece/" + spriteName));
+            case AttributeType.Eyebrows:
             case AttributeType.EyebrowL:
             case AttributeType.EyebrowR:
                 folderName += "Eyebrows/";
                 return this.GetSpritesheetSprite(folderName, spriteName);
+            case AttributeType.Eyes:
             case AttributeType.EyeL:
             case AttributeType.EyeR:
                 folderName += "Eyes/";
@@ -101,6 +106,7 @@ public class AttributeTypeButtonController : MonoBehaviour
                 return (Resources.Load<Sprite>(folderName + "Accessory/" + spriteName));
             default:
                 Debug.LogError("Unknown AttributeType: " + this._model.attributeType);
+                this._model.isEquipped = false;
                 return this._model.defaultSprite;
         }
     }
@@ -111,6 +117,8 @@ public class AttributeTypeButtonController : MonoBehaviour
 
         Sprite[] spritesheet = Resources.LoadAll<Sprite>(folderName + spriteInfo[0]);
 
+        this._model.isEquipped = true;
+
         for (int i = 0; i < spritesheet.Length; i++)
         {
             if (spritesheet[i].name == spriteName)
@@ -119,7 +127,9 @@ public class AttributeTypeButtonController : MonoBehaviour
             }
         }
 
-        return null;
+        this._model.isEquipped = false;
+
+        return this._model.defaultSprite;
     }
 
     public void RefreshView()

@@ -29,11 +29,17 @@ public class AttributeTypePanelView : MonoBehaviour
             this._model.allButtonControllers[i].RefreshView();
 
         }
-        return;
-        this._model.eyebrowsLeftRightButtonControllers[0].SetVisibleStatus(this._model.showEyebrowsButtons);
-        this._model.eyebrowsLeftRightButtonControllers[1].SetVisibleStatus(this._model.showEyebrowsButtons);
 
-        this._model.eyesLeftRightButtonControllers[0].SetVisibleStatus(this._model.showEyesButtons);
-        this._model.eyesLeftRightButtonControllers[1].SetVisibleStatus(this._model.showEyesButtons);
+        for (int i = 0; i < this._model.eyebrowsLeftRightButtonControllers.Length; i++)
+        {
+            this._model.eyebrowsLeftRightButtonControllers[i].SetVisibleStatus(this._model.showEyebrowsButtons);
+            this._model.eyebrowsLeftRightButtonControllers[i].RefreshView();
+        }
+
+        for (int i = 0; i < this._model.eyesLeftRightButtonControllers.Length; i++)
+        {
+            this._model.eyesLeftRightButtonControllers[i].SetVisibleStatus(this._model.showEyesButtons);
+            this._model.eyesLeftRightButtonControllers[i].RefreshView();
+        }
     }
 }

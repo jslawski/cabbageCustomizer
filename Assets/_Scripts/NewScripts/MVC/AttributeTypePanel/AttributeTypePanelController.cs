@@ -22,9 +22,14 @@ public class AttributeTypePanelController : MonoBehaviour
     public void ButtonClicked(AttributeTypeButtonController selectedButton)
     {
         this._model.selectedButton = selectedButton;
-    
-        this._model.showEyebrowsButtons = (CurrentCustomizerData.instance.currentAttributeType == AttributeType.Eyebrows);    
-        this._model.showEyesButtons = (CurrentCustomizerData.instance.currentAttributeType == AttributeType.Eyes);
+
+        this._model.showEyebrowsButtons = (CurrentCustomizerData.instance.currentAttributeType == AttributeType.Eyebrows ||
+                                            CurrentCustomizerData.instance.currentAttributeType == AttributeType.EyebrowL ||
+                                            CurrentCustomizerData.instance.currentAttributeType == AttributeType.EyebrowR);
+
+        this._model.showEyesButtons = (CurrentCustomizerData.instance.currentAttributeType == AttributeType.Eyes ||
+                                        CurrentCustomizerData.instance.currentAttributeType == AttributeType.EyeL ||
+                                        CurrentCustomizerData.instance.currentAttributeType == AttributeType.EyeR);
 
         this.RefreshView();
     }
