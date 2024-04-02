@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using CharacterCustomizer;
 
@@ -20,20 +18,20 @@ public class AttributeTypeButtonController : MonoBehaviour
         {
             string leftSpriteName = AttributeSettings.CurrentSettings.GetAttributeSettingsData(AttributeType.EyebrowL).name;
             string rightSpriteName = AttributeSettings.CurrentSettings.GetAttributeSettingsData(AttributeType.EyebrowR).name;
-            this.SetLeftSprite(this.GetSprite(leftSpriteName));
-            this.SetRightSprite(this.GetSprite(rightSpriteName));
+            this.SetLeftSprite(AttributeAssetManager.GetAttributeSprite(AttributeType.EyebrowL, leftSpriteName));
+            this.SetRightSprite(AttributeAssetManager.GetAttributeSprite(AttributeType.EyebrowR, rightSpriteName));
         }
         else if (this._model.attributeType == AttributeType.Eyes)
         {
             string leftSpriteName = AttributeSettings.CurrentSettings.GetAttributeSettingsData(AttributeType.EyeL).name;
             string rightSpriteName = AttributeSettings.CurrentSettings.GetAttributeSettingsData(AttributeType.EyeR).name;
-            this.SetLeftSprite(this.GetSprite(leftSpriteName));
-            this.SetRightSprite(this.GetSprite(rightSpriteName));
+            this.SetLeftSprite(AttributeAssetManager.GetAttributeSprite(AttributeType.EyeL, leftSpriteName));
+            this.SetRightSprite(AttributeAssetManager.GetAttributeSprite(AttributeType.EyeR, rightSpriteName));
         }
         else
         {
             string spriteName = AttributeSettings.CurrentSettings.GetAttributeSettingsData(this._model.attributeType).name;
-            this.SetCenterSprite(this.GetSprite(spriteName));
+            this.SetCenterSprite(AttributeAssetManager.GetAttributeSprite(this._model.attributeType, spriteName));
         }
     }
 
@@ -56,80 +54,19 @@ public class AttributeTypeButtonController : MonoBehaviour
     public void SetLeftSprite(Sprite newSprite)
     {
         this._model.leftSprite = newSprite;
+        this._model.isEquipped = (newSprite != null);        
     }
 
     public void SetRightSprite(Sprite newSprite)
     {
         this._model.rightSprite = newSprite;
+        this._model.isEquipped = (newSprite != null);
     }
 
     public void SetCenterSprite(Sprite newSprite)
     {
         this._model.centerSprite = newSprite;
-    }
-
-    private Sprite GetSprite(string spriteName)
-    {
-        string folderName = "CharacterCreator/";
-
-        this._model.isEquipped = true;
-
-        if (spriteName == "")
-        {
-            this._model.isEquipped = false;
-            return this._model.defaultSprite;
-        }        
-
-        switch (this._model.attributeType)
-        {
-            case AttributeType.BaseCabbage:
-                return (Resources.Load<Sprite>(folderName + "Base/" + spriteName));
-            case AttributeType.Headpiece:
-                return (Resources.Load<Sprite>(folderName + "Headpiece/" + spriteName));
-            case AttributeType.Eyebrows:
-            case AttributeType.EyebrowL:
-            case AttributeType.EyebrowR:
-                folderName += "Eyebrows/";
-                return this.GetSpritesheetSprite(folderName, spriteName);
-            case AttributeType.Eyes:
-            case AttributeType.EyeL:
-            case AttributeType.EyeR:
-                folderName += "Eyes/";
-                return this.GetSpritesheetSprite(folderName, spriteName);
-            case AttributeType.Nose:
-                return (Resources.Load<Sprite>(folderName + "Nose/" + spriteName));
-            case AttributeType.Mouth:
-                return (Resources.Load<Sprite>(folderName + "Mouth/" + spriteName));
-            case AttributeType.Acc1:
-            case AttributeType.Acc2:
-            case AttributeType.Acc3:
-                return (Resources.Load<Sprite>(folderName + "Accessory/" + spriteName));
-            default:
-                Debug.LogError("Unknown AttributeType: " + this._model.attributeType);
-                this._model.isEquipped = false;
-                return this._model.defaultSprite;
-        }
-    }
-
-    private Sprite GetSpritesheetSprite(string folderName, string spriteName)
-    {
-        string[] spriteInfo = spriteName.Split("_");
-
-        Sprite[] spritesheet = Resources.LoadAll<Sprite>(folderName + spriteInfo[0]);
-
-        this._model.isEquipped = true;
-
-        for (int i = 0; i < spritesheet.Length; i++)
-        {
-            if (spritesheet[i].name == spriteName)
-            {
-                return spritesheet[i];
-            }
-        }
-
-        this._model.isEquipped = false;
-
-        return this._model.defaultSprite;
+        this._model.isEquipped = (newSprite != null);
     }
 
     public void RefreshView()

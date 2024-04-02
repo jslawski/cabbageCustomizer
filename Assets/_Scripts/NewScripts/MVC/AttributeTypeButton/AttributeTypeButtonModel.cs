@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using CharacterCustomizer;
-using UnityEngine.UI;
 
 public class AttributeTypeButtonModel : MonoBehaviour
 {    
