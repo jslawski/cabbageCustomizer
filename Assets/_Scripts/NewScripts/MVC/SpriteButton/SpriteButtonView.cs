@@ -47,8 +47,8 @@ public class SpriteButtonView : MonoBehaviour
 
     private void UpdateSpriteVisibility()
     {
-        if (CurrentCustomizerData.instance.currentAttributeType == AttributeType.Eyebrows ||
-        CurrentCustomizerData.instance.currentAttributeType == AttributeType.Eyes)
+        if (MasterController.instance.GetCurrentAttributeType() == AttributeType.Eyebrows ||
+        MasterController.instance.GetCurrentAttributeType() == AttributeType.Eyes)
         {
             this._leftImage.gameObject.SetActive(true);
             this._rightImage.gameObject.SetActive(true);

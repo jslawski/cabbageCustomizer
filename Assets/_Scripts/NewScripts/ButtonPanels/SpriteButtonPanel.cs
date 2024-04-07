@@ -35,7 +35,7 @@ public class SpriteButtonPanel : ButtonPanel
 
     private void LoadAttributeSpritesArray()
     {
-        switch (CurrentCustomizerData.instance.currentAttributeType)
+        switch (MasterController.instance.GetCurrentAttributeType())
         {
             case AttributeType.BaseCabbage:
                 this._attributeSprites = Resources.LoadAll<Sprite>("CharacterCreator/Base");
@@ -65,7 +65,7 @@ public class SpriteButtonPanel : ButtonPanel
                 this._attributeSprites = Resources.LoadAll<Sprite>("CharacterCreator/Accessory");
                 break;
             default:
-                Debug.LogError("Error: Unknown AttributeType: " + CurrentCustomizerData.instance.currentAttributeType);
+                Debug.LogError("Error: Unknown AttributeType: " + MasterController.instance.GetCurrentAttributeType());
                 break;
         }
     }
@@ -77,14 +77,15 @@ public class SpriteButtonPanel : ButtonPanel
 
         this._pageButtonPanel.Reveal();
 
-        if (CurrentCustomizerData.instance.IsSingleAttribute() == true)
+        if (MasterController.instance.GetCurrentAttributeType() != AttributeType.Eyebrows &&
+            MasterController.instance.GetCurrentAttributeType() != AttributeType.Eyes)
         {
-            startingPageIndex = this.GetSingleAttributeStartingPageIndex(CurrentCustomizerData.instance.currentAttributeSettingsData.name);
+            startingPageIndex = this.GetSingleAttributeStartingPageIndex(MasterController.instance.GetCurrentAttributeSettingsData().name);
             maxPages = Mathf.FloorToInt(this._attributeSprites.Length / this.panelButtons_.Length);
         }
         else
         {
-            startingPageIndex = this.GetDoubleAttributeStartingPageIndex(CurrentCustomizerData.instance.currentAttributeSettingsData.name);
+            startingPageIndex = this.GetDoubleAttributeStartingPageIndex(MasterController.instance.GetCurrentAttributeSettingsData().name);
             maxPages = Mathf.FloorToInt((this._attributeSprites.Length / 2) / this.panelButtons_.Length);
         }
 
@@ -115,8 +116,9 @@ public class SpriteButtonPanel : ButtonPanel
     private void UpdateButtonSprites()
     {
         this.HideSpriteButtons();
-   
-        if (CurrentCustomizerData.instance.IsSingleAttribute() == true)
+
+        if (MasterController.instance.GetCurrentAttributeType() != AttributeType.Eyebrows &&
+            MasterController.instance.GetCurrentAttributeType() != AttributeType.Eyes)
         {
             this.UpdateSingleAttributeButtonSprites();
         }
@@ -139,7 +141,7 @@ public class SpriteButtonPanel : ButtonPanel
             {                
                 this.panelButtons_[i].UpdateCenterSprite(this._attributeSprites[j]);
 
-                if (this._attributeSprites[j].name == CurrentCustomizerData.instance.currentAttributeSettingsData.name)
+                if (this._attributeSprites[j].name == MasterController.instance.GetCurrentAttributeSettingsData().name)
                 {
                     equippedIndex = i;
                 }
@@ -165,7 +167,7 @@ public class SpriteButtonPanel : ButtonPanel
 
                 //TODO: This is incorrect for double attributes.  Fix it.
                 /*
-                if (this._attributeSprites[j].name == CurrentCustomizerData.instance.currentAttributeSettingsData.name)
+                if (this._attributeSprites[j].name == MasterController.instance.GetCurrentAttributeSettingsData().name)
                 {
                     equippedIndex = i;
                 }

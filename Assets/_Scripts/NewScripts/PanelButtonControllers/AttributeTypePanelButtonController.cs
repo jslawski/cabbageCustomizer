@@ -22,7 +22,7 @@ public class AttributeTypePanelButtonController : PanelButtonController
     {
         base.ButtonClicked();
         
-        CurrentCustomizerData.instance.SetCurrentAttributeType(this.attributeType_);
+        MasterController.instance.SetCurrentAttributeType(this.attributeType_);
     }
 
     protected virtual void SetEquippedAttributeSprite()

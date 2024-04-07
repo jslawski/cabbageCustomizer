@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpritePanelModel : MonoBehaviour
+public class SpritePanelModel : SettingsPanelModel
 {
     [HideInInspector]
     public SpriteButtonController[] allButtonControllers;

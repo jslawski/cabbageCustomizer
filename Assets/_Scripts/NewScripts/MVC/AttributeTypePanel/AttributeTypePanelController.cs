@@ -8,6 +8,8 @@ public class AttributeTypePanelController : MonoBehaviour
     private AttributeTypePanelModel _model;
     private AttributeTypePanelView _view;
 
+
+
     private void Awake()
     {
         this._model = GetComponent<AttributeTypePanelModel>();
@@ -21,15 +23,19 @@ public class AttributeTypePanelController : MonoBehaviour
 
     public void ButtonClicked(AttributeTypeButtonController selectedButton)
     {
+        AttributeType currentAttributeType = MasterController.instance.GetCurrentAttributeType();
+    
         this._model.selectedButton = selectedButton;
 
-        this._model.showEyebrowsButtons = (CurrentCustomizerData.instance.currentAttributeType == AttributeType.Eyebrows ||
-                                            CurrentCustomizerData.instance.currentAttributeType == AttributeType.EyebrowL ||
-                                            CurrentCustomizerData.instance.currentAttributeType == AttributeType.EyebrowR);
+        this._model.showEyebrowsButtons = (currentAttributeType == AttributeType.Eyebrows ||
+                                            currentAttributeType == AttributeType.EyebrowL ||
+                                            currentAttributeType == AttributeType.EyebrowR);
 
-        this._model.showEyesButtons = (CurrentCustomizerData.instance.currentAttributeType == AttributeType.Eyes ||
-                                        CurrentCustomizerData.instance.currentAttributeType == AttributeType.EyeL ||
-                                        CurrentCustomizerData.instance.currentAttributeType == AttributeType.EyeR);
+        this._model.showEyesButtons = (currentAttributeType == AttributeType.Eyes ||
+                                        currentAttributeType == AttributeType.EyeL ||
+                                        currentAttributeType == AttributeType.EyeR);
+
+        MasterController.instance.RefreshView();
 
         this.RefreshView();
     }

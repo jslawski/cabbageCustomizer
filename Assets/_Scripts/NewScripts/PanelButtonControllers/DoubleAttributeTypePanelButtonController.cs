@@ -18,7 +18,7 @@ public class DoubleAttributeTypePanelButtonController : AttributeTypePanelButton
         this._leftAndRightButtons[0].gameObject.SetActive(true);
         this._leftAndRightButtons[1].gameObject.SetActive(true);
 
-        CurrentCustomizerData.instance.SetCurrentAttributeType(this.attributeType_);
+        MasterController.instance.SetCurrentAttributeType(this.attributeType_);
     }
 
     protected override void SetEquippedAttributeSprite()

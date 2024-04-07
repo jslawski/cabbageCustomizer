@@ -23,6 +23,13 @@ public class TwitchAuth : MonoBehaviour
     [SerializeField]
     private GameObject characterPreview;
 
+    [SerializeField]
+    private AttributeTypePanelController _attributeTypePanelController;
+    [SerializeField]
+    private AttributeTypeButtonController _initialAttributeTypeButton;
+    [SerializeField]
+    private SettingsPanelController _initialSettingsPanelController;
+
     private void Awake()
     {
         AttributeSpriteDicts.Setup();
@@ -104,14 +111,15 @@ public class TwitchAuth : MonoBehaviour
 
         this.characterCanvas.SetActive(true);
 
-        //CurrentCustomizerData.instance.currentSettingsPanel.Reveal();
+        this._initialAttributeTypeButton.ButtonClicked();
+        this._attributeTypePanelController.ButtonClicked(this._initialAttributeTypeButton);
+        MasterController.instance.SetCurrentSettingsPanelController(this._initialSettingsPanelController);
     }
 
     private void GetUserDataFailure()
     {
         Debug.LogError("Error: unable to get initial user data");
     }
-
     
     private void LoadUserData(string data)
     {

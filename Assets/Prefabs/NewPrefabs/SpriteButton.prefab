@@ -86,12 +86,13 @@ GameObject:
   m_Component:
   - component: {fileID: 2396409279638003467}
   - component: {fileID: 2396409279638003510}
-  - component: {fileID: 2378695408317191473}
-  - component: {fileID: 2609295105991254037}
+  - component: {fileID: 2270492875772676005}
+  - component: {fileID: 1225412842217552616}
+  - component: {fileID: 1552050229287015907}
   - component: {fileID: 6639507940501061719}
   - component: {fileID: 5710848122136696042}
   m_Layer: 5
-  m_Name: SpritePanelButton
+  m_Name: SpriteButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -126,7 +127,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2396409279638003466}
   m_CullTransparentMesh: 1
---- !u!114 &2378695408317191473
+--- !u!114 &2270492875772676005
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,10 +136,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2396409279638003466}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33c5b2105dcce474a80424017659e4f6, type: 3}
+  m_Script: {fileID: 11500000, guid: 671fba8ed57022c41aeb0c6ec9a7b7bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2609295105991254037
+  leftSprite: {fileID: 0}
+  rightSprite: {fileID: 0}
+  centerSprite: {fileID: 0}
+  shouldShow: 0
+  isSelected: 0
+--- !u!114 &1225412842217552616
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,7 +153,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 2396409279638003466}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56dddeb2b79645f49a2d8e73badc46c5, type: 3}
+  m_Script: {fileID: 11500000, guid: acea9a5a371f66d4f8314a35791269df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _leftImage: {fileID: 230957538446398535}
+  _rightImage: {fileID: 4719428234113043669}
+  _centerImage: {fileID: 2748826497842793567}
+  _button: {fileID: 5710848122136696042}
+--- !u!114 &1552050229287015907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2396409279638003466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 485480e0706e57244873f879db3f8bab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &6639507940501061719
@@ -223,7 +245,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6639507940501061719}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1552050229287015907}
+        m_TargetAssemblyTypeName: SpriteButtonController, Assembly-CSharp
+        m_MethodName: ButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2396409280609550536
 GameObject:
   m_ObjectHideFlags: 0

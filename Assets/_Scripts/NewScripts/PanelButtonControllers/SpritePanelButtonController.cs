@@ -9,7 +9,8 @@ public class SpritePanelButtonController : PanelButtonController
     {
         base.Reveal();
 
-        if (CurrentCustomizerData.instance.IsSingleAttribute() == true)
+        if (MasterController.instance.GetCurrentAttributeType() != AttributeType.Eyebrows &&
+            MasterController.instance.GetCurrentAttributeType() != AttributeType.Eyes)
         {
             this.centerSprite_.enabled = true;
             this.leftSprite_.enabled = false;
@@ -32,7 +33,8 @@ public class SpritePanelButtonController : PanelButtonController
 
     private void EquipSprite()
     {
-        if (CurrentCustomizerData.instance.IsSingleAttribute() == true)
+        if (MasterController.instance.GetCurrentAttributeType() != AttributeType.Eyebrows &&
+            MasterController.instance.GetCurrentAttributeType() != AttributeType.Eyes)
         {
             this.EquipSingleAttributeSprite();
         }
@@ -44,7 +46,7 @@ public class SpritePanelButtonController : PanelButtonController
 
     private void EquipSingleAttributeSprite()
     {
-        CharacterAttribute currentAttribute = CharacterPreview.instance.GetCachedAttribute(CurrentCustomizerData.instance.currentAttributeType);
+        CharacterAttribute currentAttribute = CharacterPreview.instance.GetCachedAttribute(MasterController.instance.GetCurrentAttributeType());
         currentAttribute.SetAssetName(this.centerSprite_.sprite.name);
         currentAttribute.UpdateAttributeObject();
     }

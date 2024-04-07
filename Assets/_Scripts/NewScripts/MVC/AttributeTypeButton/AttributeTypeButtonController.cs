@@ -37,7 +37,7 @@ public class AttributeTypeButtonController : MonoBehaviour
 
     public void ButtonClicked()
     {
-        CurrentCustomizerData.instance.SetCurrentAttributeType(this._model.attributeType);
+        MasterController.instance.SetCurrentAttributeType(this._model.attributeType);
     }
 
     public void SetSelectedStatus(bool isSelected)
@@ -53,20 +53,38 @@ public class AttributeTypeButtonController : MonoBehaviour
 
     public void SetLeftSprite(Sprite newSprite)
     {
-        this._model.leftSprite = newSprite;
-        this._model.isEquipped = (newSprite != null);        
+        if (newSprite == null)
+        {
+            this._model.leftSprite = this._model.defaultSprite;
+        }
+        else
+        {
+            this._model.leftSprite = newSprite;
+        }    
     }
 
     public void SetRightSprite(Sprite newSprite)
     {
-        this._model.rightSprite = newSprite;
-        this._model.isEquipped = (newSprite != null);
+        if (newSprite == null)
+        {
+            this._model.rightSprite = this._model.defaultSprite;
+        }
+        else
+        {
+            this._model.rightSprite = newSprite;
+        }
     }
 
     public void SetCenterSprite(Sprite newSprite)
     {
-        this._model.centerSprite = newSprite;
-        this._model.isEquipped = (newSprite != null);
+        if (newSprite == null)
+        {
+            this._model.centerSprite = this._model.defaultSprite;
+        }
+        else
+        {
+            this._model.centerSprite = newSprite;
+        }
     }
 
     public void RefreshView()

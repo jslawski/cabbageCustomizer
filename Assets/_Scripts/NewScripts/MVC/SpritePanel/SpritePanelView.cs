@@ -3,19 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using CharacterCustomizer;
 
-public class SpritePanelView : MonoBehaviour
+public class SpritePanelView : SettingsPanelView
 {
     private SpritePanelModel _model;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();    
+    
         this._model = GetComponent<SpritePanelModel>();
     }
 
     private void UpdateButtonSprites()
     {
-        if (CurrentCustomizerData.instance.currentAttributeType == AttributeType.Eyebrows ||
-            CurrentCustomizerData.instance.currentAttributeType == AttributeType.Eyes)
+        if (MasterController.instance.GetCurrentAttributeType() == AttributeType.Eyebrows ||
+            MasterController.instance.GetCurrentAttributeType() == AttributeType.Eyes)
         {
             this.UpdateDoubleAttributeButtonSprites();
         }
@@ -30,7 +32,7 @@ public class SpritePanelView : MonoBehaviour
     {
         int startingSpriteIndex = this._model.pageIndex * this._model.allButtonControllers.Length;
 
-        List<Sprite> attributeSprites = AttributeSpriteDicts.GetAllSprites(CurrentCustomizerData.instance.currentAttributeType);
+        List<Sprite> attributeSprites = AttributeSpriteDicts.GetAllSprites(MasterController.instance.GetCurrentAttributeType());
 
         for (int i = 0, j = startingSpriteIndex; i < this._model.allButtonControllers.Length; i++, j++)
         {
@@ -38,7 +40,7 @@ public class SpritePanelView : MonoBehaviour
             {
                 this._model.allButtonControllers[i].SetVisibleStatus(true);
                 this._model.allButtonControllers[i].SetCenterSprite(attributeSprites[j]);
-                this._model.allButtonControllers[i].SetSelectedStatus((attributeSprites[j].name == CurrentCustomizerData.instance.currentAttributeSettingsData.name));
+                this._model.allButtonControllers[i].SetSelectedStatus((attributeSprites[j].name == MasterController.instance.GetCurrentAttributeSettingsData().name));
                 this._model.allButtonControllers[i].RefreshView();
             }
             else
@@ -53,8 +55,28 @@ public class SpritePanelView : MonoBehaviour
     
     }
 
-    public void UpdateView()
+    private void UpdateSelectedStatus()
     {
+        for (int i = 0; i < this._model.allButtonControllers.Length; i++)
+        {
+            if (this._model.allButtonControllers[i] == this._model.selectedButton)
+            {
+                this._model.allButtonControllers[i].SetSelectedStatus(true);
+            }
+            else
+            {
+                this._model.allButtonControllers[i].SetSelectedStatus(false);
+            }
+
+            this._model.allButtonControllers[i].RefreshView();
+        }
+    }
+
+    public override void UpdateView()
+    {
+        base.UpdateView();
+
         this.UpdateButtonSprites();
+        this.UpdateSelectedStatus();
     }
 }

@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpritePanelController : MonoBehaviour
+public class SpritePanelController : SettingsPanelController
 {
     private SpritePanelModel _model;
     private SpritePanelView _view;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+    
         this._model = GetComponent<SpritePanelModel>();
         this._view = GetComponent<SpritePanelView>();
     }
@@ -23,12 +25,13 @@ public class SpritePanelController : MonoBehaviour
         this._model.pageIndex = newIndex;
     }
 
-    public void ButtonClicked()
+    public void ButtonClicked(SpriteButtonController selectedButton)
     {
+        this._model.selectedButton = selectedButton;
         this._view.UpdateView();
     }
 
-    public void RefreshView()
+    public override void RefreshView()
     {
         this._view.UpdateView();
     }

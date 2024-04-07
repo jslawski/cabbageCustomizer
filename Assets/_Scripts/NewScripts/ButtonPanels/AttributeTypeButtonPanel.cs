@@ -57,6 +57,6 @@ public class AttributeTypeButtonPanel : ButtonPanel
     {
         base.RevealCallback();
 
-        CurrentCustomizerData.instance.SetCurrentAttributeType(AttributeType.BaseCabbage);
+        MasterController.instance.SetCurrentAttributeType(AttributeType.BaseCabbage);
     }
 }

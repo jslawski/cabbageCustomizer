@@ -16,7 +16,7 @@ public class SpriteButtonController : MonoBehaviour
 
     private void EquipSingleAttribute()
     {
-        CharacterAttribute currentAttribute = CharacterPreview.instance.GetCachedAttribute(CurrentCustomizerData.instance.currentAttributeType);
+        CharacterAttribute currentAttribute = CharacterPreview.instance.GetCachedAttribute(MasterController.instance.GetCurrentAttributeType());
         currentAttribute.SetAssetName(this._model.centerSprite.name);
         currentAttribute.UpdateAttributeObject();
     }
@@ -26,20 +26,20 @@ public class SpriteButtonController : MonoBehaviour
         CharacterAttribute leftAttribute;
         CharacterAttribute rightAttribute;
 
-        if (CurrentCustomizerData.instance.currentAttributeType == AttributeType.Eyebrows)
+        if (MasterController.instance.GetCurrentAttributeType() == AttributeType.Eyebrows)
         {
             leftAttribute = CharacterPreview.instance.GetCachedAttribute(AttributeType.EyebrowL);
             rightAttribute = CharacterPreview.instance.GetCachedAttribute(AttributeType.EyebrowR);
 
         }
-        else if (CurrentCustomizerData.instance.currentAttributeType == AttributeType.Eyebrows)
+        else if (MasterController.instance.GetCurrentAttributeType() == AttributeType.Eyebrows)
         {
             leftAttribute = CharacterPreview.instance.GetCachedAttribute(AttributeType.EyebrowL);
             rightAttribute = CharacterPreview.instance.GetCachedAttribute(AttributeType.EyebrowR);
         }
         else
         {
-            Debug.LogError("Unknown Attribute Type: " + CurrentCustomizerData.instance.currentAttributeType);
+            Debug.LogError("Unknown Attribute Type: " + MasterController.instance.GetCurrentAttributeType());
             return;
         }
 
@@ -50,8 +50,8 @@ public class SpriteButtonController : MonoBehaviour
 
     public void ButtonClicked()
     {
-        if (CurrentCustomizerData.instance.currentAttributeType == AttributeType.Eyebrows ||
-            CurrentCustomizerData.instance.currentAttributeType == AttributeType.Eyes)
+        if (MasterController.instance.GetCurrentAttributeType() == AttributeType.Eyebrows ||
+            MasterController.instance.GetCurrentAttributeType() == AttributeType.Eyes)
         {
             this.EquipDoubleAttribute();
         }
