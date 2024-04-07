@@ -1,11 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using CharacterCustomizer;
 
 public class SpritePanelController : SettingsPanelController
 {
     private SpritePanelModel _model;
     private SpritePanelView _view;
+
+    [SerializeField]
+    private AttributeTypePanelController _attributeTypePanelController;
 
     protected override void Awake()
     {
@@ -28,7 +30,29 @@ public class SpritePanelController : SettingsPanelController
     public void ButtonClicked(SpriteButtonController selectedButton)
     {
         this._model.selectedButton = selectedButton;
-        this._view.UpdateView();
+
+        this.UpdateAttributeTypePanelButtonSprite();
+
+        this.RefreshView();
+    }
+
+    private void UpdateAttributeTypePanelButtonSprite()
+    {
+        AttributeTypeButtonController attributeTypeButtonController = this._attributeTypePanelController.GetSelectedButton();
+
+        if (MasterController.instance.GetCurrentAttributeType() != AttributeType.Eyebrows &&
+            MasterController.instance.GetCurrentAttributeType() != AttributeType.Eyes)
+        {
+            attributeTypeButtonController.SetCenterSprite(this._model.selectedButton.GetCenterSprite());
+        }
+        else
+        {
+            attributeTypeButtonController.SetLeftSprite(this._model.selectedButton.GetLeftSprite());
+            attributeTypeButtonController.SetRightSprite(this._model.selectedButton.GetRightSprite());
+            //TODO: Update the dual attribute button with the newly selected sprites too
+        }
+
+        attributeTypeButtonController.RefreshView();
     }
 
     public override void RefreshView()

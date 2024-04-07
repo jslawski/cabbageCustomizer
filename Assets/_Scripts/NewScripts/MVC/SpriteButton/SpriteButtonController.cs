@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using CharacterCustomizer;
 
@@ -76,14 +74,29 @@ public class SpriteButtonController : MonoBehaviour
         this._model.leftSprite = newSprite;
     }
 
+    public Sprite GetLeftSprite()
+    {
+        return this._model.leftSprite;
+    }
+
     public void SetRightSprite(Sprite newSprite)
     {
         this._model.rightSprite = newSprite;
     }
 
+    public Sprite GetRightSprite()    
+    {
+        return this._model.rightSprite;
+    }
+
     public void SetCenterSprite(Sprite newSprite)
     {
         this._model.centerSprite = newSprite;
+    }
+
+    public Sprite GetCenterSprite()
+    {
+        return this._model.centerSprite;
     }
 
     public void RefreshView()

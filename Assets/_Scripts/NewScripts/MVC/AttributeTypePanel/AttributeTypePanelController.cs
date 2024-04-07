@@ -8,8 +8,6 @@ public class AttributeTypePanelController : MonoBehaviour
     private AttributeTypePanelModel _model;
     private AttributeTypePanelView _view;
 
-
-
     private void Awake()
     {
         this._model = GetComponent<AttributeTypePanelModel>();
@@ -38,6 +36,11 @@ public class AttributeTypePanelController : MonoBehaviour
         MasterController.instance.RefreshView();
 
         this.RefreshView();
+    }
+
+    public AttributeTypeButtonController GetSelectedButton()
+    {
+        return this._model.selectedButton;
     }
 
     public void RefreshView()
