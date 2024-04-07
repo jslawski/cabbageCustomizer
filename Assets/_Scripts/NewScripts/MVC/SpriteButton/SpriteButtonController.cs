@@ -58,7 +58,7 @@ public class SpriteButtonController : MonoBehaviour
             this.EquipSingleAttribute();
         }
     }
-
+    #region Sets
     public void SetSelectedStatus(bool isSelected)
     {
         this._model.isSelected = isSelected;
@@ -74,30 +74,35 @@ public class SpriteButtonController : MonoBehaviour
         this._model.leftSprite = newSprite;
     }
 
-    public Sprite GetLeftSprite()
-    {
-        return this._model.leftSprite;
-    }
-
     public void SetRightSprite(Sprite newSprite)
     {
         this._model.rightSprite = newSprite;
-    }
-
-    public Sprite GetRightSprite()    
-    {
-        return this._model.rightSprite;
     }
 
     public void SetCenterSprite(Sprite newSprite)
     {
         this._model.centerSprite = newSprite;
     }
+    #endregion
+
+    #region Gets
+    public Sprite GetLeftSprite()
+    {
+        return this._model.leftSprite;
+    }
+
+    public Sprite GetRightSprite()
+    {
+        return this._model.rightSprite;
+    }
+
+
 
     public Sprite GetCenterSprite()
     {
         return this._model.centerSprite;
     }
+    #endregion
 
     public void RefreshView()
     {
