@@ -27,7 +27,11 @@ public class MasterController : MonoBehaviour
     public void SetCurrentAttributeType(AttributeType newAttributeType)
     {
         this._model.currentAttributeType = newAttributeType;
-        this._model.currentAttributeSettingsData = AttributeSettings.CurrentSettings.GetAttributeSettingsData(newAttributeType);
+
+        if (newAttributeType != AttributeType.Eyebrows && newAttributeType != AttributeType.Eyes)
+        {
+            this._model.currentAttributeSettingsData = AttributeSettings.CurrentSettings.GetAttributeSettingsData(newAttributeType);
+        }
     }
 
     public AttributeSettingsData GetCurrentAttributeSettingsData()

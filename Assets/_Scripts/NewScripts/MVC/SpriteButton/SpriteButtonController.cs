@@ -30,10 +30,10 @@ public class SpriteButtonController : MonoBehaviour
             rightAttribute = CharacterPreview.instance.GetCachedAttribute(AttributeType.EyebrowR);
 
         }
-        else if (MasterController.instance.GetCurrentAttributeType() == AttributeType.Eyebrows)
+        else if (MasterController.instance.GetCurrentAttributeType() == AttributeType.Eyes)
         {
-            leftAttribute = CharacterPreview.instance.GetCachedAttribute(AttributeType.EyebrowL);
-            rightAttribute = CharacterPreview.instance.GetCachedAttribute(AttributeType.EyebrowR);
+            leftAttribute = CharacterPreview.instance.GetCachedAttribute(AttributeType.EyeL);
+            rightAttribute = CharacterPreview.instance.GetCachedAttribute(AttributeType.EyeR);
         }
         else
         {
@@ -44,6 +44,9 @@ public class SpriteButtonController : MonoBehaviour
 
         leftAttribute.SetAssetName(this._model.leftSprite.name);
         rightAttribute.SetAssetName(this._model.rightSprite.name);
+
+        leftAttribute.UpdateAttributeObject();
+        rightAttribute.UpdateAttributeObject();
     }
 
     public void ButtonClicked()
