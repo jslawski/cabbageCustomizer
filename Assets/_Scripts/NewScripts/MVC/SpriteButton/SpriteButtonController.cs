@@ -41,7 +41,6 @@ public class SpriteButtonController : MonoBehaviour
             return;
         }
 
-
         leftAttribute.SetAssetName(this._model.leftSprite.name);
         rightAttribute.SetAssetName(this._model.rightSprite.name);
 
