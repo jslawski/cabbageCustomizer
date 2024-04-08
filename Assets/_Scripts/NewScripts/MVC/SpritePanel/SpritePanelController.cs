@@ -1,5 +1,6 @@
 using UnityEngine;
 using CharacterCustomizer;
+using System.Collections.Generic;
 
 public class SpritePanelController : SettingsPanelController
 {
@@ -22,9 +23,29 @@ public class SpritePanelController : SettingsPanelController
         this.RefreshView();
     }
 
+    public int GetPageIndex()
+    {
+        return this._model.pageIndex;
+    }
+
     public void SetPageIndex(int newIndex)
     {
         this._model.pageIndex = newIndex;
+    }
+
+    public int GetMaxPages()
+    {
+        AttributeType currentAttributeType = MasterController.instance.GetCurrentAttributeType();
+        List<Sprite> attributeSprites = AttributeSpriteDicts.GetAllSprites(currentAttributeType);
+
+        if (currentAttributeType == AttributeType.Eyebrows || currentAttributeType == AttributeType.Eyes)
+        {
+            return (Mathf.FloorToInt((attributeSprites.Count / 2) / this._model.allButtonControllers.Length));
+        }
+        else
+        {
+            return (Mathf.FloorToInt(attributeSprites.Count / this._model.allButtonControllers.Length));
+        }
     }
 
     public void ButtonClicked(SpriteButtonController selectedButton)
