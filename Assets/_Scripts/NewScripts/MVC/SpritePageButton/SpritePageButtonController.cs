@@ -21,6 +21,8 @@ public class SpritePageButtonController : MonoBehaviour
     {
         int newPageIndex = this._spritePanelController.GetPageIndex() + this._model.pageIncrement;
         this._spritePanelController.SetPageIndex(newPageIndex);
+
+        this._spritePanelController.RefreshView();
     }
 
     public void SetInteractableStatus(bool isInteractable)
