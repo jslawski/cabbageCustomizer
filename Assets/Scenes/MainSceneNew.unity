@@ -2224,6 +2224,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -137.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8101714920437303501, guid: 046937ecf5404d644922f9dfe3237a6c, type: 3}
+      propertyPath: _attributeTypePanelController
+      value: 
+      objectReference: {fileID: 4102915893122606912}
     - target: {fileID: 8814484288942032996, guid: 046937ecf5404d644922f9dfe3237a6c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1

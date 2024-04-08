@@ -87,6 +87,11 @@ public class AttributeTypeButtonController : MonoBehaviour
         }
     }
 
+    public AttributeType GetAttributeType()
+    {
+        return this._model.attributeType;
+    }
+
     public void RefreshView()
     {
         this._view.UpdateView();

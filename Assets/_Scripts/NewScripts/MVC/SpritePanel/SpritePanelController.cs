@@ -39,9 +39,9 @@ public class SpritePanelController : SettingsPanelController
     private void UpdateAttributeTypePanelButtonSprite()
     {
         AttributeTypeButtonController attributeTypeButtonController = this._attributeTypePanelController.GetSelectedButton();
+        AttributeType currentAttributeType = MasterController.instance.GetCurrentAttributeType();
 
-        if (MasterController.instance.GetCurrentAttributeType() != AttributeType.Eyebrows &&
-            MasterController.instance.GetCurrentAttributeType() != AttributeType.Eyes)
+        if (currentAttributeType != AttributeType.Eyebrows && currentAttributeType != AttributeType.Eyes)
         {
             attributeTypeButtonController.SetCenterSprite(this._model.selectedButton.GetCenterSprite());
         }
@@ -49,10 +49,47 @@ public class SpritePanelController : SettingsPanelController
         {
             attributeTypeButtonController.SetLeftSprite(this._model.selectedButton.GetLeftSprite());
             attributeTypeButtonController.SetRightSprite(this._model.selectedButton.GetRightSprite());
-            //TODO: Update the dual attribute button with the newly selected sprites too
         }
 
         attributeTypeButtonController.RefreshView();
+
+        this.UpdateDoubleAttributePanelButtonSprite();
+    }
+
+    private void UpdateDoubleAttributePanelButtonSprite()
+    {
+        AttributeType currentAttributeType = MasterController.instance.GetCurrentAttributeType();
+
+        if (currentAttributeType == AttributeType.EyebrowL || currentAttributeType == AttributeType.EyebrowR)
+        {
+            AttributeTypeButtonController eyebrowsController = this._attributeTypePanelController.GetAttributeTypeButtonController(AttributeType.Eyebrows);
+
+            if (currentAttributeType == AttributeType.EyebrowL)
+            {
+                eyebrowsController.SetLeftSprite(this._model.selectedButton.GetCenterSprite());
+            }
+            else
+            {
+                eyebrowsController.SetRightSprite(this._model.selectedButton.GetCenterSprite());
+            }
+
+            eyebrowsController.RefreshView();
+        }
+        else if (currentAttributeType == AttributeType.EyeL || currentAttributeType == AttributeType.EyeR)
+        {
+            AttributeTypeButtonController eyesController = this._attributeTypePanelController.GetAttributeTypeButtonController(AttributeType.Eyes);
+
+            if (currentAttributeType == AttributeType.EyeL)
+            {
+                eyesController.SetLeftSprite(this._model.selectedButton.GetCenterSprite());
+            }
+            else
+            {
+                eyesController.SetRightSprite(this._model.selectedButton.GetCenterSprite());
+            }
+
+            eyesController.RefreshView();
+        }
     }
 
     public override void RefreshView()

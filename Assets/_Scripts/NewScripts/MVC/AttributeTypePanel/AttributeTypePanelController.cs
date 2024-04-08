@@ -43,6 +43,19 @@ public class AttributeTypePanelController : MonoBehaviour
         return this._model.selectedButton;
     }
 
+    public AttributeTypeButtonController GetAttributeTypeButtonController(AttributeType attributeType)
+    {
+        for (int i = 0; i < this._model.allButtonControllers.Length; i++)
+        {
+            if (this._model.allButtonControllers[i].GetAttributeType() == attributeType)
+            {
+                return this._model.allButtonControllers[i];
+            }
+        }
+
+        return null;
+    }
+    
     public void RefreshView()
     {
         this._view.UpdateView();

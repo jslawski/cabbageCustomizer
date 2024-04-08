@@ -51,7 +51,6 @@ public class SpritePanelView : SettingsPanelView
 
     private void UpdateDoubleAttributeButtonSprites()
     {
-    
         int startingSpriteIndex = this._model.pageIndex * this._model.allButtonControllers.Length;
 
         if (startingSpriteIndex != 0 && (startingSpriteIndex % 2 != 0))
@@ -63,7 +62,7 @@ public class SpritePanelView : SettingsPanelView
 
         for (int i = 0, j = startingSpriteIndex; i < this._model.allButtonControllers.Length; i++, j+=2)
         {
-            if (j < (attributeSprites.Count - 2))
+            if (j < (attributeSprites.Count - 1))
             {
                 this._model.allButtonControllers[i].SetVisibleStatus(true);
                 this._model.allButtonControllers[i].SetLeftSprite(attributeSprites[j]);
