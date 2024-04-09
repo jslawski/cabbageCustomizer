@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpritePagePanelController : MonoBehaviour
@@ -15,8 +13,12 @@ public class SpritePagePanelController : MonoBehaviour
         this._view = GetComponent<SpritePagePanelView>();
 
         this._spritePanelController = GetComponentInParent<SpritePanelController>();
+    }
 
+    private void Start()
+    {
         this.SetSelectedButtonInteractableStatus();
+        this.RefreshView();
     }
 
     public void ButtonClicked(SpritePageButtonController selectedButton)
