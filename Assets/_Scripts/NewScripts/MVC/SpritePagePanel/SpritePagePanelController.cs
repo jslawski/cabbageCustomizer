@@ -17,7 +17,6 @@ public class SpritePagePanelController : MonoBehaviour
 
     private void Start()
     {
-        this.SetSelectedButtonInteractableStatus();
         this.RefreshView();
     }
 
@@ -25,14 +24,19 @@ public class SpritePagePanelController : MonoBehaviour
     {
         this._model.selectedButton = selectedButton;
 
-        this.SetSelectedButtonInteractableStatus();
-
         this.RefreshView();
     }
 
-    public void SetSelectedButtonInteractableStatus()
+    private void SetButtonsInteractableStatus()
     {
-        if (this._spritePanelController.GetPageIndex() == 0)
+        int maxPages = this._spritePanelController.GetMaxPages();
+
+        if (this._spritePanelController.GetMaxPages() == 0)
+        {
+            this._model.allButtonControllers[0].SetInteractableStatus(false);
+            this._model.allButtonControllers[1].SetInteractableStatus(false);
+        }
+        else if (this._spritePanelController.GetPageIndex() == 0)
         {
             this._model.allButtonControllers[0].SetInteractableStatus(false);
             this._model.allButtonControllers[1].SetInteractableStatus(true);
@@ -51,6 +55,7 @@ public class SpritePagePanelController : MonoBehaviour
 
     public void RefreshView()
     {
+        this.SetButtonsInteractableStatus();
         this._view.UpdateView();
     }
 }

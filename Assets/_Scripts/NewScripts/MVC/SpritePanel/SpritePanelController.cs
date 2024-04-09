@@ -45,11 +45,25 @@ public class SpritePanelController : SettingsPanelController
 
         if (currentAttributeType == AttributeType.Eyebrows || currentAttributeType == AttributeType.Eyes)
         {
-            return (Mathf.FloorToInt((attributeSprites.Count / 2) / this._model.allButtonControllers.Length));
+            if ((attributeSprites.Count / 2) % this._model.allButtonControllers.Length == 0)
+            {
+                return 0;
+            }
+            else
+            {
+                return (Mathf.FloorToInt((attributeSprites.Count / 2) / this._model.allButtonControllers.Length));
+            }
         }
         else
         {
-            return (Mathf.FloorToInt(attributeSprites.Count / this._model.allButtonControllers.Length));
+            if (attributeSprites.Count % this._model.allButtonControllers.Length == 0)
+            {
+                return 0;
+            }
+            else
+            {
+                return (Mathf.FloorToInt(attributeSprites.Count / this._model.allButtonControllers.Length));
+            }
         }
     }
 
@@ -229,13 +243,11 @@ public class SpritePanelController : SettingsPanelController
 
         //Update once to load the button sprites
         this._view.UpdateView();
-
         //Identify the selected button based on the loaded sprites
         this.UpdateButtonsSelectedStatus();
-
         //Refresh the buttons again to properly reflect the selected status
         this._view.UpdateView();
 
-        //It's gross, but it works
+        this._spritePagePanelController.RefreshView();
     }
 }

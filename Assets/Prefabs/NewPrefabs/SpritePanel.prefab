@@ -44,7 +44,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -495}
-  m_SizeDelta: {x: 1040, y: 990}
+  m_SizeDelta: {x: 967.0438, y: 990}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5943218205423834878
 MonoBehaviour:
@@ -63,7 +63,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 1
+  m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 275, y: 275}
@@ -127,6 +127,7 @@ MonoBehaviour:
   allButtonControllers: []
   selectedButton: {fileID: 0}
   pageIndex: 0
+  lastAttributeType: 13
 --- !u!114 &1043534328131332485
 MonoBehaviour:
   m_ObjectHideFlags: 0
