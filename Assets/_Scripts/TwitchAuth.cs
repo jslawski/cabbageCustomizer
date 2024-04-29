@@ -23,8 +23,13 @@ public class TwitchAuth : MonoBehaviour
     [SerializeField]
     private GameObject characterPreview;
 
+
     [SerializeField]
-    private AttributeTypePanelController _attributeTypePanelController;
+    private AttributeSettingsPanelController _attributeSettingPanelController;
+    [SerializeField]
+    private AttributeSettingsButtonController _initialAttributeSettingButton;
+    [SerializeField]
+    private AttributeTypePanelController _attributeTypePanelController;    
     [SerializeField]
     private AttributeTypeButtonController _initialAttributeTypeButton;
     [SerializeField]
@@ -113,6 +118,10 @@ public class TwitchAuth : MonoBehaviour
 
         this._initialAttributeTypeButton.ButtonClicked();
         this._attributeTypePanelController.ButtonClicked(this._initialAttributeTypeButton);
+
+        this._initialAttributeSettingButton.ButtonClicked();
+        this._attributeSettingPanelController.ButtonClicked(this._initialAttributeSettingButton);
+
         MasterController.instance.SetCurrentSettingsPanelController(this._initialSettingsPanelController);
     }
 
