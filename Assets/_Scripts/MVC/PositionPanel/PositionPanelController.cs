@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PositionPanelController : SettingsPanelController
 {
@@ -17,14 +18,9 @@ public class PositionPanelController : SettingsPanelController
 
     private void Start()
     {
-        this.RefreshView();    
-    }
-    
-    private void Update()
-    {
         this.RefreshView();
     }
-
+    
     public override void RefreshView()
     {
         base.RefreshView();

@@ -11,10 +11,13 @@ public class ClickPanelController : MonoBehaviour, IPointerClickHandler, IDragHa
 
     private Canvas _mainCanvas;
 
+    private PositionPanelController _positionPanelController;
+
     private void Awake()
     {
         this._model = GetComponent<ClickPanelModel>();
-        this._mainCanvas = GetComponentInParent<Canvas>();        
+        this._mainCanvas = GetComponentInParent<Canvas>();
+        this._positionPanelController = GetComponentInParent<PositionPanelController>();
     }
 
     private void Start()
@@ -37,11 +40,13 @@ public class ClickPanelController : MonoBehaviour, IPointerClickHandler, IDragHa
     public void OnPointerClick(PointerEventData eventData)
     {
         this.UpdateModelValues();
+        this._positionPanelController.RefreshView();
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         this.UpdateModelValues();
+        this._positionPanelController.RefreshView();
     }
 
     private void UpdateModelValues()
