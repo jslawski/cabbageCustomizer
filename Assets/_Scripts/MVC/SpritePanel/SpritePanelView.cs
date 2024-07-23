@@ -4,12 +4,11 @@ using CharacterCustomizer;
 
 public class SpritePanelView : SettingsPanelView
 {
+    [SerializeField]
     private SpritePanelModel _model;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();    
-    
         this._model = GetComponent<SpritePanelModel>();
     }
 

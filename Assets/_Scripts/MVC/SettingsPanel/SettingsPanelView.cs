@@ -5,14 +5,14 @@ using UnityEngine;
 public class SettingsPanelView : MonoBehaviour
 {
     private SettingsPanelModel _baseModel;
-
-    protected virtual void Awake()
-    {
-        this._baseModel = GetComponent<SettingsPanelModel>();
-    }
-
+    
     public virtual void UpdateView()
     {
+        if (this._baseModel == null)
+        {
+            this._baseModel = GetComponent<SettingsPanelModel>();
+        }
+    
         this.gameObject.SetActive(this._baseModel.shouldShow);
     }
 }

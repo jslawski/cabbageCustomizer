@@ -3,15 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PositionPanelModel : MonoBehaviour
+public class PositionPanelModel : SettingsPanelModel
 {
+    [SerializeField]
     private ClickPanelModel _clickPanelModel;
-
-    private void Awake()
-    {
-        this._clickPanelModel = GetComponentInChildren<ClickPanelModel>();
-    }
-
+    
     public float GetXValue()
     {
         return this._clickPanelModel.xValue;

@@ -41,13 +41,17 @@ public class MasterController : MonoBehaviour
 
     public void SetCurrentSettingsPanelController(SettingsPanelController newController)
     {
+        Debug.LogError("I'm here I guess");
+    
         if (this._model.currentSettingsPanelController != null)
         {
             this._model.currentSettingsPanelController.SetVisibleStatus(false);
+            Debug.LogError("Turning off " + newController.gameObject.name);
         }
 
         this._model.currentSettingsPanelController = newController;
         this._model.currentSettingsPanelController.SetVisibleStatus(true);
+        Debug.LogError("Turning on " + newController.gameObject.name);
     }
 
     public void RefreshView()

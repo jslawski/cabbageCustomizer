@@ -6,7 +6,9 @@ using System.Collections.Generic;
 
 public class SpritePanelController : SettingsPanelController
 {
+    [SerializeField]
     private SpritePanelModel _model;
+    [SerializeField]
     private SpritePanelView _view;
 
     [SerializeField]
@@ -14,10 +16,8 @@ public class SpritePanelController : SettingsPanelController
 
     private SpritePagePanelController _spritePagePanelController;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
-    
         this._model = GetComponent<SpritePanelModel>();
         this._view = GetComponent<SpritePanelView>();
         this._spritePagePanelController = GetComponentInChildren<SpritePagePanelController>();

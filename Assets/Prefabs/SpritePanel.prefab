@@ -140,6 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08f31303aebec3448ad8ee519c1b53d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _model: {fileID: 2102353808234399455}
 --- !u!114 &8101714920437303501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,7 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3966bd5df33d3b4aa3c917fa734f2e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseModel: {fileID: 0}
+  _model: {fileID: 2102353808234399455}
+  _view: {fileID: 1043534328131332485}
   _attributeTypePanelController: {fileID: 0}
 --- !u!1 &6058390614791597712
 GameObject:
