@@ -87,7 +87,7 @@ public class TwitchAuth : MonoBehaviour
     {
         this.LoadUserData(data);
 
-        this.loginButton.gameObject.SetActive(false);
+        this.loginButton.gameObject.transform.parent.gameObject.SetActive(false);
         this.characterCanvas.SetActive(true);
         this.characterPreview.SetActive(true);
     }
