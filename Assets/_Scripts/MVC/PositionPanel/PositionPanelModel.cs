@@ -12,6 +12,8 @@ public class PositionPanelModel : SettingsPanelModel
     private float _minPositionValue = -0.5f;
     private float _maxPositionValue = 0.5f;
 
+    private int _zValue = 0;
+
     public float GetXValue()
     {
         return this._clickPanelModel.xValue;
@@ -20,6 +22,11 @@ public class PositionPanelModel : SettingsPanelModel
     public float GetYValue()    
     {        
         return this._clickPanelModel.yValue;
+    }
+
+    public int GetZValue()
+    {
+        return this._zValue;
     }
 
     public void SetXValue(float xValue)
@@ -48,5 +55,10 @@ public class PositionPanelModel : SettingsPanelModel
         }
 
         this._clickPanelModel.yValue = yValue;
+    }
+
+    public void SetZValue(int zValue)
+    {
+        this._zValue = zValue;
     }
 }

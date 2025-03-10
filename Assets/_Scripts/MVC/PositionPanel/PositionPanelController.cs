@@ -23,6 +23,7 @@ public class PositionPanelController : SettingsPanelController
 
         this._model.SetXValue(settingsData.horPos);
         this._model.SetYValue(settingsData.verPos);
+        this._model.SetZValue(settingsData.dep);
     }
 
     public override void UpdateAttributeSetting()
@@ -31,7 +32,14 @@ public class PositionPanelController : SettingsPanelController
 
         CharacterAttribute currentAttribute = CharacterPreview.instance.GetCachedAttribute(MasterController.instance.GetCurrentAttributeType());
         currentAttribute.SetHorizontalPosition(this._model.GetXValue());
-        currentAttribute.SetVerticalPosition(this._model.GetYValue());
+        currentAttribute.SetVerticalPosition(this._model.GetYValue());        
+        currentAttribute.UpdateAttributeObject();
+    }
+
+    public void UpdateDepth()
+    {
+        CharacterAttribute currentAttribute = CharacterPreview.instance.GetCachedAttribute(MasterController.instance.GetCurrentAttributeType());
+        currentAttribute.SetDepth((int)this._view._depthSlider.value);
         currentAttribute.UpdateAttributeObject();
     }
 
