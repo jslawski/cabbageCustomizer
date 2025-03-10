@@ -25,6 +25,16 @@ public class PositionPanelController : SettingsPanelController
         this._model.SetYValue(settingsData.verPos);
     }
 
+    public override void UpdateAttributeSetting()
+    {
+        base.UpdateAttributeSetting();
+
+        CharacterAttribute currentAttribute = CharacterPreview.instance.GetCachedAttribute(MasterController.instance.GetCurrentAttributeType());
+        currentAttribute.SetHorizontalPosition(this._model.GetXValue());
+        currentAttribute.SetVerticalPosition(this._model.GetYValue());
+        currentAttribute.UpdateAttributeObject();
+    }
+
     public override void RefreshView()
     {
         base.RefreshView();

@@ -1,3 +1,4 @@
+using CharacterCustomizer;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,6 +13,11 @@ public class ClickPanelController : MonoBehaviour, IPointerClickHandler, IDragHa
 
     private Canvas _mainCanvas;
 
+    [SerializeField]
+    private SettingsPanelController _settingsPanelController;
+
+    public bool _isDragging = false;
+
     private void Awake()
     {
         this._model = GetComponent<ClickPanelModel>();
@@ -22,6 +28,14 @@ public class ClickPanelController : MonoBehaviour, IPointerClickHandler, IDragHa
     private void Start()
     {
         this.SetupPanelValues();
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonUp(0) == true)
+        {
+            this._isDragging = false;
+        }
     }
 
     private void SetupPanelValues()
@@ -46,21 +60,32 @@ public class ClickPanelController : MonoBehaviour, IPointerClickHandler, IDragHa
         {
             this.UpdateModelValuesWithSliderPositions();
         }
-        
+
+        this._settingsPanelController.UpdateAttributeSetting();
+
         this._view.UpdateView();
+
+        this._isDragging = false;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         this.UpdateModelValuesWithMousePosition();
+
+        this._settingsPanelController.UpdateAttributeSetting();
+
         this._view.UpdateView();
+
+        this._isDragging = true;
     }
 
     private void UpdateModelValuesWithMousePosition()
     {
         Vector2 transposedMousePosition = this.GetTransposedMousePosition();
-
-        this._model.UpdateValues(transposedMousePosition.x, transposedMousePosition.y);
+        float clampedX = Mathf.Clamp(transposedMousePosition.x, this._view.xSlider.minValue, this._view.xSlider.maxValue);
+        float clampedY = Mathf.Clamp(transposedMousePosition.y, this._view.ySlider.minValue, this._view.ySlider.maxValue);
+        
+        this._model.UpdateValues(clampedX, clampedY);
     }
 
     private void UpdateModelValuesWithSliderPositions()
@@ -69,13 +94,13 @@ public class ClickPanelController : MonoBehaviour, IPointerClickHandler, IDragHa
     }
 
     //Returns the mouse's current position in "Click Panel Space"
-    //The X and Y values are between 0 and 1
     private Vector2 GetTransposedMousePosition()
     {       
-        float xTranspose = (Input.mousePosition.x - this._panelOrigin.x) / this._panelDimensions.x;
-        float yTranspose = (Input.mousePosition.y - this._panelOrigin.y) / this._panelDimensions.y;
+        float xTranspose = ((Input.mousePosition.x - this._panelOrigin.x) / (this._panelDimensions.x));
+        float yTranspose = ((Input.mousePosition.y - this._panelOrigin.y) / (this._panelDimensions.y));
 
         //Handle cases where player drags outside of the panel
+        //Do I need this?
         if (xTranspose < 0.0f)
         {
             xTranspose = 0.0f;
@@ -94,6 +119,29 @@ public class ClickPanelController : MonoBehaviour, IPointerClickHandler, IDragHa
             yTranspose = 1.0f;
         }
 
-        return new Vector2(xTranspose / this._mainCanvas.scaleFactor, yTranspose / this._mainCanvas.scaleFactor);
+        float finalXTranspose = (xTranspose / this._mainCanvas.scaleFactor) - Mathf.Abs(this._view.xSlider.minValue);
+        float finalYTranspose = (yTranspose / this._mainCanvas.scaleFactor) - Mathf.Abs(this._view.ySlider.minValue);
+
+        return new Vector2(finalXTranspose, finalYTranspose); 
+    }
+
+    public void UpdateAttributeWithSlider()
+    {
+        if (this._isDragging == true)
+        {
+            return;
+        }
+
+        if (this._settingsPanelController.lastAttributeType != MasterController.instance.GetCurrentAttributeType())
+        {
+            this._settingsPanelController.lastAttributeType = MasterController.instance.GetCurrentAttributeType();
+            return;
+        }
+
+        if (this._settingsPanelController.gameObject.activeSelf == true)
+        {
+            this.UpdateModelValuesWithSliderPositions();
+            this._settingsPanelController.UpdateAttributeSetting();
+        }
     }
 }
