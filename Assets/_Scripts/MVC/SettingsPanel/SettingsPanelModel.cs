@@ -4,6 +4,5 @@ using UnityEngine;
 
 public abstract class SettingsPanelModel : MonoBehaviour
 {
-    [HideInInspector]
     public bool shouldShow = false;
 }

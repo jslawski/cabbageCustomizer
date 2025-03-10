@@ -5,19 +5,18 @@ using UnityEngine.UI;
 public class ClickPanelController : MonoBehaviour, IPointerClickHandler, IDragHandler
 {
     private ClickPanelModel _model;
+    private ClickPanelView _view;
 
     public Vector2 _panelOrigin;
     public Vector2 _panelDimensions;
 
     private Canvas _mainCanvas;
 
-    private PositionPanelController _positionPanelController;
-
     private void Awake()
     {
         this._model = GetComponent<ClickPanelModel>();
+        this._view = GetComponent<ClickPanelView>();
         this._mainCanvas = GetComponentInParent<Canvas>();
-        this._positionPanelController = GetComponentInParent<PositionPanelController>();
     }
 
     private void Start()
@@ -39,21 +38,34 @@ public class ClickPanelController : MonoBehaviour, IPointerClickHandler, IDragHa
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        this.UpdateModelValues();
-        this._positionPanelController.RefreshView();
+        if (eventData.pointerPress.name == "ClickPanel")
+        {
+            this.UpdateModelValuesWithMousePosition();
+        }
+        else
+        {
+            this.UpdateModelValuesWithSliderPositions();
+        }
+        
+        this._view.UpdateView();
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        this.UpdateModelValues();
-        this._positionPanelController.RefreshView();
+        this.UpdateModelValuesWithMousePosition();
+        this._view.UpdateView();
     }
 
-    private void UpdateModelValues()
+    private void UpdateModelValuesWithMousePosition()
     {
         Vector2 transposedMousePosition = this.GetTransposedMousePosition();
 
         this._model.UpdateValues(transposedMousePosition.x, transposedMousePosition.y);
+    }
+
+    private void UpdateModelValuesWithSliderPositions()
+    { 
+        this._model.UpdateValues(this._view.xSlider.value, this._view.ySlider.value);
     }
 
     //Returns the mouse's current position in "Click Panel Space"
