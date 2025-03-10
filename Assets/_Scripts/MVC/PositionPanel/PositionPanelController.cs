@@ -32,7 +32,7 @@ public class PositionPanelController : SettingsPanelController
 
         CharacterAttribute currentAttribute = CharacterPreview.instance.GetCachedAttribute(MasterController.instance.GetCurrentAttributeType());
         currentAttribute.SetHorizontalPosition(this._model.GetXValue());
-        currentAttribute.SetVerticalPosition(this._model.GetYValue());        
+        currentAttribute.SetVerticalPosition(this._model.GetYValue());
         currentAttribute.UpdateAttributeObject();
     }
 
@@ -41,6 +41,38 @@ public class PositionPanelController : SettingsPanelController
         CharacterAttribute currentAttribute = CharacterPreview.instance.GetCachedAttribute(MasterController.instance.GetCurrentAttributeType());
         currentAttribute.SetDepth((int)this._view._depthSlider.value);
         currentAttribute.UpdateAttributeObject();
+
+        this._model.SetZValue((int)this._view._depthSlider.value);
+    }
+
+    public void ResetXPosition()
+    {
+        CharacterAttribute currentAttribute = CharacterPreview.instance.GetCachedAttribute(MasterController.instance.GetCurrentAttributeType());
+        currentAttribute.ResetAttributeSetting(AttributeSettingType.Horizontal_Position);
+
+        this._model.SetXValue(currentAttribute.GetHorizontalPosition());
+
+        this.RefreshView();
+    }
+
+    public void ResetYPosition()
+    {
+        CharacterAttribute currentAttribute = CharacterPreview.instance.GetCachedAttribute(MasterController.instance.GetCurrentAttributeType());
+        currentAttribute.ResetAttributeSetting(AttributeSettingType.Vertical_Position);
+
+        this._model.SetYValue(currentAttribute.GetVerticalPosition());
+
+        this.RefreshView();
+    }
+
+    public void ResetZPosition()
+    {
+        CharacterAttribute currentAttribute = CharacterPreview.instance.GetCachedAttribute(MasterController.instance.GetCurrentAttributeType());
+        currentAttribute.ResetAttributeSetting(AttributeSettingType.Depth);
+
+        this._model.SetZValue(currentAttribute.GetDepth());
+
+        this.RefreshView();
     }
 
     public override void RefreshView()

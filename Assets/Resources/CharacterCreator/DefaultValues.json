@@ -1,7 +1,7 @@
 {
 	"baseCabbage":
 	{
-		"name": "",
+		"name": "00",
 		"horPos": 0.0,
 		"verPos": 0.0,
 		"scaleX": 1.0,
@@ -14,7 +14,7 @@
 	},
 	"headpiece":
 	{
-		"name": "",
+		"name": "00",
 		"horPos": 0.0,
 		"verPos": 0.2,
 		"scaleX": 1.0,
@@ -29,7 +29,7 @@
 	{
 		"left":
 		{
-			"name": "",
+			"name": "00_0",
 			"horPos": -0.25,
 			"verPos": 0.2,
 			"scaleX": 1.0,
@@ -42,7 +42,7 @@
 		},
 		"right":
 		{
-			"name": "",
+			"name": "00_1",
 			"horPos": 0.25,
 			"verPos": 0.2,
 			"scaleX": 1.0,
@@ -58,7 +58,7 @@
 	{
 		"left":
 		{
-			"name": "",
+			"name": "00_0",
 			"horPos": -0.25,
 			"verPos": 0.05,
 			"scaleX": 1.0,
@@ -71,7 +71,7 @@
 		},
 		"right":
 		{
-			"name": "",
+			"name": "00_1",
 			"horPos": 0.25,
 			"verPos": 0.05,
 			"scaleX": 1.0,
@@ -85,7 +85,7 @@
 	},	
 	"nose":
 	{
-		"name": "",
+		"name": "00",
 		"horPos": 0.0,
 		"verPos": -0.1,
 		"scaleX": 1.0,
@@ -98,7 +98,7 @@
 	},
 	"mouth":
 	{
-		"name": "",
+		"name": "00",
 		"horPos": 0.0,
 		"verPos": -0.3,
 		"scaleX": 1.0,
@@ -111,7 +111,7 @@
 	},
 	"acc1":
 	{
-		"name": "",
+		"name": "00",
 		"horPos": 0.0,
 		"verPos": -0.5,
 		"scaleX": 1.0,
@@ -124,7 +124,7 @@
 	},
 	"acc2":
 	{
-		"name": "",
+		"name": "00",
 		"horPos": -0.4,
 		"verPos": -0.4,
 		"scaleX": 1.0,
@@ -137,7 +137,7 @@
 	},
 	"acc3":
 	{
-		"name": "",
+		"name": "00",
 		"horPos": 0.4,
 		"verPos": -0.4,
 		"scaleX": 1.0,
