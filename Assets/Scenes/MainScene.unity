@@ -1828,7 +1828,7 @@ MonoBehaviour:
     colors: 000000000000000000000000
     flipX: 0
     flipY: 0
-  currentSettingsPanelController: {fileID: 0}
+  settingsPanelControllers: []
 --- !u!224 &4102915893122606911 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6660686679989390241, guid: f1d98a5430bafbd49b066b2f4740646d, type: 3}

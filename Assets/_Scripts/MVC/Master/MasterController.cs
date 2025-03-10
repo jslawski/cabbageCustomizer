@@ -17,6 +17,8 @@ public class MasterController : MonoBehaviour
 
         this._model = GetComponent<MasterModel>();
         this._view = GetComponent<MasterView>();
+
+        this._model.settingsPanelControllers = GetComponentsInChildren<SettingsPanelController>(true);
     }
 
     public AttributeType GetCurrentAttributeType()
@@ -41,17 +43,17 @@ public class MasterController : MonoBehaviour
 
     public void SetCurrentSettingsPanelController(SettingsPanelController newController)
     {
-        Debug.LogError("I'm here I guess");
-    
-        if (this._model.currentSettingsPanelController != null)
+        for (int i = 0; i < this._model.settingsPanelControllers.Length; i++)
         {
-            this._model.currentSettingsPanelController.SetVisibleStatus(false);
-            Debug.LogError("Turning off " + newController.gameObject.name);
+            if (this._model.settingsPanelControllers[i] == newController)
+            {
+                this._model.settingsPanelControllers[i].SetVisibleStatus(true);
+            }
+            else
+            {
+                this._model.settingsPanelControllers[i].SetVisibleStatus(false);
+            }
         }
-
-        this._model.currentSettingsPanelController = newController;
-        this._model.currentSettingsPanelController.SetVisibleStatus(true);
-        Debug.LogError("Turning on " + newController.gameObject.name);
     }
 
     public void RefreshView()

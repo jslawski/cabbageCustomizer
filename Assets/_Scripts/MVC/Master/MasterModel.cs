@@ -7,6 +7,5 @@ public class MasterModel : MonoBehaviour
     public AttributeType currentAttributeType;
     [HideInInspector]
     public AttributeSettingsData currentAttributeSettingsData;
-    [HideInInspector]
-    public SettingsPanelController currentSettingsPanelController;
+    public SettingsPanelController[] settingsPanelControllers;
 }

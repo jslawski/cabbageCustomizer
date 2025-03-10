@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PositionPanelView : MonoBehaviour
+public class PositionPanelView : SettingsPanelView
 {
     [SerializeField]
     private PositionPanelModel _model;
@@ -13,8 +13,10 @@ public class PositionPanelView : MonoBehaviour
     [SerializeField]
     private Slider ySlider;
     
-    public void UpdateView()
+    public override void UpdateView()
     {
+        base.UpdateView();
+    
         this.xSlider.value = this._model.GetXValue();
         this.ySlider.value = this._model.GetYValue();
     }

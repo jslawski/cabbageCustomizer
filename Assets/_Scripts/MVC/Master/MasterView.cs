@@ -11,9 +11,9 @@ public class MasterView : MonoBehaviour
 
     public void UpdateView()
     {
-        if (this._model.currentSettingsPanelController != null)
+        for (int i = 0; i < this._model.settingsPanelControllers.Length; i++)
         {
-            this._model.currentSettingsPanelController.RefreshView();
+            this._model.settingsPanelControllers[i].RefreshView();
         }
     }
 }
