@@ -16,7 +16,9 @@ public class ClickPanelController : MonoBehaviour, IPointerClickHandler, IDragHa
     [SerializeField]
     private SettingsPanelController _settingsPanelController;
 
-    public bool _isDragging = false;
+    private bool _isDragging = false;
+
+    private bool _clicked = false;
 
     private void Awake()
     {
@@ -51,9 +53,10 @@ public class ClickPanelController : MonoBehaviour, IPointerClickHandler, IDragHa
     }
 
     public void OnPointerClick(PointerEventData eventData)
-    {
+    {    
         if (eventData.pointerPress.name == "ClickPanel")
         {
+            this._clicked = true;
             this.UpdateModelValuesWithMousePosition();
         }
         else
@@ -61,9 +64,9 @@ public class ClickPanelController : MonoBehaviour, IPointerClickHandler, IDragHa
             this.UpdateModelValuesWithSliderPositions();
         }
 
-        this._settingsPanelController.UpdateAttributeSetting();
-
         this._view.UpdateView();
+
+        this._settingsPanelController.UpdateAttributeSetting();
 
         this._isDragging = false;
     }
@@ -89,7 +92,7 @@ public class ClickPanelController : MonoBehaviour, IPointerClickHandler, IDragHa
     }
 
     private void UpdateModelValuesWithSliderPositions()
-    { 
+    {    
         this._model.UpdateValues(this._view.xSlider.value, this._view.ySlider.value);
     }
 
@@ -129,6 +132,12 @@ public class ClickPanelController : MonoBehaviour, IPointerClickHandler, IDragHa
     {
         if (this._isDragging == true)
         {
+            return;
+        }
+
+        if (this._clicked == true)
+        {
+            this._clicked = false;
             return;
         }
 
