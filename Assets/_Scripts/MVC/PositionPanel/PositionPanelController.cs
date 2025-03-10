@@ -1,3 +1,4 @@
+using CharacterCustomizer;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,14 +17,19 @@ public class PositionPanelController : SettingsPanelController
         this._view = GetComponent<PositionPanelView>();
     }
 
-    private void Start()
+    private void SetAttributeInitialPositionValues()
     {
-        this.RefreshView();
+        AttributeSettingsData settingsData = MasterController.instance.GetCurrentAttributeSettingsData();
+
+        this._model.SetXValue(settingsData.horPos);
+        this._model.SetYValue(settingsData.verPos);
     }
-    
+
     public override void RefreshView()
     {
         base.RefreshView();
+
+        this.SetAttributeInitialPositionValues();
 
         this._view.UpdateView();
     }

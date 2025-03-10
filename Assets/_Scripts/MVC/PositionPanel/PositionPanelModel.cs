@@ -17,4 +17,14 @@ public class PositionPanelModel : SettingsPanelModel
     {
         return this._clickPanelModel.yValue;
     }
+
+    public void SetXValue(float xValue)
+    {
+        this._clickPanelModel.xValue = xValue;
+    }
+
+    public void SetYValue(float yValue) 
+    {
+        this._clickPanelModel.xValue = yValue;
+    }
 }
