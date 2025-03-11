@@ -98,8 +98,6 @@ public class SpriteButtonController : MonoBehaviour
         return this._model.rightSprite;
     }
 
-
-
     public Sprite GetCenterSprite()
     {
         return this._model.centerSprite;

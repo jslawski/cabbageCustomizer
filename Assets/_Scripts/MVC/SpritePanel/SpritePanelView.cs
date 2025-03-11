@@ -29,7 +29,7 @@ public class SpritePanelView : SettingsPanelView
     private void UpdateSingleAttributeButtonSprites()
     {
         int startingSpriteIndex = this._model.pageIndex * this._model.allButtonControllers.Length;
-
+        
         List<Sprite> attributeSprites = AttributeSpriteDicts.GetAllSprites(MasterController.instance.GetCurrentAttributeType());
 
         for (int i = 0, j = startingSpriteIndex; i < this._model.allButtonControllers.Length; i++, j++)
@@ -50,7 +50,7 @@ public class SpritePanelView : SettingsPanelView
 
     private void UpdateDoubleAttributeButtonSprites()
     {
-        int startingSpriteIndex = this._model.pageIndex * this._model.allButtonControllers.Length;
+        int startingSpriteIndex = this._model.pageIndex * this._model.allButtonControllers.Length * 2;
 
         if (startingSpriteIndex != 0 && (startingSpriteIndex % 2 != 0))
         {

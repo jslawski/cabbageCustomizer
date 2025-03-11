@@ -15,6 +15,8 @@ public class SpritePanelModel : SettingsPanelModel
     [HideInInspector]
     public AttributeType lastAttributeType = AttributeType.None;
 
+    public Sprite clearSprite;
+
     private void Awake()
     {
         this.allButtonControllers = GetComponentsInChildren<SpriteButtonController>();

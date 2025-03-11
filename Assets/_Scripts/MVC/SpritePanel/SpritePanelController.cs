@@ -44,7 +44,7 @@ public class SpritePanelController : SettingsPanelController
         List<Sprite> attributeSprites = AttributeSpriteDicts.GetAllSprites(currentAttributeType);
 
         if (currentAttributeType == AttributeType.Eyebrows || currentAttributeType == AttributeType.Eyes)
-        {
+        {        
             if ((attributeSprites.Count / 2) % this._model.allButtonControllers.Length == 0)
             {
                 return 0;
@@ -95,6 +95,7 @@ public class SpritePanelController : SettingsPanelController
         return pageIndex;
     }
 
+    //TODO: Update this
     private int GetDoubleAttributeStartingPageIndex()
     {
         return 0;
