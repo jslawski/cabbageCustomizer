@@ -85,10 +85,10 @@ public class ClickPanelController : MonoBehaviour, IPointerClickHandler, IDragHa
     private void UpdateModelValuesWithMousePosition()
     {
         Vector2 transposedMousePosition = this.GetTransposedMousePosition();
-        float clampedX = Mathf.Clamp(transposedMousePosition.x, this._view.xSlider.minValue, this._view.xSlider.maxValue);
-        float clampedY = Mathf.Clamp(transposedMousePosition.y, this._view.ySlider.minValue, this._view.ySlider.maxValue);
+        float xSliderValue = Mathf.Lerp(this._view.xSlider.minValue, this._view.xSlider.maxValue, transposedMousePosition.x);
+        float ySliderValue = Mathf.Lerp(this._view.ySlider.minValue, this._view.ySlider.maxValue, transposedMousePosition.y);
         
-        this._model.UpdateValues(clampedX, clampedY);
+        this._model.UpdateValues(xSliderValue, ySliderValue);
     }
 
     private void UpdateModelValuesWithSliderPositions()
@@ -102,30 +102,15 @@ public class ClickPanelController : MonoBehaviour, IPointerClickHandler, IDragHa
         float xTranspose = ((Input.mousePosition.x - this._panelOrigin.x) / (this._panelDimensions.x));
         float yTranspose = ((Input.mousePosition.y - this._panelOrigin.y) / (this._panelDimensions.y));
 
-        //Handle cases where player drags outside of the panel
-        //Do I need this?
-        if (xTranspose < 0.0f)
-        {
-            xTranspose = 0.0f;
-        }
-        if (xTranspose > 1.0f)
-        {
-            xTranspose = 1.0f;
-        }
-        
-        if (yTranspose < 0.0f)
-        {
-            yTranspose = 0.0f;
-        }
-        if (yTranspose > 1.0f)
-        {
-            yTranspose = 1.0f;
-        }
+        float scaledXTranspose = xTranspose / this._mainCanvas.scaleFactor;
+        float scaledYTranspose = yTranspose / this._mainCanvas.scaleFactor;
 
-        float finalXTranspose = (xTranspose / this._mainCanvas.scaleFactor) - Mathf.Abs(this._view.xSlider.minValue);
-        float finalYTranspose = (yTranspose / this._mainCanvas.scaleFactor) - Mathf.Abs(this._view.ySlider.minValue);
+        scaledXTranspose = Mathf.Clamp(scaledXTranspose, 0.0f, 1.0f);
+        scaledYTranspose =  Mathf.Clamp(scaledYTranspose, 0.0f, 1.0f);
 
-        return new Vector2(finalXTranspose, finalYTranspose); 
+        Debug.LogError("FinalX: " + scaledXTranspose + "\nFinalY: " + scaledYTranspose);
+
+        return new Vector2(scaledXTranspose, scaledYTranspose); 
     }
 
     public void UpdateAttributeWithSlider()
