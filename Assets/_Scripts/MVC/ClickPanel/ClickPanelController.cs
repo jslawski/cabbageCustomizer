@@ -108,8 +108,6 @@ public class ClickPanelController : MonoBehaviour, IPointerClickHandler, IDragHa
         scaledXTranspose = Mathf.Clamp(scaledXTranspose, 0.0f, 1.0f);
         scaledYTranspose =  Mathf.Clamp(scaledYTranspose, 0.0f, 1.0f);
 
-        Debug.LogError("FinalX: " + scaledXTranspose + "\nFinalY: " + scaledYTranspose);
-
         return new Vector2(scaledXTranspose, scaledYTranspose); 
     }
 
